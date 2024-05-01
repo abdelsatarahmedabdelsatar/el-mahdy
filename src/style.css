@@ -1,0 +1,86 @@
+.cart-button:hover{
+    background-color: #ffcc1b;
+}
+.cart-button{
+    background-color: rgb(218, 218, 218);
+}
+img:hover{
+    opacity: 0.88;
+}
+.profile-info{
+    width: 18rem;
+    top:140px;
+    position: fixed;
+    z-index: 100;
+}
+.a-link{
+    color: black;
+}
+.a-link:hover{
+    color: #848484 ;
+}
+
+.footer-icon {
+    margin: 4px;
+    padding: 7px;
+    border: 1px solid #d3d3d3;
+    border-radius: 50%;
+    font-size: 16px;
+    width: 32px;
+    height: 32px;
+    color: black;
+}
+.footer-icon:hover{
+    box-shadow: 0px 0px 2px 0.7px  #c6c6c6;
+}
+footer a,p{
+    font-size: 13px;
+}
+.NavDropdownItem{
+    text-align: center;
+}
+
+form.example{
+    width: 390px;
+}
+
+form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 87%;
+    background: #d8d8d8;
+    height: 30px;
+  }
+  form.example input[type=text]:focus {
+    border: none;
+  }
+  form.example button {
+    float: left;
+    width: 10%;
+    background: #d8d8d8;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    border: 1px solid black;
+    border-right: none;
+    cursor: pointer;
+    height: 30px;
+  }
+  
+  form.example button:hover {
+    background: #cfcfcf;
+  }
+  
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .login{
+    background-color: #ffcc1b;
+    display: flex;
+    align-items: center;
+    padding-top: 6%;
+    padding-bottom: 12%;
+  }

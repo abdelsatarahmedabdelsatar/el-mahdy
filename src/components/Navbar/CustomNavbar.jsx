@@ -44,20 +44,18 @@ export default class CustomNavbar extends React.Component {
       >
         <DropdownToggle
           color=""
-          caret={this.props.supTitles?true:false}
+          caret={this.props.supTitles.length > 0 ? true : false}
           className="px-2 shadow-none border-0"
           style={{ fontSize: "13.5px" }}
         >
           {this.props.title}
         </DropdownToggle>
-        {this.props.supTitles && (
+        {this.props.supTitles.length > 0 && (
           <DropdownMenu>
             {this.props.supTitles.map((t, i) => {
               return (
                 <NavLink key={i} to="/cart" className="nav-link">
-                  <DropdownItem header>
-                    {t}
-                  </DropdownItem>
+                  <DropdownItem header>{t.ArName}</DropdownItem>
                 </NavLink>
               );
             })}

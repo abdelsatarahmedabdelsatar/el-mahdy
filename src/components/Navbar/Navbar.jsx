@@ -1,13 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NavDropdown } from "react-bootstrap";
 import CustomNavbar from "./CustomNavbar";
-import { fetchDataFromApi } from "../redux/action";
+import { fetchDataFromApi } from "../../redux/action";
+import axiosInstance from "../../axiosConfig/instance";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
   useEffect(() => {
+    axiosInstance
+      .get("api/v1/category", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      })
+      .then((res) => {
+        setCategories(res.data.data.data);
+        console.log(res.data.data.data);
+      });
+
+    axiosInstance
+      .get("api/v1/subCategory", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      })
+      .then((res) => {
+        setSubCategories(res.data.data.data);
+        console.log(res.data.data.data);
+      });
     dispatch(fetchDataFromApi());
   }, []);
   const state = useSelector((state) => state.handleCart);
@@ -151,46 +175,19 @@ const Navbar = () => {
               className="collapse navbar-collapse m-0"
               id="navbarSupportedContent"
             >
-              <CustomNavbar
-                title={"تصميم"}
-                supTitles={["تصميم1", "تصميم2", "تصميم3"]}
-              />
-              <CustomNavbar
-                title={"مطبوعات ورقية"}
-                supTitles={["تصميم1", "تصميم2", "تصميم3"]}
-              />
-              <CustomNavbar
-                title={"ملصقات"}
-                supTitles={["تصميم1", "تصميم2", "تصميم3"]}
-              />
-              <CustomNavbar
-                title={"تيمات"}
-                supTitles={["تصميم1", "تصميم2", "تصميم3"]}
-              />
-              <CustomNavbar
-                title={"مطبوعات كبيرة"}
-                supTitles={["تصميم1", "تصميم2", "تصميم3"]}
-              />
-              <CustomNavbar
-                title={"دروع"}
-                supTitles={["تصميم1", "تصميم2", "تصميم3"]}
-              />
-              <CustomNavbar
-                title={"اعمال ليزر"}
-                supTitles={["تصميم1", "تصميم2", "تصميم3"]}
-              />
-              <CustomNavbar
-                title={"هدايا دعائية"}
-                supTitles={["تصميم1", "تصميم2", "تصميم3"]}
-              />
-              <CustomNavbar
-                title={"المناسبات والاعياد"}
-                supTitles={["تصميم1", "تصميم2", "تصميم3"]}
-              />
-              <CustomNavbar title={"ملفات انجاز"} />
-              <CustomNavbar title={"ريزن"} />
-              <CustomNavbar title={"الأكثر مبيعا"} />
-              <CustomNavbar title={"عروض وتخفيضات"} />
+              {categories.map((c) => {
+                return (
+                  <span key={c._id}>
+                    {" "}
+                    <CustomNavbar
+                      title={c.ArName}
+                      supTitles={subCategories.filter(
+                        (s) => s.category._id == c._id
+                      )}
+                    />
+                  </span>
+                );
+              })}
               <button
                 className="m-1"
                 type="submit"

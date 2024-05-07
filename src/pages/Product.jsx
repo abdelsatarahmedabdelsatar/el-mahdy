@@ -220,36 +220,43 @@ const Product = () => {
           <div className="d-flex">
             {similarProducts.map((item) => {
               return (
-                <div key={item._id} className="card mx-4 text-center shadow-sm">
-                  <Link to={"/product/" + item._id} className="btn  m-1">
-                    <img
-                      className="card-img-top p-3"
-                      src={
-                        "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
-                      }
-                      alt="Card"
-                      height={200}
-                      width={200}
-                    />
-                  </Link>
-                  <div className="card-body">
-                    {" "}
-                    <Link to={"/product/" + item._id} className="btn  m-1">
-                      <h5 className="card-title">
-                        {item.ArTitle.substring(0, 15)}...
-                      </h5>
-                    </Link>
-                  </div>
-                  <div className="card-body">
-                    <button
-                      className="cart-button btn btn-sm m-1 w-100 rounded-5"
-                      onClick={() => addProduct(item)}
+                <>
+                  {item._id != product._id && (
+                    <div
+                      key={item._id}
+                      className="card mx-4 text-center shadow-sm"
                     >
-                      إضافة الي السلة
-                      <i className="fa-solid fa-bag-shopping me-2"></i>
-                    </button>
-                  </div>
-                </div>
+                      <Link to={"/product/" + item._id} className="btn  m-1">
+                        <img
+                          className="card-img-top p-3"
+                          src={
+                            "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
+                          }
+                          alt="Card"
+                          height={200}
+                          width={200}
+                        />
+                      </Link>
+                      <div className="card-body">
+                        {" "}
+                        <Link to={"/product/" + item._id} className="btn  m-1">
+                          <h5 className="card-title">
+                            {item.ArTitle.substring(0, 15)}...
+                          </h5>
+                        </Link>
+                      </div>
+                      <div className="card-body">
+                        <button
+                          className="cart-button btn btn-sm m-1 w-100 rounded-5"
+                          onClick={() => addProduct(item)}
+                        >
+                          إضافة الي السلة
+                          <i className="fa-solid fa-bag-shopping me-2"></i>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
               );
             })}
           </div>

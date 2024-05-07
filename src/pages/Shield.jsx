@@ -7,7 +7,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import { Link } from "react-router-dom";
 import jsonData from "./../data.json"
-import ProductLine from "../components/ProductLine";
+import ProductLine from "../components/Products/ProductLine";
 const Shields = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(jsonData);

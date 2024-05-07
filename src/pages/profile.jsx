@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./../components/Navbar";
+import Navbar from "./../components/Navbar/Navbar";
 import { Footer } from "../components";
 import axiosInstance from "./../axiosConfig/instance";
 import Spinner from "../components/Spinner";
@@ -58,11 +58,11 @@ const Profile = () => {
       )
       .then((res) => {
         setLoader(false);
-        toast.success("تم تعديل الملف الشخصي بنجاح")
+        toast.success("تم تعديل الملف الشخصي بنجاح");
       })
       .catch((err) => {
         setLoader(false);
-        toast.error("خطأ في بيانات بعض الحقول")
+        toast.error("خطأ في بيانات بعض الحقول");
       });
   };
 
@@ -185,7 +185,6 @@ const Profile = () => {
       ) : (
         <div className="my-5">
           <Spinner />
-
         </div>
       )}
 

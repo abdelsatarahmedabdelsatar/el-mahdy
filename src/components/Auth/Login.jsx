@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axiosInstance from "../axiosConfig/instance";
-import Spinner from "../components/Spinner";
+import axiosInstance from "../../axiosConfig/instance";
+import Spinner from "../../components/Spinner";
 import { Formik, Field, Form } from "formik";
 
 const Login = ({ setSignIn }) => {

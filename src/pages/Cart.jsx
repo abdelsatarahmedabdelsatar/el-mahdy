@@ -47,6 +47,7 @@ const Cart = () => {
       .then((res) => {
         toast.success("تم حذف السلة");
         setRefresh(!refresh);
+        state = [ ]
       })
       .catch((err) => {
         console.error("Error for deleting cart : ", err);

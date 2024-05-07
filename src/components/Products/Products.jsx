@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addCart } from "../redux/action";
-
+import { addCart } from "../../redux/action";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-
 import { Link } from "react-router-dom";
 // import jsonData from "./../data.json";
 import ProductLine from "./ProductLine";
-import axiosInstance from "../axiosConfig/instance";
+import axiosInstance from "../../axiosConfig/instance";
+import { toast } from "sonner";
 const Products = () => {
   const [data, setData] = useState([]);
   // const [filter, setFilter] = useState(jsonData);
@@ -17,6 +16,23 @@ const Products = () => {
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
+    axiosInstance
+      .post(
+        "api/v1/cart",
+        {
+          productId: product._id,
+          color: "",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        }
+      )
+      .then(() => {
+        toast.success("تم إضافة المنتج بنجاح");
+      });
+
     dispatch(addCart(product));
   };
 

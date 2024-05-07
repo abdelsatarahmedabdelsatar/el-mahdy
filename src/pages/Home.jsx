@@ -13,14 +13,13 @@ function Home() {
 
   return (
     <>
-      <div className="bg-light">
-        <Navbar />
+      <div className="container">
+        
 
         <Main />
 
         <Product />
         <Shields />
-        <Footer />
       </div>
     </>
   );

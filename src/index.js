@@ -20,6 +20,9 @@ import {
 } from "./pages";
 import Profile from "./pages/profile";
 import { Toaster } from "sonner";
+import { Footer, Navbar } from "./components";
+import CategoryRoute from "./components/CategoryRoute";
+import SubCategoryRoute from "./components/CategoryRoute/SubCategoryRoute";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -35,18 +38,24 @@ root.render(
           dir="rtl"
         />
         {localStorage.getItem("access-token") ? (
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/product" element={<Products />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/product/:id" element={<Product />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="*" element={<PageNotFound />} />
-            <Route path="/product/*" element={<PageNotFound />} />
-          </Routes>
+          <>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/product" element={<Products />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/product/:id" element={<Product />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="*" element={<PageNotFound />} />
+              <Route path="/product/*" element={<PageNotFound />} />
+              <Route path="/category/:id" element={<CategoryRoute />} />
+              <Route path="/sub-category/:id" element={<SubCategoryRoute />} />
+            </Routes>
+            <Footer />
+          </>
         ) : (
           <Routes>
             <Route path="*" element={<Auth />} />

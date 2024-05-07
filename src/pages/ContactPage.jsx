@@ -3,7 +3,7 @@ import { Footer, Navbar } from "../components";
 const ContactPage = () => {
   return (
     <>
-      <Navbar />
+   
       <div className="container">
         <div class="row my-4 h-100">
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
@@ -47,7 +47,6 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

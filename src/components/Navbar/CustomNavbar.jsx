@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default class CustomNavbar extends React.Component {
   constructor(props) {
@@ -45,8 +45,8 @@ export default class CustomNavbar extends React.Component {
         <DropdownToggle
           color=""
           caret={this.props.supTitles.length > 0 ? true : false}
-          className="px-2 shadow-none border-0"
-          style={{ fontSize: "13.5px" }}
+          className="px-2 shadow-none border-0 navigte-route"
+          style={{ fontSize: "14px" }}
         >
           {this.props.title}
         </DropdownToggle>
@@ -54,9 +54,9 @@ export default class CustomNavbar extends React.Component {
           <DropdownMenu>
             {this.props.supTitles.map((t, i) => {
               return (
-                <NavLink key={i} to="/cart" className="nav-link">
-                  <DropdownItem header>{t.ArName}</DropdownItem>
-                </NavLink>
+                <Link key={i} to={"sub-category/" + t._id} className="nav-link">
+                  <DropdownItem style={{ fontSize: "12.5px" }} dir="rtl" className="navigte-sub-route d-flex justify-content-center">{t.ArName}</DropdownItem>
+                </Link>
               );
             })}
           </DropdownMenu>

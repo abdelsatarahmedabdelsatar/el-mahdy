@@ -278,11 +278,10 @@ const Checkout = () => {
   };
   return (
     <>
-      <Navbar />
+  
       <div className="bg-light">
         {state.length ? <ShowCheckout /> : <EmptyCart />}
       </div>
-      <Footer />
     </>
   );
 };

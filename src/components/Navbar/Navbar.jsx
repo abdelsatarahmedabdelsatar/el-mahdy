@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { NavDropdown } from "react-bootstrap";
 import CustomNavbar from "./CustomNavbar";
 import { fetchDataFromApi } from "../../redux/action";
 import axiosInstance from "../../axiosConfig/instance";
@@ -44,16 +43,15 @@ const Navbar = () => {
           className="navbar navbar-expand-lg p-0 border-bottom border-secondary"
           style={{ backgroundColor: "#ffcc1b" }}
         >
-          <NavLink className="nav-link me-2" to={"/"}>
-            <img src="./../logo_nav.png" height={40} alt="" srcSet="" />
-          </NavLink>
-
           <div
-            className="collapse navbar-collapse justify-content-around"
+            className="collapse navbar-collapse justify-content-evenly"
             id="navbarSupportedContent1"
             style={{ fontSize: "0.85rem" }}
           >
-            <ul className="navbar-nav d-none-md">
+            <NavLink className="nav-link me-2" to={"/"}>
+              <img src="./../logo_nav.png" height={40} alt="" srcSet="" />
+            </NavLink>
+            {/* <ul className="navbar-nav d-none-md">
               <li
                 style={{ width: "100%" }}
                 className="nav-item align-items-center d-flex"
@@ -74,7 +72,7 @@ const Navbar = () => {
                   </div>
                 </div>
               </li>
-            </ul>
+            </ul> */}
             {/* <span>
                <input
               dir="ltr"
@@ -96,12 +94,16 @@ const Navbar = () => {
               className="example rounded-2"
               action="/action_page.php"
             >
-              <button type="submit" className="rounded-start-1">
+              <button type="submit" className="rounded-start-3">
                 <i className="fa fa-search"></i>
               </button>
-              <input type="text" name="search" className="rounded-end-1" />
+              <input
+                type="text"
+                placeholder="بحث في الموقع ..."
+                name="search"
+                className="rounded-end-3"
+              />
             </form>
-
             <ul className="navbar-nav p-0">
               <li className="nav-item">
                 <div className=" d-flex align-items-center justify-content-end">
@@ -155,8 +157,8 @@ const Navbar = () => {
           </div>
         </nav>
         <nav
-          style={{ backgroundColor: "#DDD" }}
-          className="navbar navbar-expand-lg navbar-light p-0 justify-content-center"
+          style={{ backgroundColor: "#f7f7f7" }}
+          className="navbar navbar-expand-lg navbar-light py-2 justify-content-center"
         >
           <button
             className="navbar-toggler p-1 m-2"
@@ -177,7 +179,7 @@ const Navbar = () => {
             >
               {categories.map((c) => {
                 return (
-                  <span key={c._id}>
+                  <Link to={"category/" + c._id} key={c._id}>
                     {" "}
                     <CustomNavbar
                       title={c.ArName}
@@ -185,22 +187,22 @@ const Navbar = () => {
                         (s) => s.category._id == c._id
                       )}
                     />
-                  </span>
+                  </Link>
                 );
               })}
-              <button
+              {/* <button
                 className="m-1"
                 type="submit"
                 style={{
                   fontSize: "13px",
                   border: "1px solid black",
-                  backgroundColor: "#DDD",
+                  backgroundColor: "#f4f4f4",
                   borderRadius: "2px",
                 }}
               >
                 طلب عرض السعر
                 <i className="fa-solid fa-calculator p-1 fs-6"></i>
-              </button>
+              </button> */}
             </div>
           </div>
         </nav>

@@ -266,7 +266,7 @@ const Product = () => {
   };
   return (
     <>
-      <Navbar />
+      
       <div id="productDetails" className="container">
         <div className="row">{loading ? <Loading /> : <ShowProduct />}</div>
         <div className="row">
@@ -282,7 +282,6 @@ const Product = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

@@ -4,13 +4,11 @@ import { addCart } from "../../redux/action";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
-// import jsonData from "./../data.json";
-import ProductLine from "./ProductLine";
 import axiosInstance from "../../axiosConfig/instance";
 import { toast } from "sonner";
-const Products = () => {
-  const [data, setData] = useState([]);
-  // const [filter, setFilter] = useState(jsonData);
+import ProductLine from "../Products/ProductLine";
+const SubCategoryRoute = () => {
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -46,7 +44,7 @@ const Products = () => {
           },
         })
         .then((res) => {
-          setData(res.data.data.data);
+          setProducts(res.data.data.data);
           console.log(res.data.data.data);
           setLoading(false);
         })
@@ -139,14 +137,14 @@ const Products = () => {
       </div>
       </div> */}
         <div className="row justify-content-start">
-          {data.map((product) => {
+          {products.map((product) => {
             return (
               <div
                 id={product._id}
                 key={product._id}
-                className="col-lg-3 col-md-4 col-sm-6 col-xs-8 col-12 mb-4"
+                className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4"
               >
-                <div className="card h-100 rounded-4 shadow-sm border-1 position-relative">
+                <div className="card text-center h-100 rounded-4 shadow-sm border-1 position-relative">
                   {" "}
                   <div
                     id="favIcon"
@@ -172,7 +170,7 @@ const Products = () => {
                         "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
                       }
                       alt="Card"
-                      height={250}
+                      height={300}
                     />
                   </Link>
                   <div className="card-body">
@@ -180,29 +178,33 @@ const Products = () => {
                       className="text-dark text-decoration-none"
                       to={"/product/" + product._id}
                     >
-                      <h5 className="card-title">{product.ArTitle}</h5>
+                      <h5 className="card-title">
+                        {product.ArTitle?.substring(0, 12)}...
+                      </h5>
                     </Link>
-                    <p className="card-text text-secondary">
-                      {product.ArDescription}
+                    <p className="card-text">
+                      {product.ArDescription?.substring(0, 40)}...
                     </p>
                   </div>
-                  <div className="me-3 mb-3">
-                     <p className="list-group-item  text-decoration-line-through lead fw-bold text-muted fs-6">
-                    {+product?.price} ر.س
-                  </p>
-                  <p className="list-group-item  lead text-danger fs-6 fw-bold">
-                    {product?.priceAfterDiscount} ر.س
-                  </p>
-                  </div>
-                 
-                  {/* <li className="list-group-item">Dapibus ac facilisis in</li>
+                  <ul className="">
+                    <li className="list-group-item text-decoration-line-through fs-6 lead text-muted">
+                      $ {+product?.price}
+                    </li>
+                    <li className="list-group-item  lead text-success fs-4">
+                      $ {product?.priceAfterDiscount}
+                    </li>
+                    {/* <li className="list-group-item">Dapibus ac facilisis in</li>
                     <li className="list-group-item">Vestibulum at eros</li> */}
-                  <button
-                    className="cart-button text-center"
-                    onClick={() => addProduct(product)}
-                  >
-                    <i className="fa-solid fa-bag-shopping"></i>
-                  </button>
+                  </ul>
+                  <div className="card-body">
+                    <button
+                      className="cart-button btn  m-1 w-100 rounded-5"
+                      onClick={() => addProduct(product)}
+                    >
+                      Add to Cart{" "}
+                      <i className="fa-solid fa-bag-shopping me-2"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             );
@@ -237,4 +239,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default SubCategoryRoute;

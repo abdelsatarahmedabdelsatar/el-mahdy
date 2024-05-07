@@ -68,7 +68,6 @@ const Profile = () => {
 
   return (
     <>
-      <Navbar />
       <div
         className="row gx-0"
         style={{ height: "40px", backgroundColor: "#ffcc1b" }}
@@ -187,8 +186,6 @@ const Profile = () => {
           <Spinner />
         </div>
       )}
-
-      <Footer />
     </>
   );
 };

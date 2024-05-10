@@ -6,10 +6,12 @@ import Spinner from "../components/Spinner";
 import { Formik, Field, Form } from "formik";
 import ImageUpload from "../components/ImageUpload";
 import { toast } from "sonner";
+import DialogModel from "../components/Dialog";
 const Profile = () => {
   const [profile, setProfile] = useState({});
   const [profileImage, setProfileImage] = useState(null);
   const [loader, setLoader] = useState(false);
+  const [showModel, setShowModel] = useState(false);
   useEffect(() => {
     fetchDataFromAPI().then((res) => {
       setProfile(res.data.data);
@@ -102,7 +104,7 @@ const Profile = () => {
                 
               </li>
             </ul> */}
-              <div className="btn mb-4" onClick={handleLogout}>
+              <div className="btn mb-4" onClick={() => setShowModel(true)}>
                 <i className="fa-solid fa-right-from-bracket"></i> logot
               </div>
             </div>
@@ -186,6 +188,12 @@ const Profile = () => {
           <Spinner />
         </div>
       )}
+      <DialogModel
+        title={"هل تريد تسجيل الخروج ؟"}
+        visible={showModel}
+        onHide={() => setShowModel(false)}
+        onConfirm={handleLogout}
+      />
     </>
   );
 };

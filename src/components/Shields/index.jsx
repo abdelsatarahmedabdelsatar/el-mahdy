@@ -3,7 +3,6 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../axiosConfig/instance";
-import ProductLine from "./../Products/ProductLine";
 
 const Shields = () => {
   const [loading, setLoading] = useState(false);

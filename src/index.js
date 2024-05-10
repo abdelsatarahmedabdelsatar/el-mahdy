@@ -24,6 +24,7 @@ import Profile from "./pages/profile";
 import { Toaster } from "sonner";
 import { Footer, Navbar } from "./components";
 import CategoryRoute from "./components/CategoryRoute";
+import Search from "./pages/Search";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -54,8 +55,9 @@ root.render(
               <Route path="/product/*" element={<PageNotFound />} />
               <Route path="/category/:id" element={<CategoryRoute />} />
               <Route path="/sub-category/:id" element={<CategoryRoute />} />
+              <Route path="/search/:key" element={<Search />} />
+              <Route path="/search/" element={<Search />} />
             </Routes>
-            
           </>
         ) : (
           <Routes>
@@ -67,6 +69,8 @@ root.render(
             <Route path="/product/:id" element={<Product />} />
             <Route path="/category/:id" element={<CategoryRoute />} />
             <Route path="/sub-category/:id" element={<CategoryRoute />} />
+            <Route path="/search/:key" element={<Search />} />
+            <Route path="/search/" element={<Search />} />
           </Routes>
         )}
         <Footer />

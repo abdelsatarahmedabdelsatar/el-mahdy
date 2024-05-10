@@ -20,7 +20,7 @@ const DialogModel = ({ visible, onHide, onConfirm, title }) => {
             <Button label="إلغاء" className="p-button-text text-dark" onClick={onHide} />
 
             <Button
-              label="الذهاب"
+              label="موافق"
               className="p-button-text bg-warning rounded-2 text-dark"
               onClick={onConfirm}
             />{" "}

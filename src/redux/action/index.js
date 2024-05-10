@@ -7,6 +7,7 @@ export const fetchDataSuccess = (data) => ({
 
 export const fetchDataFromApi = () => {
   return (dispatch) => {
+    localStorage.getItem("access-token")?
      axiosInstance
       .get("api/v1/cart", {
         headers: {
@@ -20,7 +21,7 @@ export const fetchDataFromApi = () => {
       })
       .catch((err) => {
         console.error("Error fetching cart product : ", err);
-      });
+      }):dispatch(fetchDataSuccess([]));
   };
 };
 

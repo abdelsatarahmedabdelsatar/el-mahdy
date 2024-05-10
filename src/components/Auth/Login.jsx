@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import axiosInstance from "../../axiosConfig/instance";
 import Spinner from "../../components/Spinner";
 import { Formik, Field, Form } from "formik";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ setSignIn }) => {
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState("");
-
+  const navigator = useNavigate();
   const handleLogin = (email, password) => {
     setLoader(true);
     axiosInstance
@@ -18,6 +19,7 @@ const Login = ({ setSignIn }) => {
         if (res.data.data.role == "User") {
           localStorage.setItem("access-token", res.data.data.token);
           localStorage.setItem("identity", res.data.data._id);
+          navigator("/");
           window.location.reload();
           //   setLoader(false);
         } else {

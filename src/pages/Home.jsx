@@ -17,11 +17,11 @@ function Home() {
     <>
       <div className="container">
         <Main />
-        <ProductLine title={"الأكثر مبيعا"} route={"./cart"} />{" "}
+        <ProductLine title={"الأكثر مبيعا"} route={"./search/category 2"} />{" "}
         <Products category={"category 2"} />
-        <ProductLine title={"لوحــــات"} route={"./cart"} />{" "}
+        <ProductLine title={"لوحــــات"} route={"./search/category 1"} />{" "}
         <Products category={"category 1"} />
-        <ProductLine title={"هدايــــا"} route={"./cart"} />{" "}
+        <ProductLine title={"هدايــــا"} route={"./search/category 2"} />{" "}
         <Products category={"category 2"} />
         <Shields />
         <div className="row m-2 mb-5">

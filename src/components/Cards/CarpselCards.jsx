@@ -47,7 +47,7 @@ const CaroselCards = ({ data }) => {
             //   onClick={(eve) => {
             //     toggleFav(eve);
             //   }}
-            className="position-absolute p-1 rounded-circle bg-light"
+            className="position-absolute p-1 rounded-circle bg-light text-center"
             style={{
               top: "10px",
               left: "5%",

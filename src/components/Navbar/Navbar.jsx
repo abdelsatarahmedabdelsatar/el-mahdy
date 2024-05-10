@@ -8,7 +8,11 @@ import axiosInstance from "../../axiosConfig/instance";
 const Navbar = () => {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
   const [subCategories, setSubCategories] = useState([]);
+
+
+
   useEffect(() => {
     axiosInstance
       .get("api/v1/category", {
@@ -34,8 +38,7 @@ const Navbar = () => {
     dispatch(fetchDataFromApi());
   }, []);
   const state = useSelector((state) => state.handleCart);
-  const activateRoute = ({ isActive, isPending }) =>
-    isActive ? "nav-link text-warning" : "nav-link text-secondary";
+
   return (
     <>
       <div className="sticky-top">
@@ -94,14 +97,18 @@ const Navbar = () => {
               className="example rounded-2"
               action="/action_page.php"
             >
-              <button type="submit" className="rounded-start-3">
-                <i className="fa fa-search"></i>
+              <button className="rounded-start-3">
+                <Link to={"/search/"+searchKey}>
+                <i className="fa fa-search text-dark"></i>
+                </Link>
               </button>
               <input
                 type="text"
                 placeholder="بحث في الموقع ..."
                 name="search"
                 className="rounded-end-3"
+                value={searchKey}
+                onChange={(eve)=>setSearchKey(eve.target.value)}
               />
             </form>
             <ul className="navbar-nav p-0">

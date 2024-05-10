@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link, useParams } from "react-router-dom";
-import axiosInstance from "../../axiosConfig/instance";
-import Cards from "../Cards/index";
-const CategoryRoute = () => {
+import axiosInstance from "../axiosConfig/instance";
+import Cards from "../components/Cards";
+
+const Search = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { id } = useParams();
+  const { key } = useParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -20,7 +21,13 @@ const CategoryRoute = () => {
           },
         })
         .then((res) => {
-          setProducts(res.data.data.data.filter((p) => p.category._id == id || p.subCategory._id == id));
+          setProducts(res.data.data.data.filter((p) => 
+          p.category.ArName.includes(key) || p.subCategory.ArName.includes(key) || 
+          p.category.EnName.includes(key) || p.subCategory.EnName.includes(key) ||
+          p.ArTitle.includes(key) || p.EnTitle.includes(key) ||
+          p.ArDescription.includes(key) || p.EnDescription.includes(key) 
+
+          ));
           setLoading(false);
         })
         .catch((err) => {
@@ -30,7 +37,7 @@ const CategoryRoute = () => {
     };
 
     getProducts();
-  }, [id]);
+  }, [key]);
 
   const Loading = () => {
     return (
@@ -63,9 +70,6 @@ const CategoryRoute = () => {
     );
   };
 
-  const toggleFav = (eve) => {
-    eve.target.classList.toggle("text-danger");
-  };
   const ShowProducts = () => {
     return (
       <>
@@ -113,4 +117,4 @@ const CategoryRoute = () => {
   );
 };
 
-export default CategoryRoute;
+export default Search;

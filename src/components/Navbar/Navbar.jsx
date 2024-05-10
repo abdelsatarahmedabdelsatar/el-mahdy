@@ -110,18 +110,30 @@ const Navbar = () => {
                   <div className="row">
                     <div className="col-12 d-flex align-items-center">
                       {" "}
-                      <img
-                        src="./../Icons-02.png"
-                        width={33}
-                        alt=""
-                        srcSet=""
-                      />
-                      <NavLink
-                        to="/profile"
-                        className="fw-bold nav-link px-0 mx-0"
-                      >
-                        أدخل لحسابك
-                      </NavLink>
+                      {localStorage.getItem("access-token") ? (
+                        <>
+                          {" "}
+                          <img
+                            src="./../Icons-02.png"
+                            width={33}
+                            alt=""
+                            srcSet=""
+                          />
+                          <NavLink
+                            to="/profile"
+                            className="fw-bold nav-link px-0 mx-0"
+                          >
+                            أدخل لحسابك
+                          </NavLink>
+                        </>
+                      ) : (
+                        <NavLink
+                          to="/login"
+                          className="fw-bold nav-link px-0 mx-0"
+                        >
+                          تسجيل الدخول
+                        </NavLink>
+                      )}
                       {/* <NavLink
                           className="text-dark text-decoration-none m-0 p-0"
                           to="/register"
@@ -138,17 +150,17 @@ const Navbar = () => {
                   <NavLink to="/cart" className="nav-link">
                     <div className="position-relative">
                       <img
-                        src="./../icon-cart.png"
+                        src="./../add.png"
                         width={35}
                         alt=""
                         srcSet=""
                       />
                       <span
                         className="position-absolute translate-middle badge border border-1 border-dark rounded-pill bg-light text-dark"
-                        style={{ fontSize: "7.33px", top: "9px", left: "15px" }}
+                        style={{ fontSize: "8px", top: "7px", left: "64px" }}
                       >
                         {state.length}
-                      </span>
+                      </span>السلة
                     </div>
                   </NavLink>
                 </div>

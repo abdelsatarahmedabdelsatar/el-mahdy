@@ -1,16 +1,20 @@
-.cart-button:hover {
-  background-color: #f4f4f4;
-}
 .cart-button {
   background-color: #ffcc1b;
-
   position: absolute;
-  top: 87%;
-  height: 45px;
-  width: 45px;
+  top: 85%;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   left: 10px;
+  z-index: 100;
   border: none;
+}
+.cart-button:hover {
+  background-color: #d2d2d2;
+  cursor: pointer;
+}
+.card {
+  background-color: #f4f4f4;
 }
 img:hover {
   opacity: 0.88;
@@ -36,7 +40,7 @@ img:hover {
   font-size: 16px;
   width: 32px;
   height: 32px;
-  color: black;
+  color: rgb(243, 243, 243);
 }
 .footer-icon:hover {
   box-shadow: 0px 0px 2px 0.7px #c6c6c6;
@@ -92,12 +96,27 @@ form.example::after {
   background-color: #ffcc1b;
   display: flex;
   align-items: center;
-  padding-top: 6%;
-  padding-bottom: 12%;
+  padding-bottom: 9%;
 }
 .navigte-route:hover {
   color: #7a7a7a;
 }
 .navigte-sub-route:hover {
   background-color: #ffe279;
+}
+
+.category-card {
+  border: 1px solid #e0e0e0;
+  width: 11%;
+  background-color: #f4f4f4;
+  box-shadow: 0px 4px 5px 0.5px rgb(217, 217, 217);
+}
+@media screen and (max-width: 900px) {
+  .category-card {
+    width: 20%;
+  }
+}
+.category-card:hover {
+  border: 1px solid #ffcc1b;
+  color: #daab05;
 }

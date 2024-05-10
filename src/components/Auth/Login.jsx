@@ -19,7 +19,7 @@ const Login = ({ setSignIn }) => {
           localStorage.setItem("access-token", res.data.data.token);
           localStorage.setItem("identity", res.data.data._id);
           window.location.reload();
-        //   setLoader(false);
+          //   setLoader(false);
         } else {
           setError("you must ba an user");
           setLoader(false);
@@ -60,16 +60,14 @@ const Login = ({ setSignIn }) => {
           />
         </div>
         <div className="my-3">
-          <p>
-            جديد هنا؟{" "}
-            <div
-              onClick={() => setSignIn(false)}
-              style={{ cursor: "pointer" }}
-              className="text-decoration-underline text-primary"
-            >
-              سجل الان
-            </div>{" "}
-          </p>
+          جديد هنا؟
+          <div
+            onClick={() => setSignIn(false)}
+            style={{ cursor: "pointer" }}
+            className="text-decoration-underline text-primary"
+          >
+            سجل الان
+          </div>
         </div>
         {error && (
           <p className="text-danger d-flex justify-content-center">{error}</p>

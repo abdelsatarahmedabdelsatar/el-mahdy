@@ -11,7 +11,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="row gx-0 my-3">
+      <div className="row gx-0 my-3 shadow-sm">
         <div>
           <SlideShow images={images} interval={2500} />
         </div>

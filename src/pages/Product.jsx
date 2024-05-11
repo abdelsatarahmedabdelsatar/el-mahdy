@@ -3,10 +3,9 @@ import Skeleton from "react-loading-skeleton";
 import { Link, useParams } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
-import { addCart } from "../redux/action";
-import { Footer, Navbar } from "../components";
 import axiosInstance from "../axiosConfig/instance";
-import { toast } from "sonner";
+import { addProduct, handleConfirm } from "../helpers/api";
+import DialogModel from "../components/Dialog";
 
 const Product = () => {
   const { id } = useParams();
@@ -15,27 +14,15 @@ const Product = () => {
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
   const [productColor, setProductColor] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
 
-  const addProduct = (pp) => {
-    axiosInstance
-      .post(
-        "api/v1/cart",
-        {
-          productId: pp._id,
-          color: productColor,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        }
-      )
-      .then(() => {
-        toast.success("تم إضافة المنتج بنجاح");
-      });
-
-    dispatch(addCart(pp));
+  const handleAdd = (product, dispatch) => {
+    if (localStorage.getItem("access-token")) {
+      addProduct(product, dispatch);
+    } else {
+      setShowModal(true);
+    }
   };
 
   useEffect(() => {
@@ -176,7 +163,7 @@ const Product = () => {
               <p className="lead">{product?.EnDescription}</p>
               <button
                 className="btn btn-warning mx-1"
-                onClick={() => addProduct(product)}
+                onClick={() => handleAdd(product, dispatch)}
               >
                 إضافة الي السلة
               </button>
@@ -221,11 +208,11 @@ const Product = () => {
             {similarProducts.map((item) => {
               return (
                 <>
-                  {item._id != product._id && (
+                  {item._id !== product._id && (
                     <div dir="rtl" id={item._id} key={item._id} className="m-3">
                       <div className="card h-100 rounded-4 shadow border-1 border-secondary position-relative">
                         {" "}
-                        <div
+                        {/* <div
                           id="favIcon"
                           //   onClick={(eve) => {
                           //     toggleFav(eve);
@@ -241,7 +228,7 @@ const Product = () => {
                           }}
                         >
                           <i className="fa-solid fa-heart"></i>
-                        </div>
+                        </div> */}
                         <Link to={"/product/" + item._id}>
                           <img
                             className="card-img-top rounded-3 shadow-sm"
@@ -275,7 +262,7 @@ const Product = () => {
                                      <li className="list-group-item">Vestibulum at eros</li> */}
                         <button
                           className="cart-button"
-                          onClick={() => addProduct(item, dispatch)}
+                          onClick={() => handleAdd(item, dispatch)}
                         >
                           {/* <i className="fa-solid fa-bag-shopping"></i> */}
                           <img
@@ -306,12 +293,18 @@ const Product = () => {
             <Marquee
               pauseOnHover={true}
               pauseOnClick={true}
-              speed={similarProducts.length > 4 ? 50 : 0}
+              speed={similarProducts.length > 5 ? 50 : 0}
             >
               {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
             </Marquee>
           </div>
         </div>
+        <DialogModel
+          title={"عليك تسجيل الدخول أولاََ"}
+          visible={showModal}
+          onHide={() => setShowModal(false)}
+          onConfirm={handleConfirm}
+        />
       </div>
     </>
   );

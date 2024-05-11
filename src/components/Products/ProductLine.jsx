@@ -14,7 +14,7 @@ const ProductLine = ({ title, route }) => {
       <div className="col-1 d-flex align-items-center">
         <Link
           to={route}
-          className="p-1 border border-1 border-dark text-decoration-none text-dark rounded-4"
+          className="py-1 px-2 border border-1 border-dark text-decoration-none text-dark rounded-4"
         >
           عرض الكل
         </Link>

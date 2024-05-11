@@ -11,8 +11,6 @@ const Navbar = () => {
   const [searchKey, setSearchKey] = useState("");
   const [subCategories, setSubCategories] = useState([]);
 
-
-
   useEffect(() => {
     axiosInstance
       .get("api/v1/category", {
@@ -33,10 +31,9 @@ const Navbar = () => {
       })
       .then((res) => {
         setSubCategories(res.data.data.data);
-        console.log(res.data.data.data);
       });
     dispatch(fetchDataFromApi());
-  }, []);
+  }, [dispatch]);
   const state = useSelector((state) => state.handleCart);
 
   return (
@@ -98,8 +95,8 @@ const Navbar = () => {
               action="/action_page.php"
             >
               <button className="rounded-start-3">
-                <Link to={"/search/"+searchKey}>
-                <i className="fa fa-search text-dark"></i>
+                <Link to={"/search/" + searchKey}>
+                  <i className="fa fa-search text-dark"></i>
                 </Link>
               </button>
               <input
@@ -108,7 +105,7 @@ const Navbar = () => {
                 name="search"
                 className="rounded-end-3"
                 value={searchKey}
-                onChange={(eve)=>setSearchKey(eve.target.value)}
+                onChange={(eve) => setSearchKey(eve.target.value)}
               />
             </form>
             <ul className="navbar-nav p-0">
@@ -136,7 +133,7 @@ const Navbar = () => {
                       ) : (
                         <NavLink
                           to="/login"
-                          className="fw-bold nav-link px-0 mx-0"
+                          className="fw-bold nav-link px-0 ms-4"
                         >
                           تسجيل الدخول
                         </NavLink>
@@ -149,25 +146,25 @@ const Navbar = () => {
                         </NavLink> */}
                     </div>
                   </div>
-                  <a href="#" className="fw-bold nav-link p-0 m-0 px-4">
-                    مشتريـاتـك
-                  </a>
+                  {localStorage.getItem("access-token") ? (
+                    <Link to="/cart" className="fw-bold nav-link p-0 m-0 px-4">
+                      مشتريـاتـك
+                    </Link>
+                  ) : (
+                    ""
+                  )}
 
                   {/* <NavLink to="/register" className={activateRouteIcon}><i className="fa fa-user-plus "></i></NavLink> */}
                   <NavLink to="/cart" className="nav-link">
-                    <div className="position-relative">
-                      <img
-                        src="./../add.png"
-                        width={35}
-                        alt=""
-                        srcSet=""
-                      />
+                    <div className="position-relative fw-bold">
+                      <img src="./../add.png" width={35} alt="" srcSet="" />
                       <span
                         className="position-absolute translate-middle badge border border-1 border-dark rounded-pill bg-light text-dark"
                         style={{ fontSize: "8px", top: "7px", left: "64px" }}
                       >
                         {state.length}
-                      </span>السلة
+                      </span>
+                      السلة
                     </div>
                   </NavLink>
                 </div>
@@ -203,7 +200,7 @@ const Navbar = () => {
                     <CustomNavbar
                       title={c.ArName}
                       supTitles={subCategories.filter(
-                        (s) => s.category._id == c._id
+                        (s) => s.category._id === c._id
                       )}
                     />
                   </Link>

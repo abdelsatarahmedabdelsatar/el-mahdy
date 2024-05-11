@@ -118,5 +118,5 @@ form.example::after {
 }
 .category-card:hover {
   border: 1px solid #ffcc1b;
-  color: #daab05;
+  color: #000;
 }

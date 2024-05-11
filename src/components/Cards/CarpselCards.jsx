@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { addProduct } from "../../helpers/api";
+import { addProduct, handleConfirm } from "../../helpers/api";
 import { useDispatch } from "react-redux";
 import { Carousel } from "primereact/carousel";
 import DialogModel from './../Dialog/index';
@@ -8,9 +8,6 @@ import DialogModel from './../Dialog/index';
 const CaroselCards = ({ data }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleConfirm = () => {
-    window.location.assign("/login");
-  };
 
   const handleAdd = (product, dispatch) => {
     if (localStorage.getItem("access-token")) {
@@ -42,7 +39,7 @@ const CaroselCards = ({ data }) => {
       <div dir="rtl" id={item._id} key={item._id} className="m-3">
         <div className="card h-100 rounded-4 shadow border-1 border-secondary position-relative">
           {" "}
-          <div
+          {/* <div
             id="favIcon"
             //   onClick={(eve) => {
             //     toggleFav(eve);
@@ -58,7 +55,7 @@ const CaroselCards = ({ data }) => {
             }}
           >
             <i className="fa-solid fa-heart"></i>
-          </div>
+          </div> */}
           <Link to={"/product/" + item._id}>
             <img
               className="card-img-top rounded-3 shadow-sm"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { addProduct } from '../../helpers/api';
+import { addProduct, handleConfirm } from '../../helpers/api';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import DialogModel from './../Dialog/index';
@@ -8,11 +8,6 @@ import DialogModel from './../Dialog/index';
 const Cards = ({data}) => {
 
   const [showModal, setShowModal] = useState(false);
-
-  const handleConfirm = () => {
-
-    window.location.assign("/login")
-  };
 
   const handleAdd = (product,dispatch) => {
 
@@ -37,7 +32,7 @@ const Cards = ({data}) => {
             >
               <div className="card h-100 rounded-4 shadow border-1 border-dark position-relative">
                 {" "}
-                <div
+                {/* <div
                   id="favIcon"
                 //   onClick={(eve) => {
                 //     toggleFav(eve);
@@ -53,7 +48,7 @@ const Cards = ({data}) => {
                   }}
                 >
                   <i className="fa-solid fa-heart"></i>
-                </div>
+                </div> */}
                 <Link to={"/product/" + product._id}>
                   <img
                     className="card-img-top rounded-3 shadow-sm"

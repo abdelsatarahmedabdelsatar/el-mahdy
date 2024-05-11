@@ -2,6 +2,9 @@ import axiosInstance from "../axiosConfig/instance";
 import { toast } from 'sonner';
 import { addCart } from "../redux/action";
 
+export const handleConfirm = () => {
+  window.location.assign("/login");
+};
 
 
 export const addProduct = (product,dispatch) => {

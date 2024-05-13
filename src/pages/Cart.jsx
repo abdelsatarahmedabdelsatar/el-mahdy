@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Footer, Navbar } from "../components";
 import { useSelector, useDispatch } from "react-redux";
-import { addCart, delCart, fetchDataFromApi } from "../redux/action";
+import { addCart, delAllCart, delCart, fetchDataFromApi } from "../redux/action";
 import { Link } from "react-router-dom";
 import axiosInstance from "../axiosConfig/instance";
 import { toast } from "sonner";
 import Spinner from "../components/Spinner";
+import { handledelete } from "../helpers/api";
 
 const Cart = () => {
   const [refresh, setRefresh] = useState(true);
   const [deleteSpinner, setDeleteSpinner] = useState(false);
   const state = useSelector((state) => state.handleCart);
+  console.log(state);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchDataFromApi());
@@ -50,8 +52,7 @@ const Cart = () => {
       .then((res) => {
         toast.success("تم حذف السلة");
         setDeleteSpinner(false);
-        dispatch(fetchDataFromApi());
-        state = [];
+        dispatch(delAllCart())
       })
       .catch((err) => {
         setDeleteSpinner(false);
@@ -111,15 +112,16 @@ const Cart = () => {
       <>
         {state && (
           <section className="h-100 gradient-custom">
-            <div className="container-fluid py-5">
+            <div className="container-fluid py-3">
               <div className="row d-flex justify-content-center my-4">
                 <div className="col-md-8">
                   <div className="card mb-4 border-0">
-                    <div className="card-body">
+                    <div className="card-body p-0 bg-light p-2">
                       {state.map((item) => {
                         return (
                           <div key={item._id}>
-                            <div className="row d-flex align-items-center mb-5">
+                            <div className="row d-flex align-items-center mb-3 cart-item">
+                            <i onClick={()=>handledelete(item._id,setRefresh,refresh)} className="fa-solid fa-xmark"></i>
                               <div className="col-lg-3 col-md-12">
                                 <div
                                   className="bg-image rounded"
@@ -150,31 +152,32 @@ const Cart = () => {
                                   style={{ maxWidth: "210px" }}
                                 >
                                   <button
-                                    className="btn px-4"
+                                    className="btn counter border-0"
                                     onClick={() => {
                                       removeItem(item);
                                     }}
                                   >
-                                    <i className="fas text-warning fa-minus"></i>
+                                    <i className="fas text-secondary fa-minus" style={{fontSize:"13px"}}></i>
                                   </button>
 
-                                  <p className="mx-4 mt-3 ">{item.quantity}</p>
+                                  <p className="mx-2 mt-3 badge badge-pill badge-warning rounded-circle border border-1 border-secondary">{item.quantity}</p>
 
                                   <button
-                                    className="btn px-3"
+                                    className="btn counter border-0"
                                     onClick={() => {
                                       addItem(item);
                                     }}
                                   >
-                                    <i className="fas text-warning fa-plus"></i>
+                                    <i className="fas text-secondary fa-plus"  style={{fontSize:"13px"}}></i>
                                   </button>
                                 </div>
 
-                                <p className="text-start text-md-center">
-                                  <strong className="text-success">
+                                <p className="">
+                                  <strong className="text-success" style={{marginRight:"45px"}}>
                                     ${item.price}
                                   </strong>
                                 </p>
+                               
                               </div>
                             </div>
                           </div>
@@ -183,7 +186,7 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 mt-2">
                   <button
                     onClick={deleteCart}
                     className="btn btn-dark btn-md btn-block mb-3"
@@ -192,9 +195,9 @@ const Cart = () => {
                     {deleteSpinner ? <Spinner /> : "حذف منتجات السلة"}
                   </button>
                   <div className="card mb-4 border-0">
-                    <h5 className="mb-0 p-4 fs-5">ملخص الطلب</h5>
-                    <div className="card-body">
-                      <ul className="list-group list-group-flush">
+                    <h5 className="mb-0 p-3 fs-5">ملخص الطلب</h5>
+                    <div className="card-body ">
+                      <ul className="bg-white p-3">
                         <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                           المنتجات ({totalItems})
                           <span>${Math.round(subtotal)}</span>

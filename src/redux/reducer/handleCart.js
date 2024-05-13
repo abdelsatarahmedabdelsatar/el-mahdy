@@ -14,21 +14,26 @@ const handleCart = (state = cart, action) => {
       if (exist) {
         // Increase the quantity
         return state.map((x) =>
-          x._id === product._id ? { ...x, qty: x.qty + 1 } : x
+          x._id === product._id ? { ...x, quantity: x.quantity + 1 } : x
         );
       } else {
-        return [...state, { ...product, qty: 1 }];
+        return [...state, { ...product, quantity: 1 }];
       }
       break;
     case "DELITEM":
       const exist2 = state.find((x) => x._id === product._id);
-      if (exist2.qty === 1) {
+      if (exist2.quantity === 1) {
         return state.filter((x) => x._id !== exist2._id);
       } else {
         return state.map((x) =>
-          x._id === product._id ? { ...x, qty: x.qty - 1 } : x
+          x._id === product._id ? { ...x, quantity: x.quantity - 1 } : x
         );
       }
+      break;
+
+    case "DELALL":
+      return product;
+
       break;
 
     default:

@@ -80,15 +80,7 @@ const Search = () => {
           <div className="container">
             <div className="row">
               <div className="col-md-12 py-5 bg-light text-center text-secondary">
-                <i
-                  className="fa-solid fa-xmark p-4 rounded-circle"
-                  style={{
-                    fontSize: "4rem",
-                    backgroundColor: "#EEE",
-                    color: "#BBB",
-                    width: "110px",
-                  }}
-                ></i>
+                
                 <h6 className="p-3">لا يوجد منتجات</h6>
                 <Link to="/" className="btn btn-outline-warning mx-4 rounded-5">
                   عودة للرئيسية

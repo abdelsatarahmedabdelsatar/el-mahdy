@@ -2,10 +2,25 @@ import axiosInstance from "../axiosConfig/instance";
 import { toast } from 'sonner';
 import { addCart } from "../redux/action";
 
-export const handleConfirm = () => {
+export const handleLoginNavigate = () => {
   window.location.assign("/login");
 };
 
+export const handledelete = (id,setRefresh,autoRefresh) => {
+  axiosInstance
+  .delete("api/v1/cart/"+id, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+    },
+  })
+  .then((res) => {
+    toast.success("تم حذف المنتج بنجاح");
+    setRefresh(!autoRefresh)
+  })
+  .catch((err) => {
+    console.error("Error fetching cart product : ", err);
+  })
+}
 
 export const addProduct = (product,dispatch) => {
   if(localStorage.getItem("access-token")){

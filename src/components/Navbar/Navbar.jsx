@@ -48,7 +48,7 @@ const Navbar = () => {
             id="navbarSupportedContent1"
             style={{ fontSize: "0.85rem" }}
           >
-            <NavLink className="nav-link me-2" to={"/"}>
+            <NavLink className="nav-link me-2 p-1" to={"/"}>
               <img src="./../logo_nav.png" height={40} alt="" srcSet="" />
             </NavLink>
             {/* <ul className="navbar-nav d-none-md">
@@ -155,18 +155,20 @@ const Navbar = () => {
                   )}
 
                   {/* <NavLink to="/register" className={activateRouteIcon}><i className="fa fa-user-plus "></i></NavLink> */}
-                  <NavLink to="/cart" className="nav-link">
-                    <div className="position-relative fw-bold">
-                      <img src="./../add.png" width={35} alt="" srcSet="" />
-                      <span
-                        className="position-absolute translate-middle badge border border-1 border-dark rounded-pill bg-light text-dark"
-                        style={{ fontSize: "8px", top: "7px", left: "64px" }}
-                      >
-                        {state.length}
-                      </span>
-                      السلة
-                    </div>
-                  </NavLink>
+                  {localStorage.getItem("access-token") && (
+                    <NavLink to="/cart" className="nav-link">
+                      <div className="position-relative fw-bold">
+                        <img src="./../add.png" width={35} alt="" srcSet="" />
+                        <span
+                          className="position-absolute translate-middle badge border border-1 border-dark rounded-pill bg-light text-dark"
+                          style={{ fontSize: "8px", top: "7px", left: "64px" }}
+                        >
+                          {state.length}
+                        </span>
+                        السلة
+                      </div>
+                    </NavLink>
+                  )}
                 </div>
               </li>
             </ul>

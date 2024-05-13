@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { addProduct, handleConfirm } from '../../helpers/api';
+import { addProduct, handleLoginNavigate } from '../../helpers/api';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import DialogModel from './../Dialog/index';
@@ -30,7 +30,7 @@ const Cards = ({data}) => {
               key={product._id}
               className="col-lg-3 col-md-4 col-sm-6 col-xs-8 col-12 mb-4"
             >
-              <div className="card h-100 rounded-4 shadow border-1 border-dark position-relative">
+              <div className="card h-100 rounded-4 product-card border-1 border-dark position-relative">
                 {" "}
                 {/* <div
                   id="favIcon"
@@ -92,7 +92,7 @@ const Cards = ({data}) => {
             </div>
           );
         })}
-              <DialogModel title={"عليك تسجيل الدخول أولاََ"} visible={showModal} onHide={() => setShowModal(false)} onConfirm={handleConfirm} />
+              <DialogModel title={"عليك تسجيل الدخول أولاََ"} visible={showModal} onHide={() => setShowModal(false)} onConfirm={handleLoginNavigate} />
 
       </div>
     );

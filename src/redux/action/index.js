@@ -38,3 +38,10 @@ export const delCart = (product) => {
     payload: product,
   };
 };
+
+export const delAllCart = () => {
+  return {
+    type: "DELALL",
+    payload: [],
+  };
+};

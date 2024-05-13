@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./../components/Navbar/Navbar";
-import { Footer } from "../components";
 import axiosInstance from "./../axiosConfig/instance";
 import Spinner from "../components/Spinner";
 import { Formik, Field, Form } from "formik";
 import ImageUpload from "../components/ImageUpload";
 import { toast } from "sonner";
 import DialogModel from "../components/Dialog";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 const Profile = () => {
   const [profile, setProfile] = useState({});
   const [profileImage, setProfileImage] = useState(null);
@@ -66,6 +67,37 @@ const Profile = () => {
         setLoader(false);
         toast.error("خطأ في بيانات بعض الحقول");
       });
+  };
+
+  const Loading = () => {
+    return (
+      <>
+        <div className="container">
+          {" "}
+          <div className="row gx-0">
+            <div className="col-md-3">
+              <Skeleton height={312} />
+            </div>
+
+            <div className="col-md-9">
+              <div className="py-3 text-center">
+                <Skeleton height={40} width={560} />
+              </div>
+
+              <div className="py-3 text-center">
+                <Skeleton height={40} width={560} />
+              </div>
+              <div className="py-3 text-center">
+                <Skeleton height={40} width={560} />
+              </div>
+              <div className="py-3 text-center">
+                <Skeleton height={40} width={560} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
   };
 
   return (
@@ -185,7 +217,7 @@ const Profile = () => {
         </div>
       ) : (
         <div className="my-5">
-          <Spinner />
+          <Loading />
         </div>
       )}
       <DialogModel

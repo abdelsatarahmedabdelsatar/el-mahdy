@@ -16,7 +16,7 @@ const Auth = () => {
           )}
         </div>
         <div className="col-6 d-none d-md-flex justify-content-center p-5  border-end border-1 border-dark">
-          <img src="./logo_nav.png" width={400} alt="" />
+          <img src="./logo_2.png" width={400} alt="" />
         </div>
       </div>
     </>

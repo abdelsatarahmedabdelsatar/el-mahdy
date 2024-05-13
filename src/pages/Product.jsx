@@ -4,10 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../axiosConfig/instance";
-import { addProduct, handleConfirm } from "../helpers/api";
+import { addProduct, handleLoginNavigate } from "../helpers/api";
 import DialogModel from "../components/Dialog";
 
 const Product = () => {
+  
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [similarProducts, setSimilarProducts] = useState([]);
@@ -210,7 +211,7 @@ const Product = () => {
                 <>
                   {item._id !== product._id && (
                     <div dir="rtl" id={item._id} key={item._id} className="m-3">
-                      <div className="card h-100 rounded-4 shadow border-1 border-secondary position-relative">
+                      <div className="card h-100 rounded-4 product-card border-1 border-secondary position-relative">
                         {" "}
                         {/* <div
                           id="favIcon"
@@ -303,7 +304,7 @@ const Product = () => {
           title={"عليك تسجيل الدخول أولاََ"}
           visible={showModal}
           onHide={() => setShowModal(false)}
-          onConfirm={handleConfirm}
+          onConfirm={handleLoginNavigate}
         />
       </div>
     </>

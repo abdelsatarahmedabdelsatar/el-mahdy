@@ -20,7 +20,11 @@ const CategoryRoute = () => {
           },
         })
         .then((res) => {
-          setProducts(res.data.data.data.filter((p) => p.category._id == id || p.subCategory._id == id));
+          setProducts(
+            res.data.data.data.filter(
+              (p) => p.category._id == id || p.subCategory._id == id
+            )
+          );
           setLoading(false);
         })
         .catch((err) => {
@@ -69,22 +73,12 @@ const CategoryRoute = () => {
   const ShowProducts = () => {
     return (
       <>
-
         {products.length > 0 ? (
           <Cards data={products} />
         ) : (
           <div className="container">
             <div className="row">
               <div className="col-md-12 py-5 bg-light text-center text-secondary">
-                <i
-                  className="fa-solid fa-xmark p-4 rounded-circle"
-                  style={{
-                    fontSize: "4rem",
-                    backgroundColor: "#EEE",
-                    color: "#BBB",
-                    width: "110px",
-                  }}
-                ></i>
                 <h6 className="p-3">لا يوجد منتجات</h6>
                 <Link to="/" className="btn btn-outline-warning mx-4 rounded-5">
                   عودة للرئيسية

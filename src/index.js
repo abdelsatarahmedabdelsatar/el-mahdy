@@ -25,6 +25,7 @@ import { Toaster } from "sonner";
 import { Footer, Navbar } from "./components";
 import CategoryRoute from "./components/CategoryRoute";
 import Search from "./pages/Search";
+import { ProductDetailsLoder } from './Loaders/loader';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -45,8 +46,8 @@ root.render(
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/product" element={<Products />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/product/:id" element={<Product />} />
+              <Route path="/profile" element={<Profile />} errorElement={<><PageNotFound/></>}/>
+              <Route path="/product/:id" element={<Product />} loader={ProductDetailsLoder}/>
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/cart" element={<Cart />} />
@@ -66,7 +67,7 @@ root.render(
             <Route path="/" element={<Home />} />
             <Route path="*" element={<PageNotFound />} />
             <Route path="/product/*" element={<PageNotFound />} />
-            <Route path="/product/:id" element={<Product />} />
+            <Route path="/product/:id" element={<Product />} loader={ProductDetailsLoder}/>
             <Route path="/category/:id" element={<CategoryRoute />} />
             <Route path="/sub-category/:id" element={<CategoryRoute />} />
             <Route path="/search/:key" element={<Search />} />

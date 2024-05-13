@@ -62,6 +62,7 @@ const Shields = () => {
             {categories.map((cat) => {
               return (
                 <Link
+                  key={cat._id}
                   to={"category/" + cat._id}
                   className="text-decoration-none card py-3 text-center d-flex align-items-center m-3 category-card"
                 >
@@ -71,7 +72,7 @@ const Shields = () => {
                     }
                     alt="cat image"
                     width={40}
-                    srcset=""
+                    srcSet=""
                     className="mt-3"
                   />
                   <p className="pt-3">{cat.ArName}</p>

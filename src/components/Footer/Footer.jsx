@@ -63,25 +63,27 @@ const Footer = () => {
 
           {/* ====================================================================== */}
 
-          <div className="col-md-4 text-center d-flex align-items-center p-3">
-            <a href="">
-              <i className="footer-icon fa-brands fa-instagram "></i>
-            </a>
-            <a href="">
-              <i className="footer-icon fa-brands fa-twitter "></i>
-            </a>
-            <a href="">
-              <i className="footer-icon fa-brands fa-snapchat "></i>
-            </a>
-            <a href="">
-              <i className="footer-icon fa-brands fa-tiktok "></i>
-            </a>
-            <a href="">
-              <i className="footer-icon fa-brands fa-youtube "></i>
-            </a>
-            <a href="">
-              <i className="footer-icon fa-brands fa-facebook-f "></i>
-            </a>
+          <div className="col-md-4 text-center d-flex justify-content-center align-items-center p-3">
+            <div className="d-block">
+              <div dir="ltr">+966-056 54 54 013</div>
+              <div className="my-2">
+                {" "}
+                <a href="">
+                  <i className="footer-icon-mail fa-regular fa-envelope"></i>
+                </a>{" "}
+                <a href="">
+                  <i className="footer-icon-mail fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="">
+                  <i className="footer-icon-call fa-regular fa-paper-plane"></i>
+                </a>
+                <a href="">
+                <i style={{transform:"rotate(320deg)"}} className="footer-icon-call fa-solid fa-phone-volume"></i>
+                </a>
+              </div>
+
+              <p>جميع الحقوق محفوظة لدي وكالة المهدي للدعاية واللإعلان</p>
+            </div>
           </div>
         </div>
       </footer>

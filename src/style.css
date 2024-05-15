@@ -1,3 +1,19 @@
+/* @font-face {
+  font-family: "elmahdy-bold-font";
+  src: local("AirbnbCerealLight"),
+    url("./../public/fonts/RB\ Bold.ttf") format("truetype");
+} */
+@font-face {
+  font-family: "elmahdy-bold-font";
+  src: url("./../public/fonts/ArbFONTS-riyad-bank-Bold.ttf");
+}
+@font-face {
+  font-family: "elmahdy-regular-font";
+  src: url("./../public/fonts/ArbFONTS-riyad-bank-Regular.ttf");
+}
+* {
+  font-family: "elmahdy-regular-font";
+}
 .cart-button {
   background-color: #ffcc1b;
   position: absolute;
@@ -35,18 +51,24 @@ img:hover {
   color: #848484;
 }
 
-.footer-icon {
+.footer-icon-mail {
   margin: 4px;
-  padding: 7px;
-  border: 1px solid #d3d3d3;
+  font-weight: lighter;
   border-radius: 50%;
-  font-size: 16px;
-  width: 32px;
-  height: 32px;
+  font-size: 26px;
   color: rgb(243, 243, 243);
 }
-.footer-icon:hover {
-  box-shadow: 0px 0px 2px 0.7px #c6c6c6;
+.footer-icon-call {
+  margin: 4px;
+  border-radius: 50%;
+  font-size: 26px;
+  color: rgb(62, 62, 62);
+}
+.footer-icon-mail:hover {
+  color: #c6c6c6;
+}
+.footer-icon-call:hover {
+  color: #4f4f4f;
 }
 footer a,
 p {
@@ -101,11 +123,14 @@ form.example::after {
   align-items: center;
   padding-bottom: 9%;
 }
+.navigte-route {
+  color: #515151;
+}
 .navigte-route:hover {
   color: #7a7a7a;
 }
 .navigte-sub-route:hover {
-  background-color: #efefef;
+  background-color: #ffd341;
 }
 .cart-item {
   box-shadow: 0px 2px 3px 0.5px #d9d9d9;
@@ -140,4 +165,23 @@ form.example::after {
 }
 .counter:focus {
   box-shadow: none;
+}
+
+/* .p-carousel-item-active:nth-child(3n){
+  scale: 1.2;
+} */
+/* .p-carousel-item-start::after{
+  scale: 0.8;
+} */
+.wider-card .p-carousel-item-start + .p-carousel-item-active {
+  scale: 0.82;
+  margin-right: 3px;
+}
+.wider-card .p-carousel-item-active:has(+ .p-carousel-item-end) {
+  scale: 0.82;
+  margin-left: 3px;
+}
+.wider-card .p-carousel-item-start,
+.wider-card .p-carousel-item-end {
+  scale: 0.65;
 }

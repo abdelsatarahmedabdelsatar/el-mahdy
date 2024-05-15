@@ -7,7 +7,7 @@ const ProductLine = ({ title, route }) => {
       className="mb-2 py-3 gx-0 m-3 d-flex justify-content-around row"
       style={{ fontSize: "13px" }}
     >
-      <div className="bg-warning p-2 rounded-4 shadow-sm col-1 text-center">{title}</div>
+      <div className="bg-warning p-2 rounded-3 shadow-sm col-1 text-center">{title}</div>
       <div  className="col-8">
         <hr />
       </div>

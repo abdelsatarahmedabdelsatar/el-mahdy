@@ -51,11 +51,11 @@ export default class CustomNavbar extends React.Component {
           {this.props.title}
         </DropdownToggle>
         {this.props.supTitles.length > 0 && (
-          <DropdownMenu>
+          <DropdownMenu className="p-0 m-0 rounded-0 ">
             {this.props.supTitles.map((t, i) => {
               return (
                 <Link key={i} to={"sub-category/" + t._id} className="nav-link">
-                  <DropdownItem style={{ fontSize: "12.5px" }} dir="rtl" className="navigte-sub-route d-flex justify-content-center">{t.ArName}</DropdownItem>
+                  <DropdownItem style={{ fontSize: "12.5px" }} dir="rtl" className="navigte-sub-route d-flex justify-content-start py-2">{t.ArName}</DropdownItem>
                 </Link>
               );
             })}

@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CustomNavbar from "./CustomNavbar";
 import { fetchDataFromApi } from "../../redux/action";
 import axiosInstance from "../../axiosConfig/instance";
+import DialogModel from "../Dialog";
+import { handleLoginNavigate } from "../../helpers/api";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [subCategories, setSubCategories] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCart = () => {
+    if (localStorage.getItem("access-token")) {
+      navigate("/cart")
+    } else {
+      setShowModal(true);
+    }
+  };
 
   useEffect(() => {
     axiosInstance
@@ -48,7 +60,7 @@ const Navbar = () => {
             id="navbarSupportedContent1"
             style={{ fontSize: "0.85rem" }}
           >
-            <NavLink className="nav-link me-2 p-1" to={"/"}>
+            <NavLink className="nav-link  py-1" to={"/"}>
               <img src="./../logo_nav.png" height={40} alt="" srcSet="" />
             </NavLink>
             {/* <ul className="navbar-nav d-none-md">
@@ -64,7 +76,7 @@ const Navbar = () => {
                   srcSet=""
                 />
                 <div className=" p-0">
-                  <div className="text-dark text-decoration-none fw-bold fs-6 p-0 ">
+                  <div className="text-dark text-decoration-none  fs-6 p-0 ">
                     الشحــن والتوصيــل
                   </div>
                   <div className="text-dark text-decoration-none m-0">
@@ -96,7 +108,7 @@ const Navbar = () => {
             >
               <button className="rounded-start-3">
                 <Link to={"/search/" + searchKey}>
-                  <i className="fa fa-search text-dark"></i>
+                  <i className="fa fa-search text-secondary"></i>
                 </Link>
               </button>
               <input
@@ -105,6 +117,7 @@ const Navbar = () => {
                 name="search"
                 className="rounded-end-3"
                 value={searchKey}
+                style={{ width: "92%" }}
                 onChange={(eve) => setSearchKey(eve.target.value)}
               />
             </form>
@@ -125,15 +138,15 @@ const Navbar = () => {
                           />
                           <NavLink
                             to="/profile"
-                            className="fw-bold nav-link px-0 mx-0"
+                            className=" nav-link px-0 mx-0"
                           >
-                            أدخل لحسابك
+                            أدخل حساب
                           </NavLink>
                         </>
                       ) : (
                         <NavLink
                           to="/login"
-                          className="fw-bold nav-link px-0 ms-4"
+                          className=" nav-link px-0 ms-4"
                         >
                           تسجيل الدخول
                         </NavLink>
@@ -146,29 +159,32 @@ const Navbar = () => {
                         </NavLink> */}
                     </div>
                   </div>
-                  {localStorage.getItem("access-token") ? (
-                    <Link to="/cart" className="fw-bold nav-link p-0 m-0 px-4">
-                      مشتريـاتـك
-                    </Link>
-                  ) : (
-                    ""
-                  )}
+                  <div onClick={handleCart} to="/cart" className=" nav-link p-0 m-0 px-4" style={{cursor:"pointer"}}>
+                    مشتريـاتـك
+                  </div>
 
                   {/* <NavLink to="/register" className={activateRouteIcon}><i className="fa fa-user-plus "></i></NavLink> */}
-                  {localStorage.getItem("access-token") && (
-                    <NavLink to="/cart" className="nav-link">
-                      <div className="position-relative fw-bold">
-                        <img src="./../add.png" width={35} alt="" srcSet="" />
+                  {
+                    <div onClick={handleCart} style={{cursor:"pointer"}} to="/cart" className="nav-link">
+                      <div className="position-relative ">
+                        <img src="./../add.png" width={33} alt="" srcSet="" />
                         <span
-                          className="position-absolute translate-middle badge border border-1 border-dark rounded-pill bg-light text-dark"
-                          style={{ fontSize: "8px", top: "7px", left: "64px" }}
+                          className="position-absolute translate-middle border border-1 border-dark rounded-circle bg-light text-dark d-flex align-items-center justify-content-center"
+                          style={{
+                            fontSize: "15px",
+                            top: "7px",
+                            left: "64px",
+                            width: "17px",
+                            height: "17px",
+                            fontWeight: "lighter",
+                          }}
                         >
                           {state.length}
                         </span>
                         السلة
                       </div>
-                    </NavLink>
-                  )}
+                    </div>
+                  }
                 </div>
               </li>
             </ul>
@@ -198,7 +214,6 @@ const Navbar = () => {
               {categories.map((c) => {
                 return (
                   <Link to={"category/" + c._id} key={c._id}>
-                    {" "}
                     <CustomNavbar
                       title={c.ArName}
                       supTitles={subCategories.filter(
@@ -225,6 +240,12 @@ const Navbar = () => {
           </div>
         </nav>
       </div>
+      <DialogModel
+        title={"عليك تسجيل الدخول أولاََ"}
+        visible={showModal}
+        onHide={() => setShowModal(false)}
+        onConfirm={handleLoginNavigate}
+      />
     </>
   );
 };

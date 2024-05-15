@@ -30,41 +30,41 @@ const Cards = ({data}) => {
               key={product._id}
               className="col-lg-3 col-md-4 col-sm-6 col-xs-8 col-12 mb-4"
             >
-              <div className="card h-100 rounded-4 product-card border-1 border-dark position-relative">
+              <div className="p-1 card h-100 rounded-4 product-card border-1 border-dark position-relative">
                 {" "}
-                {/* <div
-                  id="favIcon"
-                //   onClick={(eve) => {
-                //     toggleFav(eve);
-                //   }}
-                  className="position-absolute p-1 rounded-circle bg-light"
-                  style={{
-                    top: "10px",
-                    left: "5%",
-                    fontSize: "15px",
-                    zIndex: "100",
-                    width: "30px",
-                    cursor: "pointer",
-                  }}
-                >
-                  <i className="fa-solid fa-heart"></i>
-                </div> */}
+                <div
+                    id="favIcon"
+                    //   onClick={(eve) => {
+                    //     toggleFav(eve);
+                    //   }}
+                    className="position-absolute p-1 rounded-circle bg-light text-center"
+                    style={{
+                      top: "10px",
+                      left: "5%",
+                      fontSize: "15px",
+                      zIndex: "100",
+                      width: "30px",
+                      cursor: "pointer",
+                    }}
+                  >
+                   <i class="fa-regular fa-heart text-secondary"></i>
+                  </div>
                 <Link to={"/product/" + product._id}>
                   <img
-                    className="card-img-top rounded-3 shadow-sm"
+                    className="card-img-top rounded-3 shadow-sm bg-white"
                     src={
                       "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
                     }
                     alt="Card"
-                    height={220}
+                    height={225}
                   />
                 </Link>
-                <div className="card-body">
+                <div className="card-body pb-0">
                   <Link
                     className="text-dark text-decoration-none"
                     to={"/product/" + product._id}
                   >
-                    <h5 className="card-title">{product.ArTitle}</h5>
+             <h5 style={{fontFamily:"elmahdy-bold-font"}} className="card-title text-secondary">{product.ArTitle}</h5>
                   </Link>
                   <p className="card-text text-secondary">
                     {product.ArDescription}

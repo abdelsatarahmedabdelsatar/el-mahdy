@@ -211,7 +211,7 @@ const Product = () => {
                 <>
                   {item._id !== product._id && (
                     <div dir="rtl" id={item._id} key={item._id} className="m-3">
-                      <div className="card h-100 rounded-4 product-card border-1 border-secondary position-relative">
+                      <div className="p-1 card h-100 rounded-4 product-card border-1 border-secondary position-relative">
                         {" "}
                         {/* <div
                           id="favIcon"
@@ -232,12 +232,12 @@ const Product = () => {
                         </div> */}
                         <Link to={"/product/" + item._id}>
                           <img
-                            className="card-img-top rounded-3 shadow-sm"
+                            className="card-img-top rounded-3 shadow-sm bg-white"
                             src={
                               "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
                             }
                             alt="Card"
-                            height={220}
+                            height={225}
                           />
                         </Link>
                         <div className="card-body">
@@ -245,10 +245,10 @@ const Product = () => {
                             className="text-dark text-decoration-none"
                             to={"/product/" + item._id}
                           >
-                            <h5 className="card-title">{item.ArTitle}</h5>
+                            <h5 style={{fontFamily:"elmahdy-bold-font"}} className="card-title text-secondary">{item.ArTitle}</h5>
                           </Link>
                           <p className="card-text text-secondary">
-                            {item.ArDescription.substring(0, 18)}...
+                            {item.ArDescription.substring(0, 11)}...
                           </p>
                         </div>
                         <div className="me-3 mb-3">

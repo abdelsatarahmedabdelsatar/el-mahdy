@@ -79,7 +79,7 @@ p {
 }
 
 form.example {
-  width: 490px;
+  width: 570px;
 }
 
 form.example input[type="text"] {
@@ -87,7 +87,7 @@ form.example input[type="text"] {
   font-size: 12.3px;
   border: 1px solid grey;
   float: left;
-  width: 92%;
+  width: 94%;
   background: #f9f9f9;
   height: 30px;
 }
@@ -98,7 +98,7 @@ form.example input[type="text"]:focus {
 
 form.example button {
   float: left;
-  width: 8%;
+  width: 6%;
   background: #d8d8d8;
   color: rgb(0, 0, 0);
   font-size: 18px;
@@ -133,7 +133,8 @@ form.example::after {
   background-color: #ffd341;
 }
 .cart-item {
-  box-shadow: 0px 2px 3px 0.5px #d9d9d9;
+  /* box-shadow: 0px 2px 3px 0.5px #d9d9d9; */
+  padding: 30px;
   background-color: #f1f1f1;
   position: relative;
 }
@@ -184,4 +185,16 @@ form.example::after {
 .wider-card .p-carousel-item-start,
 .wider-card .p-carousel-item-end {
   scale: 0.65;
+}
+
+.small-arrow .p-carousel-next{
+  position: absolute;
+  left: 58.5%;
+  z-index: 200;
+}
+.small-arrow .p-carousel-prev{
+  position: absolute;
+  left: 39.5%;
+  z-index: 200;
+
 }

@@ -45,7 +45,7 @@ function Home() {
           >
             مطبوعات ورقية
           </p>
-          <div className="border wider-card border-1 border-dark rounded-2 py-2 m-5">
+          <div className="border small-arrow wider-card border-1 border-dark rounded-2 py-2 m-5">
             <div className="row justify-content-end m-2">
               <div
                 className="col-1 d-flex align-items-center"

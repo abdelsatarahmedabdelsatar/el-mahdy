@@ -5,9 +5,8 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { Link, NavLink } from "react-router-dom";
 
-export default class CustomNavbar extends React.Component {
+export default class CustomDropdown extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,7 +35,7 @@ export default class CustomNavbar extends React.Component {
   render() {
     return (
       <Dropdown
-        className="d-inline-block px-2 m-0"
+        className="d-inline-block m-0"
         onMouseOver={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         isOpen={this.state.dropdownOpen}
@@ -45,18 +44,18 @@ export default class CustomNavbar extends React.Component {
         <DropdownToggle
           color=""
           caret={this.props.supTitles.length > 0 ? true : false}
-          className="px-2 shadow-none border-0 navigte-route"
-          style={{ fontSize: "14px" }}
+          className=" shadow-none border-0 navigte-route p-1"
+          style={{ fontSize: "14.4px" }}
         >
-          {this.props.title}
+          <span className="ps-1">{this.props.title}</span>
         </DropdownToggle>
         {this.props.supTitles.length > 0 && (
           <DropdownMenu className="p-0 m-0 rounded-0 ">
             {this.props.supTitles.map((t, i) => {
               return (
-                <Link key={i} to={"sub-category/" + t._id} className="nav-link">
-                  <DropdownItem style={{ fontSize: "12.5px" }} dir="rtl" className="navigte-sub-route d-flex justify-content-start py-2">{t.ArName}</DropdownItem>
-                </Link>
+                <div key={i} className="">
+                  <DropdownItem style={{ fontSize: "12.5px" }} onClick={()=>this.props.setLang(t)} dir="rtl" className="navigte-sub-route d-flex justify-content-end py-2">{t}</DropdownItem>
+                </div>
               );
             })}
           </DropdownMenu>

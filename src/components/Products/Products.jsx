@@ -35,33 +35,19 @@ const Products = ({ category }) => {
   const Loading = () => {
     return (
       <>
-        <div className="col-12 py-3 text-center">
-          <Skeleton height={40} width={560} />
+        <div className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4">
+          <Skeleton height={250} />
         </div>
         <div className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={492} />
+          <Skeleton height={250} />
         </div>
         <div className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={492} />
+          <Skeleton height={250} />
         </div>
         <div className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={492} />
+          <Skeleton height={250} />
         </div>
-        <div className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={492} />
-        </div>
-        <div className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={492} />
-        </div>
-        <div className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={492} />
-        </div>
-        <div className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={492} />
-        </div>
-        <div className="col-md-3 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={492} />
-        </div>
+        
       </>
     );
   };

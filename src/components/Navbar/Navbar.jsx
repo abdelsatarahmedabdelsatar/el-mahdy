@@ -6,18 +6,21 @@ import { fetchDataFromApi } from "../../redux/action";
 import axiosInstance from "../../axiosConfig/instance";
 import DialogModel from "../Dialog";
 import { handleLoginNavigate } from "../../helpers/api";
+import CustomDropdown from "../DropDown";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [categories, setCategories] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+  const [lang, setLang] = useState("AR");
   const [subCategories, setSubCategories] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   const handleCart = () => {
     if (localStorage.getItem("access-token")) {
-      navigate("/cart")
+      navigate("/cart");
     } else {
       setShowModal(true);
     }
@@ -52,7 +55,7 @@ const Navbar = () => {
     <>
       <div className="sticky-top">
         <nav
-          className="navbar navbar-expand-lg p-0 border-bottom border-secondary"
+          className="navbar navbar-expand-lg p-1 border-bottom border-secondary"
           style={{ backgroundColor: "#ffcc1b" }}
         >
           <div
@@ -117,7 +120,6 @@ const Navbar = () => {
                 name="search"
                 className="rounded-end-3"
                 value={searchKey}
-                style={{ width: "92%" }}
                 onChange={(eve) => setSearchKey(eve.target.value)}
               />
             </form>
@@ -126,10 +128,10 @@ const Navbar = () => {
                 <div className=" d-flex align-items-center justify-content-end">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center">
-                      {" "}
+                      <img src={lang=="AR"?"./langs/ar.png":"./langs/en.png"} width={20} alt="" srcset="" />
+                      <CustomDropdown title={lang} setLang={setLang} supTitles={["AR", "EN"]} />
                       {localStorage.getItem("access-token") ? (
                         <>
-                          {" "}
                           <img
                             src="./../Icons-02.png"
                             width={33}
@@ -144,28 +146,30 @@ const Navbar = () => {
                           </NavLink>
                         </>
                       ) : (
-                        <NavLink
-                          to="/login"
-                          className=" nav-link px-0 ms-4"
-                        >
+                        <NavLink to="/login" className=" nav-link px-5">
                           تسجيل الدخول
                         </NavLink>
                       )}
-                      {/* <NavLink
-                          className="text-dark text-decoration-none m-0 p-0"
-                          to="/register"
-                        >
-                          سجل الان
-                        </NavLink> */}
+                     
                     </div>
                   </div>
-                  <div onClick={handleCart} to="/cart" className=" nav-link p-0 m-0 px-4" style={{cursor:"pointer"}}>
+                  {/* <div
+                    onClick={handleCart}
+                    to="/cart"
+                    className=" nav-link p-0 m-0 px-4"
+                    style={{ cursor: "pointer" }}
+                  >
                     مشتريـاتـك
-                  </div>
+                  </div> */}
 
                   {/* <NavLink to="/register" className={activateRouteIcon}><i className="fa fa-user-plus "></i></NavLink> */}
                   {
-                    <div onClick={handleCart} style={{cursor:"pointer"}} to="/cart" className="nav-link">
+                    <div
+                      onClick={handleCart}
+                      style={{ cursor: "pointer" }}
+                      to="/cart"
+                      className="nav-link"
+                    >
                       <div className="position-relative ">
                         <img src="./../add.png" width={33} alt="" srcSet="" />
                         <span

@@ -160,7 +160,7 @@ const Cart = () => {
                                     <i className="fas text-secondary fa-minus" style={{fontSize:"13px"}}></i>
                                   </button>
 
-                                  <p className="mx-2 mt-3 badge badge-pill badge-warning rounded-circle border border-1 border-secondary">{item.quantity}</p>
+                                  <p className="mx-2 mt-3 badge badge-pill badge-warning ">{item.quantity}</p>
 
                                   <button
                                     className="btn counter border-0"
@@ -173,8 +173,8 @@ const Cart = () => {
                                 </div>
 
                                 <p className="">
-                                  <strong className="text-success" style={{marginRight:"45px"}}>
-                                    ${item.price}
+                                  <strong className="text-success" style={{marginRight:"25px",fontSize:"18px"}}>
+                                   {item.price} ر.س
                                   </strong>
                                 </p>
                                

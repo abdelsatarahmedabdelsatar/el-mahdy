@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../axiosConfig/instance";
@@ -9,6 +9,7 @@ import DialogModel from "../components/Dialog";
 
 const Product = () => {
   
+  const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [similarProducts, setSimilarProducts] = useState([]);
@@ -21,6 +22,14 @@ const Product = () => {
   const handleAdd = (product, dispatch) => {
     if (localStorage.getItem("access-token")) {
       addProduct(product, dispatch);
+    } else {
+      setShowModal(true);
+    }
+  };
+
+  const handleCartNavigate = () => {
+    if (localStorage.getItem("access-token")) {
+      navigate("/cart")
     } else {
       setShowModal(true);
     }
@@ -168,9 +177,9 @@ const Product = () => {
               >
                 إضافة الي السلة
               </button>
-              <Link to="/cart" className="btn btn-outline-warning">
+              <button onClick={handleCartNavigate} className="btn btn-outline-warning">
                 الذهاب الي السلة
-              </Link>
+              </button>
             </div>
           </div>
         </div>

@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Footer, Navbar } from "../components";
 import { useSelector, useDispatch } from "react-redux";
-import { addCart, delAllCart, delCart, fetchDataFromApi } from "../redux/action";
+import {
+  addCart,
+  delAllCart,
+  delCart,
+  fetchDataFromApi,
+} from "../redux/action";
 import { Link } from "react-router-dom";
 import axiosInstance from "../axiosConfig/instance";
 import { toast } from "sonner";
@@ -52,7 +57,7 @@ const Cart = () => {
       .then((res) => {
         toast.success("تم حذف السلة");
         setDeleteSpinner(false);
-        dispatch(delAllCart())
+        dispatch(delAllCart());
       })
       .catch((err) => {
         setDeleteSpinner(false);
@@ -79,22 +84,26 @@ const Cart = () => {
       });
   };
   const removeItem = (product) => {
-    axiosInstance
-      .put(
-        "api/v1/cart/" + product._id,
-        {
-          quantity: parseInt(product.quantity) - 1,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+    if (product.quantity == 1) {
+      handledelete(product._id, setRefresh, refresh);
+    } else {
+      axiosInstance
+        .put(
+          "api/v1/cart/" + product._id,
+          {
+            quantity: parseInt(product.quantity) - 1,
           },
-        }
-      )
-      .then(() => {
-        dispatch(delCart(product));
-        setRefresh(!refresh);
-      });
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            },
+          }
+        )
+        .then(() => {
+          dispatch(delCart(product));
+          setRefresh(!refresh);
+        });
+    }
   };
 
   const ShowCart = () => {
@@ -121,7 +130,15 @@ const Cart = () => {
                         return (
                           <div key={item._id}>
                             <div className="row d-flex align-items-center mb-3 cart-item">
-                            <i onClick={()=>handledelete(item._id,setRefresh,refresh)} className="fa-solid fa-xmark"></i>
+                              <div className="close-icon">
+                                 <i
+                                onClick={() =>
+                                  handledelete(item._id, setRefresh, refresh)
+                                }
+                                className="fa-solid fa-xmark"
+                              ></i>
+                              </div>
+                             
                               <div className="col-lg-3 col-md-12">
                                 <div
                                   className="bg-image rounded"
@@ -129,10 +146,9 @@ const Cart = () => {
                                 >
                                   <img
                                     src={
-                                      "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
+                                      "./product_img.jpg"
                                     }
-                                    // className="w-100"
-                                    alt={item.ArTitle}
+                                    alt={item.product.ArTitle}
                                     width={100}
                                     height={75}
                                   />
@@ -141,7 +157,8 @@ const Cart = () => {
 
                               <div className="col-lg-5 col-md-6">
                                 <p>
-                                  <strong>{item.product}</strong>
+                                  <h4>{item.product.ArTitle}</h4>
+                                  <p>{item.product.color}</p>
                                 </p>
                                 {item.color && <p>{item.color}</p>}
                               </div>
@@ -157,10 +174,15 @@ const Cart = () => {
                                       removeItem(item);
                                     }}
                                   >
-                                    <i className="fas text-secondary fa-minus" style={{fontSize:"13px"}}></i>
+                                    <i
+                                      className="fas text-secondary fa-minus"
+                                      style={{ fontSize: "13px" }}
+                                    ></i>
                                   </button>
 
-                                  <p className="mx-2 mt-3 badge badge-pill badge-warning ">{item.quantity}</p>
+                                  <p className="mx-2 mt-3 badge badge-pill badge-warning ">
+                                    {item.quantity}
+                                  </p>
 
                                   <button
                                     className="btn counter border-0"
@@ -168,16 +190,24 @@ const Cart = () => {
                                       addItem(item);
                                     }}
                                   >
-                                    <i className="fas text-secondary fa-plus"  style={{fontSize:"13px"}}></i>
+                                    <i
+                                      className="fas text-secondary fa-plus"
+                                      style={{ fontSize: "13px" }}
+                                    ></i>
                                   </button>
                                 </div>
 
                                 <p className="">
-                                  <strong className="text-success" style={{marginRight:"25px",fontSize:"18px"}}>
-                                   {item.price} ر.س
+                                  <strong
+                                    className="text-success"
+                                    style={{
+                                      marginRight: "25px",
+                                      fontSize: "16px",
+                                    }}
+                                  >
+                                    {item.product.priceAfterDiscount} ر.س
                                   </strong>
                                 </p>
-                               
                               </div>
                             </div>
                           </div>

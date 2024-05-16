@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addProduct, handleLoginNavigate } from "../../helpers/api";
 import { useDispatch } from "react-redux";
 import { Carousel } from "primereact/carousel";
 import DialogModel from "./../Dialog/index";
 
 const CaroselCards = ({ data }) => {
-  const [showModal, setShowModal] = useState(false);
 
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   const handleAdd = (product, dispatch) => {
     if (localStorage.getItem("access-token")) {
       addProduct(product, dispatch);
@@ -58,7 +59,7 @@ const CaroselCards = ({ data }) => {
           <Link to={"/product/" + item._id}>
             <img
               className="card-img-top rounded-3 shadow-sm bg-white"
-              src={"https://cdn-icons-png.flaticon.com/512/1440/1440523.png"}
+              src={"./product_img.jpg"}
               alt="Card"
               height={150}
             />
@@ -68,7 +69,12 @@ const CaroselCards = ({ data }) => {
               className="text-dark text-decoration-none"
               to={"/product/" + item._id}
             >
-              <h5 style={{fontFamily:"elmahdy-bold-font"}} className="card-title text-secondary">{item.ArTitle}</h5>
+              <h5
+                style={{ fontFamily: "elmahdy-bold-font" }}
+                className="card-title text-secondary"
+              >
+                {item.ArTitle}
+              </h5>
             </Link>
             <p className="card-text text-secondary">
               {item.ArDescription.substring(0, 11)}...
@@ -143,7 +149,7 @@ const CaroselCards = ({ data }) => {
                       <img
                         className="card-img-top rounded-3 shadow-sm bg-white"
                         src={
-                          "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
+                          "./product_img.jpg"
                         }
                         alt="Card"
                         height={225}
@@ -154,7 +160,12 @@ const CaroselCards = ({ data }) => {
                         className="text-dark text-decoration-none"
                         to={"/product/" + item._id}
                       >
-                        <h5 style={{fontFamily:"elmahdy-bold-font"}} className="card-title text-secondary">{item.ArTitle}</h5>
+                        <h5
+                          style={{ fontFamily: "elmahdy-bold-font" }}
+                          className="card-title text-secondary"
+                        >
+                          {item.ArTitle}
+                        </h5>
                       </Link>
                       <p className="card-text text-secondary">
                         {item.ArDescription.substring(0, 11)}...
@@ -178,7 +189,6 @@ const CaroselCards = ({ data }) => {
                       <img src="./../add.png" width={27} alt="add" srcSet="" />
                     </button>
                   </div>
-                  
                 </div>
               </>
             );
@@ -190,7 +200,7 @@ const CaroselCards = ({ data }) => {
         title={"عليك تسجيل الدخول أولاََ"}
         visible={showModal}
         onHide={() => setShowModal(false)}
-        onConfirm={handleLoginNavigate}
+        onConfirm={()=>handleLoginNavigate(navigate)}
       />
     </>
   );

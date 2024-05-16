@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchDataFromApi } from "../redux/action";
 import { Main } from "../components";
@@ -6,29 +6,41 @@ import Products from "./../components/Products/Products";
 import Shields from "./../components/Shields/index";
 import ProductLine from "./../components/Products/ProductLine";
 import { Link } from "react-router-dom";
+import axiosInstance from "../axiosConfig/instance";
 
 function Home() {
   const dispatch = useDispatch();
+  const [mainCategory, setMainCategory] = useState([])
 
   useEffect(() => {
     dispatch(fetchDataFromApi());
+    axiosInstance
+    .get("api/v1/category", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      },
+    })
+    .then((res) => {
+      setMainCategory(res.data.data.data.filter(c => c.isMain));
+      console.log(res.data.data.data);
+    });
+
   }, []);
 
   return (
     <>
       <div className="container">
         <Main />
-        <ProductLine
-          title={"الأكثر مبيعا"}
-          route={"./search/category 2"}
-        />{" "}
+        <ProductLine title={"الأكثر شيوعاََ"} route={"./search/category 2"} />
         <div className="wider-card">
           <Products category={"category 2"} />
         </div>
-        <ProductLine title={"لوحــــات"} route={"./search/category 1"} />{" "}
-        <Products category={"category 1"} />
-        <ProductLine title={"هدايــــا"} route={"./search/category 2"} />{" "}
-        <Products category={"category 2"} />
+      {mainCategory.map(m=>{
+        return <>
+                <ProductLine title={m.ArName} route={"./search/"+m.EnName} />
+        <Products category={m.EnName} />
+        </>
+      })}
         <Shields />
         {/* <div className="row m-2 mb-5">
           <img

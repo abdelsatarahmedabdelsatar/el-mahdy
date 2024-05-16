@@ -68,7 +68,7 @@ const Shields = () => {
                 >
                   <img
                     src={
-                      "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
+                      "./product_img.jpg"
                     }
                     alt="cat image"
                     width={40}

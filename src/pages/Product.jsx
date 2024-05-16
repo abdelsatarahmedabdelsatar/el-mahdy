@@ -131,7 +131,7 @@ const Product = () => {
               <img
                 className="img-fluid"
                 // src={product?.image}
-                src="https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
+                src="./product_img.jpg"
                 alt={product?.ArTitle}
                 width="400px"
                 height="400px"
@@ -215,6 +215,11 @@ const Product = () => {
       <>
         <div className="py-4 my-4">
           <div className="d-flex">
+          <Marquee
+              pauseOnHover={true}
+              autoFill={true}
+              speed={similarProducts.length > 6 ? 50 : 0}
+            >
             {similarProducts.map((item) => {
               return (
                 <>
@@ -243,7 +248,7 @@ const Product = () => {
                           <img
                             className="card-img-top rounded-3 shadow-sm bg-white"
                             src={
-                              "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
+                              "./product_img.jpg"
                             }
                             alt="Card"
                             height={225}
@@ -288,6 +293,7 @@ const Product = () => {
                 </>
               );
             })}
+            </Marquee>
           </div>
         </div>
       </>
@@ -300,20 +306,15 @@ const Product = () => {
         <div className="row">
           <div className="d-none d-md-block">
             <h2 className="">عناصر ذات صلة</h2>
-            <Marquee
-              pauseOnHover={true}
-              pauseOnClick={true}
-              speed={similarProducts.length > 5 ? 50 : 0}
-            >
+          
               {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
-            </Marquee>
           </div>
         </div>
         <DialogModel
           title={"عليك تسجيل الدخول أولاََ"}
           visible={showModal}
           onHide={() => setShowModal(false)}
-          onConfirm={handleLoginNavigate}
+          onConfirm={()=>handleLoginNavigate(navigate)}
         />
       </div>
     </>

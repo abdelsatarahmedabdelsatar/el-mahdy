@@ -2,8 +2,8 @@ import axiosInstance from "../axiosConfig/instance";
 import { toast } from 'sonner';
 import { addCart } from "../redux/action";
 
-export const handleLoginNavigate = () => {
-  window.location.assign("/login");
+export const handleLoginNavigate = (navigate) => {
+  navigate("/login");
 };
 
 export const handledelete = (id,setRefresh,autoRefresh) => {

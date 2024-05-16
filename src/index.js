@@ -5,7 +5,7 @@ import "primeicons/primeicons.css";
 import ReactDOM from "react-dom/client";
 import "../node_modules/font-awesome/css/font-awesome.min.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import "./style.css";
@@ -30,13 +30,13 @@ import { ProductDetailsLoder } from './Loaders/loader';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <Toaster
           richColors
           className="toaster"
           expand
-          position="bottom-right"
+          position="top-center"
           offset={5}
           dir="rtl"
         />
@@ -63,7 +63,7 @@ root.render(
         ) : (
           <Routes>
             <Route path="*" element={<Auth />} />
-            <Route path="/login" element={<Auth />} />
+            <Route path="/login/" element={<Auth />} />
             <Route path="/" element={<Home />} />
             <Route path="*" element={<PageNotFound />} />
             <Route path="/product/*" element={<PageNotFound />} />
@@ -76,6 +76,6 @@ root.render(
         )}
         <Footer />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   </>
 );

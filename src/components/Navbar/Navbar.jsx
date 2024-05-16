@@ -128,19 +128,29 @@ const Navbar = () => {
                 <div className=" d-flex align-items-center justify-content-end">
                   <div className="row">
                     <div className="col-12 d-flex align-items-center">
-                      <img src={lang=="AR"?"./langs/ar.png":"./langs/en.png"} width={20} alt="" srcset="" />
-                      <CustomDropdown title={lang} setLang={setLang} supTitles={["AR", "EN"]} />
+                      <img
+                        src={lang == "AR" ? "./langs/ar.png" : "./langs/en.png"}
+                        width={20}
+                        alt=""
+                        srcSet=""
+                      />
+                      <CustomDropdown
+                        title={lang}
+                        setLang={setLang}
+                        supTitles={["AR", "EN"]}
+                      />
                       {localStorage.getItem("access-token") ? (
                         <>
                           <img
                             src="./../Icons-02.png"
                             width={33}
                             alt=""
+                            className="me-5"
                             srcSet=""
                           />
                           <NavLink
                             to="/profile"
-                            className=" nav-link px-0 mx-0"
+                            className=" nav-link px-0 ms-5"
                           >
                             أدخل حساب
                           </NavLink>
@@ -150,7 +160,6 @@ const Navbar = () => {
                           تسجيل الدخول
                         </NavLink>
                       )}
-                     
                     </div>
                   </div>
                   {/* <div
@@ -175,7 +184,7 @@ const Navbar = () => {
                         <span
                           className="position-absolute translate-middle border border-1 border-dark rounded-circle bg-light text-dark d-flex align-items-center justify-content-center"
                           style={{
-                            fontSize: "15px",
+                            fontSize: "12px",
                             top: "7px",
                             left: "64px",
                             width: "17px",
@@ -196,7 +205,7 @@ const Navbar = () => {
         </nav>
         <nav
           style={{ backgroundColor: "#f7f7f7" }}
-          className="navbar navbar-expand-lg navbar-light py-2 justify-content-center"
+          className="navbar navbar-expand-lg navbar-light py-2 w-100 d-flex justify-content-center"
         >
           <button
             className="navbar-toggler p-1 m-2"
@@ -212,21 +221,26 @@ const Navbar = () => {
 
           <div>
             <div
-              className="collapse navbar-collapse m-0"
+              className="collapse navbar-collapse m-0 w-100"
               id="navbarSupportedContent"
             >
-              {categories.map((c) => {
-                return (
-                  <Link to={"category/" + c._id} key={c._id}>
-                    <CustomNavbar
-                      title={c.ArName}
-                      supTitles={subCategories.filter(
-                        (s) => s.category._id === c._id
-                      )}
-                    />
-                  </Link>
-                );
-              })}
+              <div className="row justify-content-center">
+                {categories.map((c) => {
+                  return (
+                    <div className="col">
+                      <Link to={"category/" + c._id} key={c._id}>
+                        <CustomNavbar
+                          title={c.ArName}
+                          supTitles={subCategories.filter(
+                            (s) => s.category._id === c._id
+                          )}
+                        />
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+
               {/* <button
                 className="m-1"
                 type="submit"
@@ -248,7 +262,7 @@ const Navbar = () => {
         title={"عليك تسجيل الدخول أولاََ"}
         visible={showModal}
         onHide={() => setShowModal(false)}
-        onConfirm={handleLoginNavigate}
+        onConfirm={()=>handleLoginNavigate(navigate)}
       />
     </>
   );

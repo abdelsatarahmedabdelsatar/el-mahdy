@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { addProduct, handleLoginNavigate } from '../../helpers/api';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
@@ -8,7 +8,7 @@ import DialogModel from './../Dialog/index';
 const Cards = ({data}) => {
 
   const [showModal, setShowModal] = useState(false);
-
+  const navigate = useNavigate();
   const handleAdd = (product,dispatch) => {
 
     if(localStorage.getItem("access-token")){
@@ -53,7 +53,7 @@ const Cards = ({data}) => {
                   <img
                     className="card-img-top rounded-3 shadow-sm bg-white"
                     src={
-                      "https://cdn-icons-png.flaticon.com/512/1440/1440523.png"
+                      "./product_img.jpg"
                     }
                     alt="Card"
                     height={225}
@@ -92,7 +92,7 @@ const Cards = ({data}) => {
             </div>
           );
         })}
-              <DialogModel title={"عليك تسجيل الدخول أولاََ"} visible={showModal} onHide={() => setShowModal(false)} onConfirm={handleLoginNavigate} />
+              <DialogModel title={"عليك تسجيل الدخول أولاََ"} visible={showModal} onHide={() => setShowModal(false)} onConfirm={()=>handleLoginNavigate(navigate)} />
 
       </div>
     );

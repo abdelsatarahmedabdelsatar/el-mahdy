@@ -57,14 +57,14 @@ const Shields = () => {
   const ShowShields = () => {
     return (
       <>
-        <div className="py-4">
-          <div className="constainer row justify-content-start me-3">
+        <div className="">
+          <div className="constainer row gap-4 py-5 justify-content-center ">
             {categories.map((cat) => {
               return (
                 <Link
                   key={cat._id}
                   to={"category/" + cat._id}
-                  className="text-decoration-none card py-3 text-center d-flex align-items-center m-3 category-card"
+                  className="text-decoration-none card text-center d-flex align-items-center col-2 p-0 category-card"
                 >
                   <img
                     src={

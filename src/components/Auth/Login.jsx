@@ -4,7 +4,7 @@ import Spinner from "../../components/Spinner";
 import { Formik, Field, Form } from "formik";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ setSignIn }) => {
+const Login = ({ setSignIn,onHide }) => {
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState("");
   const navigator = useNavigate();
@@ -40,9 +40,9 @@ const Login = ({ setSignIn }) => {
         handleLogin(values.email, values.password);
       }}
     >
-      <Form className="w-75 p-5">
+      <Form className="w-100 p-0 gx-0 row justify-content-end">
         <div>
-          <label htmlFor="email">عنوان البريد الإلكتروني</label>
+          {/* <label htmlFor="email">عنوان البريد الإلكتروني</label> */}
           <Field
             name="email"
             type="email"
@@ -52,11 +52,11 @@ const Login = ({ setSignIn }) => {
           />
         </div>
         <div>
-          <label htmlFor="password">كلمة المرور</label>
+          {/* <label htmlFor="password">كلمة المرور</label> */}
           <Field
             name="password"
             type="password"
-            className="form-control shadow-none"
+            className="form-control shadow-none my-3"
             id="password"
             placeholder="ادخل كلمة المرور"
           />
@@ -66,7 +66,7 @@ const Login = ({ setSignIn }) => {
           <div
             onClick={() => setSignIn(false)}
             style={{ cursor: "pointer" }}
-            className="text-decoration-underline text-primary"
+            className="text-decoration-underline text-primary d-inline px-3"
           >
             سجل الان
           </div>
@@ -74,14 +74,23 @@ const Login = ({ setSignIn }) => {
         {error && (
           <p className="text-danger d-flex justify-content-center">{error}</p>
         )}
+          <button
+          //   onClick={handleLogin}
+          className="w-25 btn"
+          type="submit"
+          onClick={onHide}
+        >
+          إلغاء
+        </button>
         <button
           //   onClick={handleLogin}
-          className="w-50 btn btn-dark"
+          className="w-50 btn btn-warning"
           type="submit"
           disabled={loader}
         >
           {loader ? <Spinner /> : "تسجيل الدخول"}
         </button>
+      
       </Form>
     </Formik>
   );

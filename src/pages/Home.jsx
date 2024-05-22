@@ -1,4 +1,4 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchDataFromApi } from "../redux/action";
 import { Main } from "../components";
@@ -10,21 +10,20 @@ import axiosInstance from "../axiosConfig/instance";
 
 function Home() {
   const dispatch = useDispatch();
-  const [mainCategory, setMainCategory] = useState([])
+  const [mainCategory, setMainCategory] = useState([]);
 
   useEffect(() => {
     dispatch(fetchDataFromApi());
     axiosInstance
-    .get("api/v1/category", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-      },
-    })
-    .then((res) => {
-      setMainCategory(res.data.data.data.filter(c => c.isMain));
-      console.log(res.data.data.data);
-    });
-
+      .get("api/v1/category", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      })
+      .then((res) => {
+        setMainCategory(res.data.data.data.filter((c) => c.isMain));
+        console.log(res.data.data.data);
+      });
   }, []);
 
   return (
@@ -35,12 +34,14 @@ function Home() {
         <div className="wider-card">
           <Products category={"category 2"} />
         </div>
-      {mainCategory.map(m=>{
-        return <>
-                <ProductLine title={m.ArName} route={"./search/"+m.EnName} />
-        <Products category={m.EnName} />
-        </>
-      })}
+        {mainCategory.map((m) => {
+          return (
+            <>
+              <ProductLine title={m.ArName} route={"./search/" + m.EnName} />
+              <Products category={m.EnName} />
+            </>
+          );
+        })}
         <Shields />
         {/* <div className="row m-2 mb-5">
           <img
@@ -52,16 +53,16 @@ function Home() {
         <div className="position-relative">
           {" "}
           <p
-            className="bg-warning fs-6 text-center position-absolute p-2 px-3 rounded-3"
-            style={{ left: "50%", transform: "translate(-50%, -50%)" }}
+            className="bg-warning text-center position-absolute p-2 px-3 rounded-3"
+            style={{ left: "50%", transform: "translate(-50%, -50%)",fontSize:"16px" }}
           >
-            مطبوعات ورقية
+            منتجات مخفضة
           </p>
           <div className="border small-arrow wider-card border-1 border-dark rounded-2 py-2 m-5">
             <div className="row justify-content-end m-2">
               <div
                 className="col-1 d-flex align-items-center"
-                style={{ width: "120px" }}
+                style={{ width: "120px", fontSize:"12px" }}
               >
                 <Link
                   to={"./search/category 2"}

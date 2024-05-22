@@ -5,10 +5,9 @@ import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../axiosConfig/instance";
 import { addProduct, handleLoginNavigate } from "../helpers/api";
-import DialogModel from "../components/Dialog";
+import AuthDialog from "../components/Dialogs/AuthDialog";
 
 const Product = () => {
-  
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState({});
@@ -29,7 +28,7 @@ const Product = () => {
 
   const handleCartNavigate = () => {
     if (localStorage.getItem("access-token")) {
-      navigate("/cart")
+      navigate("/cart");
     } else {
       setShowModal(true);
     }
@@ -177,7 +176,10 @@ const Product = () => {
               >
                 إضافة الي السلة
               </button>
-              <button onClick={handleCartNavigate} className="btn btn-outline-warning">
+              <button
+                onClick={handleCartNavigate}
+                className="btn btn-outline-warning"
+              >
                 الذهاب الي السلة
               </button>
             </div>
@@ -215,19 +217,24 @@ const Product = () => {
       <>
         <div className="py-4 my-4">
           <div className="d-flex">
-          <Marquee
+            <Marquee
               pauseOnHover={true}
               autoFill={true}
               speed={similarProducts.length > 6 ? 50 : 0}
             >
-            {similarProducts.map((item) => {
-              return (
-                <>
-                  {item._id !== product._id && (
-                    <div dir="rtl" id={item._id} key={item._id} className="m-3">
-                      <div className="p-1 card h-100 rounded-4 product-card border-1 border-secondary position-relative">
-                        {" "}
-                        {/* <div
+              {similarProducts.map((item) => {
+                return (
+                  <>
+                    {item._id !== product._id && (
+                      <div
+                        dir="rtl"
+                        id={item._id}
+                        key={item._id}
+                        className="m-3"
+                      >
+                        <div className="p-1 card h-100 rounded-3  product-card position-relative">
+                          {" "}
+                          {/* <div
                           id="favIcon"
                           //   onClick={(eve) => {
                           //     toggleFav(eve);
@@ -244,55 +251,55 @@ const Product = () => {
                         >
                           <i className="fa-solid fa-heart"></i>
                         </div> */}
-                        <Link to={"/product/" + item._id}>
-                          <img
-                            className="card-img-top rounded-3 shadow-sm bg-white"
-                            src={
-                              "./product_img.jpg"
-                            }
-                            alt="Card"
-                            height={225}
-                          />
-                        </Link>
-                        <div className="card-body">
-                          <Link
-                            className="text-dark text-decoration-none"
-                            to={"/product/" + item._id}
-                          >
-                            <h5 style={{fontFamily:"elmahdy-bold-font"}} className="card-title text-secondary">{item.ArTitle}</h5>
+                          <Link to={"/product/" + item._id}>
+                            <img
+                              className="card-img-top rounded-3 shadow-sm bg-white"
+                              src={"./product_img.jpg"}
+                              alt="Card"
+                              height={225}
+                            />
                           </Link>
-                          <p className="card-text text-secondary">
-                            {item.ArDescription.substring(0, 11)}...
-                          </p>
-                        </div>
-                        <div className="me-3 mb-3">
-                          <p className="list-group-item  text-decoration-line-through lead text-secondary fs-6">
-                            {item?.price} ر.س
-                          </p>
-                          <p className="list-group-item  lead text-danger fs-6 fw-bold">
-                            {item?.priceAfterDiscount} ر.س
-                          </p>
-                        </div>
-                        {/* <li className="list-group-item">Dapibus ac facilisis in</li>
+                          <div className="card-body pt-2 pe-2 pb-0">
+                            <Link
+                              className="text-dark text-decoration-none"
+                              to={"/product/" + item._id}
+                            >
+                              <p className="card-title text-secondary fw-bold">
+                                {item.ArTitle}
+                              </p>
+                            </Link>
+                            <p className="card-text text-secondary">
+                              {item.ArDescription.substring(0, 11)}...
+                            </p>
+                          </div>
+                          <div className="me-2 mb-1">
+                            <p className="list-group-item text-decoration-line-through text-secondary fs-6">
+                              {item?.price} ر.س
+                            </p>
+                            <p className="list-group-item text-danger fs-6 fw-bold">
+                              {item?.priceAfterDiscount} ر.س
+                            </p>
+                          </div>
+                          {/* <li className="list-group-item">Dapibus ac facilisis in</li>
                                      <li className="list-group-item">Vestibulum at eros</li> */}
-                        <button
-                          className="cart-button"
-                          onClick={() => handleAdd(item, dispatch)}
-                        >
-                          {/* <i className="fa-solid fa-bag-shopping"></i> */}
-                          <img
-                            src="./../add.png"
-                            width={27}
-                            alt="add"
-                            srcSet=""
-                          />
-                        </button>
+                          <button
+                            className="cart-button d-flex justify-content-center align-items-center"
+                            onClick={() => handleAdd(item, dispatch)}
+                          >
+                            {/* <i className="fa-solid fa-bag-shopping"></i> */}
+                            <img
+                              src="./../add.png"
+                              width={22}
+                              alt="add"
+                              srcSet=""
+                            />
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </>
-              );
-            })}
+                    )}
+                  </>
+                );
+              })}
             </Marquee>
           </div>
         </div>
@@ -306,16 +313,14 @@ const Product = () => {
         <div className="row">
           <div className="d-none d-md-block">
             <h2 className="">عناصر ذات صلة</h2>
-          
-              {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
+
+            {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
           </div>
         </div>
-        <DialogModel
-          title={"عليك تسجيل الدخول أولاََ"}
-          visible={showModal}
-          onHide={() => setShowModal(false)}
-          onConfirm={()=>handleLoginNavigate(navigate)}
-        />
+        <AuthDialog
+        visible={showModal}
+        onHide={() => setShowModal(false)}
+      />
       </div>
     </>
   );

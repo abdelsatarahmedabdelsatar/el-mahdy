@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomNavbar from "./CustomNavbar";
 import { fetchDataFromApi } from "../../redux/action";
 import axiosInstance from "../../axiosConfig/instance";
-import DialogModel from "../Dialog";
+import AuthDialog from "../Dialogs/AuthDialog";
 import { handleLoginNavigate } from "../../helpers/api";
 import CustomDropdown from "../DropDown";
 
@@ -58,6 +58,18 @@ const Navbar = () => {
           className="navbar navbar-expand-lg p-1 border-bottom border-secondary"
           style={{ backgroundColor: "#ffcc1b" }}
         >
+          {" "}
+          {/* <button
+            className="navbar-toggler p-1 m-2"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent1"
+            aria-controls="navbarSupportedContent1"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button> */}
           <div
             className="collapse navbar-collapse justify-content-evenly"
             id="navbarSupportedContent1"
@@ -107,7 +119,6 @@ const Navbar = () => {
             <form
               dir="rtl"
               className="example rounded-2"
-              action="/action_page.php"
             >
               <button className="rounded-start-3">
                 <Link to={"/search/" + searchKey}>
@@ -227,7 +238,7 @@ const Navbar = () => {
               <div className="row justify-content-center">
                 {categories.map((c) => {
                   return (
-                    <div className="col">
+                    <div className="col m-0 p-0">
                       <Link to={"category/" + c._id} key={c._id}>
                         <CustomNavbar
                           title={c.ArName}
@@ -258,11 +269,9 @@ const Navbar = () => {
           </div>
         </nav>
       </div>
-      <DialogModel
-        title={"عليك تسجيل الدخول أولاََ"}
+      <AuthDialog
         visible={showModal}
         onHide={() => setShowModal(false)}
-        onConfirm={()=>handleLoginNavigate(navigate)}
       />
     </>
   );

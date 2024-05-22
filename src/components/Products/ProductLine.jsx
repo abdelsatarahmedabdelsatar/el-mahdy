@@ -4,17 +4,19 @@ import { Link } from "react-router-dom";
 const ProductLine = ({ title, route }) => {
   return (
     <div
-      className="mb-2 py-3 gx-0 m-3 d-flex justify-content-around row"
-      style={{ fontSize: "13px" }}
+      className="py-4  gx-0  justify-content-center gap-3 px-4 me-2 row"
+      style={{ fontSize: "12.5px"}}
     >
-      <div className="bg-warning p-2 rounded-3 shadow-sm col-1 text-center">{title}</div>
-      <div  className="col-8">
+      <div className="bg-warning rounded-3 shadow-sm  col-1 d-flex justify-content-center align-items-center text-center">
+        {title}
+      </div>
+      <div className="col-md-9 col-8">
         <hr />
       </div>
-      <div className="col-1 d-flex align-items-center">
+      <div className="col-md-1 col-2 d-flex align-items-center text-center me-2">
         <Link
           to={route}
-          className="py-1 px-2 border border-1 border-dark text-decoration-none text-dark rounded-4"
+          className="py-1 px-3 border border-1 border-dark text-decoration-none text-dark rounded-4"
         >
           عرض الكل
         </Link>

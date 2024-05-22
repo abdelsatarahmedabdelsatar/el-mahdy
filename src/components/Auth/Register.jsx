@@ -3,7 +3,7 @@ import axiosInstance from "../../axiosConfig/instance";
 import Spinner from "../../components/Spinner";
 import { Formik, Field, Form } from "formik";
 
-const Register = ({ setSignIn }) => {
+const Register = ({ setSignIn, onHide }) => {
   const [loader, setLoader] = useState(false);
 
   const handleRegister = (obj) => {
@@ -55,10 +55,10 @@ const Register = ({ setSignIn }) => {
         handleRegister(values);
       }}
     >
-      <Form className="px-5 mt-2 gx-0 row justify-content-around">
+      <Form className="row justify-content-end p-2">
         <>
-          <div className="form col-md-5">
-            <label htmlFor="fullName">الاسم الكامل</label>
+          <div className="form col-md-6">
+            {/* <label htmlFor="fullName">الاسم الكامل</label> */}
             <Field
               type="text"
               className="form-control"
@@ -67,8 +67,8 @@ const Register = ({ setSignIn }) => {
               placeholder="أدخل أسمك"
             />
           </div>
-          <div className="form col-md-5">
-            <label htmlFor="userName">إسم المستخدم</label>
+          <div className="form col-md-6">
+            {/* <label htmlFor="userName">إسم المستخدم</label> */}
             <Field
               type="text"
               className="form-control"
@@ -78,8 +78,8 @@ const Register = ({ setSignIn }) => {
             />
           </div>
 
-          <div className="form  col-md-5">
-            <label htmlFor="email">عنوان البريد الإلكتروني</label>
+          <div className="form  col-md-6 mt-2">
+            {/* <label htmlFor="email">عنوان البريد الإلكتروني</label> */}
             <Field
               type="email"
               className="form-control"
@@ -88,8 +88,8 @@ const Register = ({ setSignIn }) => {
               placeholder="name@example.com"
             />
           </div>
-          <div className="form   col-md-5">
-            <label htmlFor="phone">رقم الجوال</label>
+          <div className="form   col-md-6 mt-2">
+            {/* <label htmlFor="phone">رقم الجوال</label> */}
             <Field
               type="text"
               className="form-control"
@@ -98,8 +98,8 @@ const Register = ({ setSignIn }) => {
               placeholder="ادخل رقم الجوال"
             />
           </div>
-          <div className="form col-md-11">
-            <label htmlFor="address">العنوان</label>
+          <div className="form col-md-12 my-2">
+            {/* <label htmlFor="address">العنوان</label> */}
             <Field
               type="text"
               className="form-control"
@@ -108,22 +108,25 @@ const Register = ({ setSignIn }) => {
               placeholder="أدخل العنوان"
             />
           </div>
-          <div className="form col-md-5">
-            <label htmlFor="pass">كلمة المرور</label>
+          <div className="form col-md-6">
+            {/* <label htmlFor="pass">كلمة المرور</label> */}
             <Field
               type="password"
               name="pass"
               className="form-control"
               id="pass"
+              placeholder="كلمة المرور"
+
             />
           </div>
-          <div className="form col-md-5">
-            <label htmlFor="confirmPass">تأكيد كلمة المرور</label>
+          <div className="form col-md-6">
+            {/* <label htmlFor="confirmPass">تأكيد كلمة المرور</label> */}
             <Field
               type="password"
               className="form-control"
               name="confirmPass"
               id="confirmPass"
+              placeholder="تأكيد كلمة المرور"
             />
           </div>
           <div className="mt-3 me-4">
@@ -132,15 +135,23 @@ const Register = ({ setSignIn }) => {
               <div
                 onClick={() => setSignIn(true)}
                 style={{ cursor: "pointer" }}
-                className="text-decoration-underline text-primary"
+                className="text-decoration-underline text-primary  d-inline px-3"
               >
                 تسجيل الدخول
               </div>{" "}
             </p>
           </div>
           <button
+            //   onClick={handleLogin}
+            className="w-25 btn "
+            type="submit"
+            onClick={onHide}
+          >
+            إلغاء
+          </button>
+          <button
             disabled={loader}
-            className="col-11 btn btn-dark "
+            className="col-11 btn btn-dark w-25 f-left"
             type="submit"
           >
             {loader ? <Spinner /> : "سجل"}

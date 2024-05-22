@@ -4,15 +4,15 @@ import Spinner from "../components/Spinner";
 import { Formik, Field, Form } from "formik";
 import ImageUpload from "../components/ImageUpload";
 import { toast } from "sonner";
-import DialogModel from "../components/Dialog";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import AuthDialog from "../components/Dialogs/AuthDialog";
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
   const [profileImage, setProfileImage] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [showModel, setShowModel] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     fetchDataFromAPI().then((res) => {
       setProfile(res.data.data);
@@ -136,7 +136,7 @@ const Profile = () => {
                 
               </li>
             </ul> */}
-              <div className="btn mb-4" onClick={() => setShowModel(true)}>
+              <div className="btn mb-4" onClick={() => setShowModal(true)}>
                 <i className="fa-solid fa-right-from-bracket"></i> logot
               </div>
             </div>
@@ -220,11 +220,9 @@ const Profile = () => {
           <Loading />
         </div>
       )}
-      <DialogModel
-        title={"هل تريد تسجيل الخروج ؟"}
-        visible={showModel}
-        onHide={() => setShowModel(false)}
-        onConfirm={handleLogout}
+      <AuthDialog
+        visible={showModal}
+        onHide={() => setShowModal(false)}
       />
     </>
   );

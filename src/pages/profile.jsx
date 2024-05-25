@@ -6,7 +6,7 @@ import ImageUpload from "../components/ImageUpload";
 import { toast } from "sonner";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import AuthDialog from "../components/Dialogs/AuthDialog";
+import DialogModel from "../components/Dialogs";
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
@@ -220,8 +220,14 @@ const Profile = () => {
           <Loading />
         </div>
       )}
-      <AuthDialog
+      {/* <AuthDialog
         visible={showModal}
+        onHide={() => setShowModal(false)}
+      /> */}
+      <DialogModel
+        title="هل تريد تسجيل الخروج ؟"
+        visible={showModal}
+        onConfirm={handleLogout}
         onHide={() => setShowModal(false)}
       />
     </>

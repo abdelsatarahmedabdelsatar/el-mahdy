@@ -35,7 +35,7 @@ export default class CustomDropdown extends React.Component {
   render() {
     return (
       <Dropdown
-        className="d-inline-block m-0"
+        className="d-inline-block mt-1"
         onMouseOver={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         isOpen={this.state.dropdownOpen}

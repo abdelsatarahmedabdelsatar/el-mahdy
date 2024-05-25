@@ -36,7 +36,7 @@ export default class CustomNavbar extends React.Component {
   render() {
     return (
       <Dropdown
-        className="d-inline-block px-2 m-0"
+        className="d-inline-block px-2 m-0 pt-2"
         onMouseOver={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         isOpen={this.state.dropdownOpen}
@@ -45,13 +45,13 @@ export default class CustomNavbar extends React.Component {
         <DropdownToggle
           color=""
           caret={this.props.supTitles.length > 0 ? true : false}
-          className="px-2 shadow-none border-0 navigte-route"
+          className="px-2 shadow-none border-0 mt-0 pt-0 navigte-route"
           style={{ fontSize: "14px" }}
         >
           {this.props.title}
         </DropdownToggle>
         {this.props.supTitles.length > 0 && (
-          <DropdownMenu className="p-0 m-0 rounded-0 ">
+          <DropdownMenu className="rounded-0 p-0">
             {this.props.supTitles.map((t, i) => {
               return (
                 <Link key={i} to={"sub-category/" + t._id} className="nav-link">

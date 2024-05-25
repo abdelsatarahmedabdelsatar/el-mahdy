@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomNavbar from "./CustomNavbar";
 import { fetchDataFromApi } from "../../redux/action";
 import axiosInstance from "../../axiosConfig/instance";
-import AuthDialog from "../Dialogs/AuthDialog";
+// import AuthDialog from "../Dialogs/AuthDialog";
 import { handleLoginNavigate } from "../../helpers/api";
 import CustomDropdown from "../DropDown";
+import DialogModel from "../Dialogs";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button> */}
           <div
-            className="collapse navbar-collapse justify-content-evenly"
+            className="navbar-collapse text-center d-flex justify-content-evenly"
             id="navbarSupportedContent1"
             style={{ fontSize: "0.85rem" }}
           >
@@ -116,10 +117,7 @@ const Navbar = () => {
             />
             <button>&#xf002;</button>
             </span> */}
-            <form
-              dir="rtl"
-              className="example rounded-2"
-            >
+            <form dir="rtl" className="example rounded-2">
               <button className="rounded-start-3">
                 <Link to={"/search/" + searchKey}>
                   <i className="fa fa-search text-secondary"></i>
@@ -136,11 +134,12 @@ const Navbar = () => {
             </form>
             <ul className="navbar-nav p-0">
               <li className="nav-item">
-                <div className=" d-flex align-items-center justify-content-end">
+                <div className="">
                   <div className="row">
-                    <div className="col-12 d-flex align-items-center">
+                    <div className="col-12 align-items-center m-0 p-0 d-none d-md-flex">
                       <img
                         src={lang == "AR" ? "./langs/ar.png" : "./langs/en.png"}
+                        className="mt-1"
                         width={20}
                         alt=""
                         srcSet=""
@@ -161,40 +160,37 @@ const Navbar = () => {
                           />
                           <NavLink
                             to="/profile"
-                            className=" nav-link px-0 ms-5"
+                            className=" nav-link px-0 mx-2"
                           >
                             أدخل حساب
                           </NavLink>
                         </>
                       ) : (
-                        <NavLink to="/login" className=" nav-link px-5">
+                        <NavLink to="/login" className=" nav-link mx-2">
                           تسجيل الدخول
                         </NavLink>
                       )}
                     </div>
                   </div>
-                  {/* <div
-                    onClick={handleCart}
-                    to="/cart"
-                    className=" nav-link p-0 m-0 px-4"
-                    style={{ cursor: "pointer" }}
-                  >
-                    مشتريـاتـك
-                  </div> */}
-
-                  {/* <NavLink to="/register" className={activateRouteIcon}><i className="fa fa-user-plus "></i></NavLink> */}
-                  {
+                </div>
+              </li>
+            </ul>
+            <div className="">
+                  <div className="row">
+                    <div className="col-12 align-items-center m-0 p-0 d-none d-md-flex">
+                    
                     <div
                       onClick={handleCart}
                       style={{ cursor: "pointer" }}
                       to="/cart"
                       className="nav-link"
                     >
-                      <div className="position-relative ">
+                                          <div className="position-relative">
                         <img src="./../add.png" width={33} alt="" srcSet="" />
                         <span
                           className="position-absolute translate-middle border border-1 border-dark rounded-circle bg-light text-dark d-flex align-items-center justify-content-center"
                           style={{
+                            zIndex:"200",
                             fontSize: "12px",
                             top: "7px",
                             left: "64px",
@@ -208,10 +204,10 @@ const Navbar = () => {
                         السلة
                       </div>
                     </div>
-                  }
+                  
+                    </div>
+                  </div>
                 </div>
-              </li>
-            </ul>
           </div>
         </nav>
         <nav
@@ -229,7 +225,6 @@ const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-
           <div>
             <div
               className="collapse navbar-collapse m-0 w-100"
@@ -269,9 +264,15 @@ const Navbar = () => {
           </div>
         </nav>
       </div>
-      <AuthDialog
+      {/* <AuthDialog
         visible={showModal}
         onHide={() => setShowModal(false)}
+      /> */}
+      <DialogModel
+        visible={showModal}
+        onHide={() => setShowModal(false)}
+        onConfirm={handleLoginNavigate}
+        title="عليك تسجيل الدخول أولاًً "
       />
     </>
   );

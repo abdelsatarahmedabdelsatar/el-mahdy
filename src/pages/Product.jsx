@@ -5,7 +5,8 @@ import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../axiosConfig/instance";
 import { addProduct, handleLoginNavigate } from "../helpers/api";
-import AuthDialog from "../components/Dialogs/AuthDialog";
+// import AuthDialog from "../components/Dialogs/AuthDialog";
+import DialogModel from "../components/Dialogs";
 
 const Product = () => {
   const navigate = useNavigate();
@@ -317,10 +318,16 @@ const Product = () => {
             {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
           </div>
         </div>
-        <AuthDialog
+        {/* <AuthDialog
         visible={showModal}
         onHide={() => setShowModal(false)}
-      />
+      /> */}
+        <DialogModel
+          visible={showModal}
+          onHide={() => setShowModal(false)}
+          onConfirm={handleLoginNavigate}
+          title="عليك تسجيل الدخول أولاًً "
+        />
       </div>
     </>
   );

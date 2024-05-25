@@ -1,13 +1,13 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { addProduct, handleLoginNavigate } from "../../helpers/api";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import AuthDialog from "../Dialogs/AuthDialog";
+// import AuthDialog from "../Dialogs/AuthDialog";
+import DialogModel from "../Dialogs";
 
 const Cards = ({ data }) => {
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
   const handleAdd = (product, dispatch) => {
     if (localStorage.getItem("access-token")) {
       addProduct(product, dispatch);
@@ -18,16 +18,16 @@ const Cards = ({ data }) => {
 
   const dispatch = useDispatch();
   return (
-    <div className="row justify-content-start">
+    <div className="row justify-content-around">
       {data.map((product) => {
         return (
           <div
             id={product._id}
             key={product._id}
+            style={{width:"250px"}}
             className="col-lg-3 col-md-4 col-sm-6 col-xs-8 col-12 mb-4"
           >
-            <div className="p-1 card h-100 rounded-3  product-card  position-relative">
-              {" "}
+            <div className="p-1 card h-100 rounded-3  position-relative">
               <div
                 id="favIcon"
                 //   onClick={(eve) => {
@@ -67,7 +67,7 @@ const Cards = ({ data }) => {
                 </p>
               </div>
               <div className="me-2 mb-1">
-                <p className="list-group-item text-decoration-line-through fw-bold text-muted fs-6">
+                <p className="list-group-item text-decoration-line-through text-secondary fs-6">
                   {+product?.price} ر.س
                 </p>
                 <p className="list-group-item text-danger fs-6 fw-bold">
@@ -87,9 +87,15 @@ const Cards = ({ data }) => {
           </div>
         );
       })}
-      <AuthDialog
+      {/* <AuthDialog
         visible={showModal}
         onHide={() => setShowModal(false)}
+      /> */}
+      <DialogModel
+        visible={showModal}
+        onHide={() => setShowModal(false)}
+        onConfirm={handleLoginNavigate}
+        title="عليك تسجيل الدخول أولاًً "
       />
     </div>
   );

@@ -28,6 +28,7 @@
 .product-card {
   box-shadow: 0px 0px 3px 1px #c6c6c6;
   border: 0.5px solid #9b9b9b;
+  width: 170px;
 }
 .cart-button:hover {
   background-color: #d2d2d2;
@@ -72,16 +73,13 @@ p {
   text-align: center;
 }
 
-form.example {
-  width: 570px;
-}
 
 form.example input[type="text"] {
   padding: 10px;
   font-size: 12.3px;
   border: 1px solid rgb(148, 148, 148);
   float: left;
-  width: 94%;
+  width: 37vw;
   background: #f9f9f9;
   height: 30px;
 }
@@ -96,7 +94,7 @@ form.example input[type="text"]::placeholder {
 
 form.example button {
   float: left;
-  width: 6%;
+  width: 33px;
   background: #d8d8d8;
   color: rgb(0, 0, 0);
   font-size: 18px;
@@ -181,57 +179,153 @@ form.example::after {
 /* .p-carousel-item-start::after{
   scale: 0.8;
 } */
+
+.wider-card .p-carousel-items-container {
+  margin-left: -23px !important;
+  margin-bottom: 20px;
+}
+
 .wider-card .p-carousel-item-start + .p-carousel-item-active {
-  transform: scale(0.83);
+  transform: scaleY(0.8);
+  transform: scaleX(1);
 }
 .wider-card .p-carousel-item-active:has(+ .p-carousel-item-end) {
-  transform: scale(0.83);
+  transform: scaleY(0.8);
+  transform: scaleX(1);
 }
-.wider-card .p-carousel-item-start{
-  transform: scale(0.7);
-  margin-right:-26.2px;
-  margin-left: 40px;
+.wider-card .p-carousel-item-start {
+  margin-right: -13.2px;
+  scale: 0.75;
 }
 .wider-card .p-carousel-item-end {
-  transform: scale(0.7);
-  margin-left:-26.2px;
+  margin-left: -13.2px;
+  scale: 0.75;
+
+  /* margin-left:-26.2px; */
+}
+.wider-card
+  .p-carousel-item-start
+  + .p-carousel-item-active
+  + .p-carousel-item-active {
+  transform: scale(1.125);
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .navigte-route::after {
   margin-right: 7px;
-  font-size: 15px;
+  font-size: 14px;
 }
 
-
-@media screen and (min-width: 1180px) {
+/* @media screen and (min-width: 1200px) {
   .small-arrow .p-carousel-next {
-    position: absolute;
-    left: 59.4%;
-    z-index: 200;
+   
+    left: -37.5%;
   }
   .small-arrow .p-carousel-prev {
-    position: absolute;
-    left: 40.2%;
-    z-index: 200;
+   
+    left: 39%;
   }
-}
+} */
 
-@media screen and (max-width: 880px) {
-
-  .wider-card .p-carousel-item-start + .p-carousel-item-active {
-    transform: scale(1);
+@media screen and (max-width: 1200px) {
+  /* .wider-card .p-carousel-item-start + .p-carousel-item-active {
+    transform: scaleY(1);
+  transform: scaleX(1);
   }
   .wider-card .p-carousel-item-active:has(+ .p-carousel-item-end) {
     transform: scale(1);
   }
-  .wider-card .p-carousel-item-start{
-    transform: scale(1);
-    margin-right:0px;
+  .wider-card .p-carousel-item-start {
+   scale: 1;
+    margin-right: 0px;
     margin-left: 0px;
   }
   .wider-card .p-carousel-item-end {
-    transform: scale(1);
-    margin-left:0px;
+   scale: 1;
+    margin-left: 0px;
   }
 
+  .wider-card
+    .p-carousel-item-start
+    + .p-carousel-item-active
+    + .p-carousel-item-active {
+    transform: scale(1);
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .wider-card .p-carousel-items-container {
+    margin-left: 0px;
+    margin-bottom: 20px;
+  } */
+
+  .wider-card .p-carousel-items-container {
+    margin-left: 0px !important;
+    margin-bottom: 20px;
+  }
+
+  .wider-card .p-carousel-item-start + .p-carousel-item-active {
+    transform: scaleY(1);
+    transform: scaleX(1);
+  }
+  .wider-card .p-carousel-item-active:has(+ .p-carousel-item-end) {
+    transform: scaleY(1);
+    transform: scaleX(1);
+  }
+  .wider-card .p-carousel-item-start {
+    margin-right: 0px;
+    scale: 1;
+  }
+  .wider-card .p-carousel-item-end {
+    margin-left: 0px;
+    scale: 1;
+
+    /* margin-left:-26.2px; */
+  }
+  .wider-card
+    .p-carousel-item-start
+    + .p-carousel-item-active
+    + .p-carousel-item-active {
+    transform: scale(1);
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+/* @media screen and  (min-device-width:992px) and (max-device-width: 1199px)  {
+  .prd-line {
+    margin-right: 38px;
+    margin-left: 35px;
+  }
+}
+
+@media screen and  (min-device-width: 1200px) and (max-device-width: 1399px)  {
+  .prd-line {
+    margin-right: -15px;
+    margin-left: 15px;
+  }
+} */
+
+
+@media screen and  (max-width: 1399px) {
+  .prd-line {
+    margin-left: -20px;
+  }
+} 
+@media screen and  (min-width: 1399px) {
+  .prd-line {
+    margin-left: 8px;
+  }
+} 
+
+.line {
+  width: 75%;
+}
+.st-width{
+  width: 95px;
+}
+@media screen and  (max-width: 1000px) {
+  .line {
+    display: none;
+  }
 }

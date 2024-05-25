@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { addProduct, handleLoginNavigate } from "../../helpers/api";
 import { useDispatch } from "react-redux";
 import { Carousel } from "primereact/carousel";
-import AuthDialog from "../Dialogs/AuthDialog";
+// import AuthDialog from "../Dialogs/AuthDialog";
+import DialogModel from "../Dialogs";
 
 const CaroselCards = ({ data }) => {
-  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const handleAdd = (product, dispatch) => {
     if (localStorage.getItem("access-token")) {
@@ -27,11 +27,6 @@ const CaroselCards = ({ data }) => {
       numScroll: 4,
     },
     {
-      breakpoint: "1000px",
-      numVisible: 3,
-      numScroll: 3,
-    },
-    {
       breakpoint: "768px",
       numVisible: 2,
       numScroll: 2,
@@ -46,7 +41,7 @@ const CaroselCards = ({ data }) => {
   const productTemplate = (item) => {
     return (
       <div dir="rtl" id={item._id} key={item._id} className="m-3">
-        <div className="p-1 card h-100 rounded-4 product-card  position-relative">
+        <div className="p-1 card h-100 rounded-3 product-card  position-relative">
           {" "}
           <div
             id="favIcon"
@@ -207,7 +202,13 @@ const CaroselCards = ({ data }) => {
         </div>
       )}
 
-      <AuthDialog visible={showModal} onHide={() => setShowModal(false)} />
+      {/* <AuthDialog visible={showModal} onHide={() => setShowModal(false)} /> */}
+      <DialogModel
+        visible={showModal}
+        onHide={() => setShowModal(false)}
+        onConfirm={handleLoginNavigate}
+        title="عليك تسجيل الدخول أولاًً "
+      />
     </>
   );
 };

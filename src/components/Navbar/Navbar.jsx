@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomNavbar from "./CustomNavbar";
 import { fetchDataFromApi } from "../../redux/action";
 import axiosInstance from "../../axiosConfig/instance";
-// import AuthDialog from "../Dialogs/AuthDialog";
 import { handleLoginNavigate } from "../../helpers/api";
 import CustomDropdown from "../DropDown";
 import DialogModel from "../Dialogs";
@@ -12,7 +11,6 @@ import DialogModel from "../Dialogs";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [categories, setCategories] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [lang, setLang] = useState("AR");
@@ -176,38 +174,36 @@ const Navbar = () => {
               </li>
             </ul>
             <div className="">
-                  <div className="row">
-                    <div className="col-12 align-items-center m-0 p-0 d-none d-md-flex">
-                    
-                    <div
-                      onClick={handleCart}
-                      style={{ cursor: "pointer" }}
-                      to="/cart"
-                      className="nav-link"
-                    >
-                                          <div className="position-relative">
-                        <img src="./../add.png" width={33} alt="" srcSet="" />
-                        <span
-                          className="position-absolute translate-middle border border-1 border-dark rounded-circle bg-light text-dark d-flex align-items-center justify-content-center"
-                          style={{
-                            zIndex:"200",
-                            fontSize: "12px",
-                            top: "7px",
-                            left: "64px",
-                            width: "17px",
-                            height: "17px",
-                            fontWeight: "lighter",
-                          }}
-                        >
-                          {state.length}
-                        </span>
-                        السلة
-                      </div>
-                    </div>
-                  
+              <div className="row">
+                <div className="col-12 align-items-center m-0 p-0 d-none d-md-flex">
+                  <div
+                    onClick={handleCart}
+                    style={{ cursor: "pointer" }}
+                    to="/cart"
+                    className="nav-link"
+                  >
+                    <div className="position-relative">
+                      <img src="./../add.png" width={33} alt="" srcSet="" />
+                      <span
+                        className="position-absolute translate-middle border border-1 border-dark rounded-circle bg-light text-dark d-flex align-items-center justify-content-center"
+                        style={{
+                          zIndex: "200",
+                          fontSize: "12px",
+                          top: "7px",
+                          left: "64px",
+                          width: "17px",
+                          height: "17px",
+                          fontWeight: "lighter",
+                        }}
+                      >
+                        {state.length}
+                      </span>
+                      السلة
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
           </div>
         </nav>
         <nav
@@ -233,7 +229,7 @@ const Navbar = () => {
               <div className="row justify-content-center">
                 {categories.map((c) => {
                   return (
-                    <div className="col m-0 p-0">
+                    <div className="col m-0 p-0" key={c._id}>
                       <Link to={"category/" + c._id} key={c._id}>
                         <CustomNavbar
                           title={c.ArName}
@@ -263,17 +259,18 @@ const Navbar = () => {
             </div>
           </div>
         </nav>
+       
       </div>
       {/* <AuthDialog
         visible={showModal}
         onHide={() => setShowModal(false)}
       /> */}
-      <DialogModel
-        visible={showModal}
-        onHide={() => setShowModal(false)}
-        onConfirm={handleLoginNavigate}
-        title="عليك تسجيل الدخول أولاًً "
-      />
+       <DialogModel
+          visible={showModal}
+          onHide={() => setShowModal(false)}
+          onConfirm={() => {handleLoginNavigate(navigate);setShowModal(false)}}
+          title="عليك تسجيل الدخول أولاًً "
+        />
     </>
   );
 };

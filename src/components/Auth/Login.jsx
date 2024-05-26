@@ -40,7 +40,7 @@ const Login = ({ setSignIn,onHide }) => {
         handleLogin(values.email, values.password);
       }}
     >
-      <Form className="w-100 p-0 gx-0 row justify-content-end">
+      <Form className="w-75 p-0 gx-0 row justify-content-end">
         <div>
           {/* <label htmlFor="email">عنوان البريد الإلكتروني</label> */}
           <Field
@@ -61,7 +61,7 @@ const Login = ({ setSignIn,onHide }) => {
             placeholder="ادخل كلمة المرور"
           />
         </div>
-        <div className="my-3">
+        <div className="my-2">
           جديد هنا؟
           <div
             onClick={() => setSignIn(false)}
@@ -74,17 +74,10 @@ const Login = ({ setSignIn,onHide }) => {
         {error && (
           <p className="text-danger d-flex justify-content-center">{error}</p>
         )}
-          <button
-          //   onClick={handleLogin}
-          className="w-25 btn"
-          type="submit"
-          onClick={onHide}
-        >
-          إلغاء
-        </button>
+         
         <button
           //   onClick={handleLogin}
-          className="w-50 btn btn-warning"
+          className="w-50 btn btn-dark"
           type="submit"
           disabled={loader}
         >

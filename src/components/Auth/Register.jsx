@@ -55,7 +55,7 @@ const Register = ({ setSignIn, onHide }) => {
         handleRegister(values);
       }}
     >
-      <Form className="row justify-content-end p-2">
+      <Form className="row justify-content-center p-4">
         <>
           <div className="form col-md-6">
             {/* <label htmlFor="fullName">الاسم الكامل</label> */}
@@ -78,7 +78,7 @@ const Register = ({ setSignIn, onHide }) => {
             />
           </div>
 
-          <div className="form  col-md-6 mt-2">
+          <div className="form  col-md-6 mt-4">
             {/* <label htmlFor="email">عنوان البريد الإلكتروني</label> */}
             <Field
               type="email"
@@ -88,7 +88,7 @@ const Register = ({ setSignIn, onHide }) => {
               placeholder="name@example.com"
             />
           </div>
-          <div className="form   col-md-6 mt-2">
+          <div className="form   col-md-6 mt-4">
             {/* <label htmlFor="phone">رقم الجوال</label> */}
             <Field
               type="text"
@@ -98,7 +98,7 @@ const Register = ({ setSignIn, onHide }) => {
               placeholder="ادخل رقم الجوال"
             />
           </div>
-          <div className="form col-md-12 my-2">
+          <div className="form col-md-12 my-4">
             {/* <label htmlFor="address">العنوان</label> */}
             <Field
               type="text"
@@ -116,9 +116,9 @@ const Register = ({ setSignIn, onHide }) => {
               className="form-control"
               id="pass"
               placeholder="كلمة المرور"
-
             />
           </div>
+
           <div className="form col-md-6">
             {/* <label htmlFor="confirmPass">تأكيد كلمة المرور</label> */}
             <Field
@@ -129,29 +129,20 @@ const Register = ({ setSignIn, onHide }) => {
               placeholder="تأكيد كلمة المرور"
             />
           </div>
-          <div className="mt-3 me-4">
-            <p>
-              هل لديك حساب بالفعل؟{" "}
-              <div
-                onClick={() => setSignIn(true)}
-                style={{ cursor: "pointer" }}
-                className="text-decoration-underline text-primary  d-inline px-3"
-              >
-                تسجيل الدخول
-              </div>{" "}
-            </p>
+          <div className="my-4">
+            هل لديك حساب بالفعل؟{" "}
+            <div
+              onClick={() => setSignIn(true)}
+              style={{ cursor: "pointer" }}
+              className="text-decoration-underline text-primary  d-inline-block px-3"
+            >
+              تسجيل الدخول
+            </div>
           </div>
-          <button
-            //   onClick={handleLogin}
-            className="w-25 btn "
-            type="submit"
-            onClick={onHide}
-          >
-            إلغاء
-          </button>
+
           <button
             disabled={loader}
-            className="col-11 btn btn-dark w-25 f-left"
+            className="col-5 btn btn-dark"
             type="submit"
           >
             {loader ? <Spinner /> : "سجل"}

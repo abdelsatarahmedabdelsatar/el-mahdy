@@ -117,6 +117,7 @@ form.example::after {
   display: flex;
   align-items: center;
   padding-bottom: 9%;
+  background-color: #ffcc1b;
 }
 .navigte-route {
   color: #515151;
@@ -158,7 +159,7 @@ form.example::after {
 .category-card {
   border: 1px solid #e0e0e000;
   background-color: #f3f3f3;
-  box-shadow: 0px 2px 3px 1px rgb(219, 219, 219);
+  box-shadow: 0px 4px 4px 0.3px rgb(206, 206, 206);
 }
 @media screen and (max-width: 900px) {
   .category-card {
@@ -306,15 +307,19 @@ form.example::after {
   }
 } */
 
+.prd-line {
+  margin-right: -3px;
+}
 
 @media screen and  (max-width: 1399px) {
   .prd-line {
-    margin-left: -20px;
+    margin-left: -30px;
   }
 } 
 @media screen and  (min-width: 1399px) {
   .prd-line {
-    margin-left: 8px;
+    margin-left: -10px;
+    margin-right: 15px;
   }
 } 
 

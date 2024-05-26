@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const ProductLine = ({ title, route }) => {
   return (
-    <div className="prd-line position-relative" style={{marginRight:"-3px"}}>
+    <div className="prd-line position-relative">
       <div className="line" style={{position:"absolute",left:"161px",top:"23px"}}>
           <hr />
         </div>

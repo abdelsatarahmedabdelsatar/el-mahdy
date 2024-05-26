@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addProduct, handleLoginNavigate } from "../../helpers/api";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import DialogModel from "../Dialogs";
 
 const Cards = ({ data }) => {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const handleAdd = (product, dispatch) => {
     if (localStorage.getItem("access-token")) {
@@ -94,7 +95,7 @@ const Cards = ({ data }) => {
       <DialogModel
         visible={showModal}
         onHide={() => setShowModal(false)}
-        onConfirm={handleLoginNavigate}
+        onConfirm={()=>handleLoginNavigate(navigate)}
         title="عليك تسجيل الدخول أولاًً "
       />
     </div>

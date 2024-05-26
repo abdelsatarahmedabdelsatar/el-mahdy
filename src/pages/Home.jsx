@@ -59,7 +59,7 @@ function Home() {
             منتجات مخفضة
           </p>
           <div className="border small-arrow wider-card border-1 border-dark rounded-2 py-2 ">
-            <div className="row justify-content-end m-2">
+            <div className="row justify-content-end m-3">
               <div
                 className="col-1 d-flex align-items-center"
                 style={{ width: "120px", fontSize:"12px" }}

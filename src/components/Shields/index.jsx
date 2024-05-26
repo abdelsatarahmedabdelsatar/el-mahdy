@@ -58,13 +58,13 @@ const Shields = () => {
     return (
       <>
         <div className="">
-          <div className="constainer row gap-4 py-5 justify-content-center ">
+          <div className="constainer row gap-5 py-5 justify-content-center mx-1">
             {categories.map((cat) => {
               return (
                 <Link
                   key={cat._id}
                   to={"category/" + cat._id}
-                  className="text-decoration-none card text-center d-flex align-items-center col-2 p-0 category-card"
+                  className="text-decoration-none card text-center d-flex align-items-center px-3 category-card" style={{width:"120px",height:"150px"}} 
                 >
                   <img
                     src={
@@ -73,9 +73,9 @@ const Shields = () => {
                     alt="cat image"
                     width={40}
                     srcSet=""
-                    className="mt-3"
+                    className="mt-4"
                   />
-                  <p className="pt-3">{cat.ArName}</p>
+                  <p className="pt-4 fs-6">{cat.ArName}</p>
                 </Link>
               );
             })}
@@ -86,16 +86,16 @@ const Shields = () => {
   };
   return (
     <>
-      <div className="container-fluid ">
+      <div className="container-fluid">
         <div className="row justify-content-center">
           {loading ? (
             <Loading />
           ) : (
-            <div className="position-relative py-3">
-              <hr />
+            <div className="position-relative py-3 mt-4 text-center m-auto">
+              <hr style={{width:"90%",margin:"auto"}}/>
               <p
                 className="position-absolute bg-white border border-dark p-2 fs-6 rounded-2"
-                style={{ top: "9px", left: "45%" }}
+                style={{ top: "-6px",left:"0",right:"0",margin:"auto",width:"130px"}}
               >
                 تسويق بالأرقام
               </p>

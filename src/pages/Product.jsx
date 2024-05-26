@@ -325,7 +325,7 @@ const Product = () => {
         <DialogModel
           visible={showModal}
           onHide={() => setShowModal(false)}
-          onConfirm={handleLoginNavigate}
+          onConfirm={()=>handleLoginNavigate(navigate)}
           title="عليك تسجيل الدخول أولاًً "
         />
       </div>

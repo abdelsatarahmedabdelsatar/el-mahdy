@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { addProduct, handleLoginNavigate } from "../../helpers/api";
+import { addProduct, handleAdd, handleLoginNavigate } from "../../helpers/api";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 // import AuthDialog from "../Dialogs/AuthDialog";
@@ -9,13 +9,7 @@ import DialogModel from "../Dialogs";
 const Cards = ({ data }) => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const handleAdd = (product, dispatch) => {
-    if (localStorage.getItem("access-token")) {
-      addProduct(product, dispatch);
-    } else {
-      setShowModal(true);
-    }
-  };
+
 
   const dispatch = useDispatch();
   return (
@@ -44,7 +38,7 @@ const Cards = ({ data }) => {
                   cursor: "pointer",
                 }}
               >
-                <i class="fa-regular fa-heart text-secondary"></i>
+                <i className="fa-regular fa-heart text-secondary"></i>
               </div>
               <Link to={"/product/" + product._id}>
                 <img
@@ -79,7 +73,7 @@ const Cards = ({ data }) => {
                   <li className="list-group-item">Vestibulum at eros</li> */}
               <button
                 className="cart-button d-flex justify-content-center align-items-center"
-                onClick={() => handleAdd(product, dispatch)}
+                onClick={() => handleAdd(product, dispatch,setShowModal)}
               >
                 {/* <i className="fa-solid fa-bag-shopping"></i> */}
                 <img src="./../add.png" width={22} alt="add" srcSet="" />

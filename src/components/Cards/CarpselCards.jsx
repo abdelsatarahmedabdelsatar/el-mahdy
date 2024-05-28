@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { addProduct, handleLoginNavigate } from "../../helpers/api";
+import { addProduct, handleAdd, handleLoginNavigate } from "../../helpers/api";
 import { useDispatch } from "react-redux";
 import { Carousel } from "primereact/carousel";
 // import AuthDialog from "../Dialogs/AuthDialog";
@@ -9,13 +9,7 @@ import DialogModel from "../Dialogs";
 const CaroselCards = ({ data }) => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const handleAdd = (product, dispatch) => {
-    if (localStorage.getItem("access-token")) {
-      addProduct(product, dispatch);
-    } else {
-      setShowModal(true);
-    }
-  };
+
   const responsiveOptions = [
     {
       breakpoint: "1600px",
@@ -97,7 +91,7 @@ const CaroselCards = ({ data }) => {
                           <li className="list-group-item">Vestibulum at eros</li> */}
           <button
             className="cart-button d-flex justify-content-center align-items-center"
-            onClick={() => handleAdd(item, dispatch)}
+            onClick={() => handleAdd(item, dispatch,setShowModal)}
           >
             {/* <i className="fa-solid fa-bag-shopping"></i> */}
             <img src="./../add.png" width={22} alt="add" srcSet="" />
@@ -114,14 +108,14 @@ const CaroselCards = ({ data }) => {
         <Carousel
           indicatorsContentClassName="d-none"
           className="d-flex justify-content-center"
-          showArrows={true}
-          infiniteLoop={true}
-          showThumbs={false}
-          showStatus={false}
+          showarrows="true"
+          infiniteloop="true"
+          showthumbs="false"
+          showstatus="false"
           autoPlay={true}
           interval={5000}
-          swipeable={true}
-          dynamicHeight={true}
+          swipeable="true"
+          dynamicheight="true"
           value={data}
           numVisible={5}
           numScroll={1}
@@ -191,7 +185,7 @@ const CaroselCards = ({ data }) => {
                                   <li className="list-group-item">Vestibulum at eros</li> */}
                     <button
                       className="cart-button d-flex justify-content-center align-items-center"
-                      onClick={() => handleAdd(item, dispatch)}
+                      onClick={() => handleAdd(item, dispatch,setShowModal)}
                     >
                       {/* <i className="fa-solid fa-bag-shopping"></i> */}
                       <img src="./../add.png" width={22} alt="add" srcSet="" />

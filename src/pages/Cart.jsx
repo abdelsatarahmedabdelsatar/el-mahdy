@@ -12,12 +12,15 @@ import axiosInstance from "../axiosConfig/instance";
 import { toast } from "sonner";
 import Spinner from "../components/Spinner";
 import { handledelete } from "../helpers/api";
+import Skeleton from "react-loading-skeleton";
 
 const Cart = () => {
+  const [subtotal, setSubtotal] = useState(0);
   const [refresh, setRefresh] = useState(true);
   const [deleteSpinner, setDeleteSpinner] = useState(false);
-  const state = useSelector((state) => state.handleCart);
-  console.log(state);
+  const state = useSelector((state) => state.handleCart.cartItems);
+  const totPrice = useSelector((state) => state.handleCart.totalCartPrice);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchDataFromApi());
@@ -45,7 +48,18 @@ const Cart = () => {
       </div>
     );
   };
-
+  const Loading = () => {
+    return (
+      <>
+        <div className="container my-4">
+          <div className="row text-center">
+              <Skeleton className="col-10 my-3" height={200}  />
+              <Skeleton className="col-10 my-3" height={200} />
+            </div>
+          </div>
+      </>
+    );
+  };
   const deleteCart = () => {
     setDeleteSpinner(true);
     axiosInstance
@@ -79,7 +93,7 @@ const Cart = () => {
         }
       )
       .then(() => {
-        dispatch(addCart(product));
+        // dispatch(addCart(product));
         setRefresh(!refresh);
       });
   };
@@ -100,55 +114,78 @@ const Cart = () => {
           }
         )
         .then(() => {
-          dispatch(delCart(product));
+          // dispatch(delCart(product));
           setRefresh(!refresh);
         });
     }
   };
 
   const ShowCart = () => {
-    let subtotal = 0;
-    let shipping = 30.0;
-    let totalItems = 0;
-    state.map((item) => {
-      return (subtotal += item.price * item.quantity);
-    });
+    // let subtotal = 0;
+    // let shipping = 30.0;
+    // state.map((item) => {
+    //   return (subtotal += item.product?.priceAfterDiscount * item.quantity);
+    // });
 
-    state.map((item) => {
-      return (totalItems += item.quantity);
-    });
+    // state.map((item) => {
+    //   return (totalItems += item.quantity);
+    // });
     return (
       <>
-        {state && (
+        {state.length && (
           <section className="h-100 gradient-custom">
-            <div className="container-fluid py-3">
-              <div className="row d-flex justify-content-center my-4">
+            <div className="py-3">
+              <div className="row gx-0 d-flex justify-content-center">
                 <div className="col-md-8">
-                  <div className="card mb-4 border-0">
-                    <div className="card-body p-0 bg-light p-2">
-                      {state.map((item) => {
+                  <div className="card border-0">
+                    <div className="card-body bg-light">
+                      {state?.map((item) => {
                         return (
                           <div key={item._id}>
-                            <div className="row d-flex align-items-center mb-3 cart-item">
+                            <div className="row gx-0 d-flex align-items-center mb-4 cart-item">
                               <div className="close-icon">
-                                 <i
-                                onClick={() =>
-                                  handledelete(item._id, setRefresh, refresh)
-                                }
-                                className="fa-solid fa-xmark"
-                              ></i>
+                                <i
+                                  onClick={() =>
+                                    handledelete(item._id, setRefresh, refresh)
+                                  }
+                                  className="fa-solid fa-xmark"
+                                ></i>
                               </div>
-                             
-                              <div className="col-lg-3 col-md-12">
+
+                              <div className="col-md-6 row">
+                                <img
+                                  src={"./product_img.jpg"}
+                                  alt={item.product?.ArTitle}
+                                  width={100}
+                                  className="col-4"
+                                  height={85}
+                                />
+                                <div className="col">
+                                  <div className="fs-5">
+                                    {item.product?.ArTitle}
+                                  </div>
+                                  <p className="fs-6 m-0 text-warning">
+                                    {item.product?.priceAfterDiscount}{" "}
+                                    <span className="text-muted">ر.س</span>
+                                  </p>
+                                  <div className="text-muted fs-6">
+                                    الإجمالي{" "}
+                                    {item.product?.priceAfterDiscount *
+                                      +item.quantity}{" "}
+                                    ر.س
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="col-md-6"></div>
+
+                              {/* <div className="col-lg-3 col-md-12">
                                 <div
                                   className="bg-image rounded"
                                   data-mdb-ripple-color="light"
                                 >
                                   <img
-                                    src={
-                                      "./product_img.jpg"
-                                    }
-                                    alt={item.product.ArTitle}
+                                    src={"./product_img.jpg"}
+                                    alt={item.product?.ArTitle}
                                     width={100}
                                     height={75}
                                   />
@@ -157,8 +194,8 @@ const Cart = () => {
 
                               <div className="col-lg-5 col-md-6">
                                 <p>
-                                  <h4>{item.product.ArTitle}</h4>
-                                  <p>{item.product.color}</p>
+                                  <h4>{item.product?.ArTitle}</h4>
+                                  <p>{item.product?.color}</p>
                                 </p>
                                 {item.color && <p>{item.color}</p>}
                               </div>
@@ -205,9 +242,41 @@ const Cart = () => {
                                       fontSize: "16px",
                                     }}
                                   >
-                                    {item.product.priceAfterDiscount} ر.س
+                                    {item.product?.priceAfterDiscount} ر.س
                                   </strong>
                                 </p>
+                              </div> */}
+                              <div className="row mt-4 align-items-center mx-0">
+                                <div className="col-6">الكمية : </div>
+                                <div className="col-6">
+                                  <div className="d-flex fw-bold border justify-content-between border-1">
+                                    <button
+                                      className="btn counter rounded-0 border-left border-1 w-25"
+                                      onClick={() => {
+                                        removeItem(item);
+                                      }}
+                                    >
+                                      <i
+                                        className="fas text-secondary fa-minus"
+                                        style={{ fontSize: "13px" }}
+                                      ></i>
+                                    </button>
+
+                                    <p className="mx-2 mt-3">{item.quantity}</p>
+
+                                    <button
+                                      className="btn counter rounded-0  border-right border-1 w-25"
+                                      onClick={() => {
+                                        addItem(item);
+                                      }}
+                                    >
+                                      <i
+                                        className="fas text-secondary fa-plus"
+                                        style={{ fontSize: "13px" }}
+                                      ></i>
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -216,41 +285,55 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-4 mt-2">
-                  <button
+              </div>
+              <div className="row gx-0 d-flex justify-content-center mb-5">
+                <div className="col-md-8">
+                  {/* <button
                     onClick={deleteCart}
                     className="btn btn-dark btn-md btn-block mb-3"
                     disabled={deleteSpinner}
                   >
                     {deleteSpinner ? <Spinner /> : "حذف منتجات السلة"}
-                  </button>
-                  <div className="card mb-4 border-0">
-                    <h5 className="mb-0 p-3 fs-5">ملخص الطلب</h5>
-                    <div className="card-body ">
-                      <ul className="bg-white p-3">
-                        <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                  </button> */}
+                  <div className="card bg-light border-0">
+                    <div className="card-body">
+                      <ul className="bg-white p-4 border border-1 rounded-2">
+                        {/* <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                           المنتجات ({totalItems})
                           <span>${Math.round(subtotal)}</span>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                        </li> */}
+                        {/* <li className="list-group-item my-3 d-flex justify-content-between align-items-center px-0">
                           شحن
                           <span>${shipping}</span>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                        </li> */}
+                        <li className="d-flex justify-content-between align-items-center border-0 px-0">
                           <div>
-                            <strong>المبلغ الإجمالي</strong>
+                            <div>
+                              {" "}
+                              <img
+                                src="./calc.png"
+                                className="ms-1"
+                                width={21}
+                                alt=""
+                              />{" "}
+                              إجمالي السلة
+                            </div>
                           </div>
                           <span>
-                            <strong>${Math.round(subtotal + shipping)}</strong>
+                            <strong className="text-muted">
+                              {totPrice} ر.س
+                            </strong>
                           </span>
                         </li>
                       </ul>
 
                       <Link
                         to="/checkout"
-                        className="btn btn-warning btn-md btn-block"
+                        className="btn btn-warning btn-md float-left btn-block rounded-0"
+                        style={{ width: "16%" }}
                       >
                         إتمام الطلب
+                        <i className="fa-solid fa-arrow-left me-2"></i>
                       </Link>
                     </div>
                   </div>
@@ -265,9 +348,11 @@ const Cart = () => {
 
   return (
     <>
-      <div className=" bg-light">
-        {state.length > 0 ? <ShowCart /> : <EmptyCart />}
-      </div>
+      {state?(
+        <div className=" bg-light">
+          {state?.length > 0 ? <ShowCart /> : <EmptyCart />}
+        </div>
+      ):<Loading/>}
     </>
   );
 };

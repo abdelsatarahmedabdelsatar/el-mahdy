@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Marquee from "react-fast-marquee";
-import { useDispatch } from "react-redux";
 import axiosInstance from "../axiosConfig/instance";
-import { addProduct, handleLoginNavigate } from "../helpers/api";
-// import AuthDialog from "../components/Dialogs/AuthDialog";
+import { addProduct, handleAdd, handleLoginNavigate } from "../helpers/api";
 import DialogModel from "../components/Dialogs";
+import Cards from "../components/Cards";
+import { useDispatch } from 'react-redux';
 
 const Product = () => {
+  const dispatch = useDispatch
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState({});
@@ -17,15 +18,8 @@ const Product = () => {
   const [loading2, setLoading2] = useState(true);
   const [productColor, setProductColor] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const dispatch = useDispatch();
 
-  const handleAdd = (product, dispatch) => {
-    if (localStorage.getItem("access-token")) {
-      addProduct(product, dispatch);
-    } else {
-      setShowModal(true);
-    }
-  };
+
 
   const handleCartNavigate = () => {
     if (localStorage.getItem("access-token")) {
@@ -105,7 +99,7 @@ const Product = () => {
         <div className="container my-5">
           <div className="row">
             <div className="col-md-5">
-              <Skeleton height={400} width={400} />
+              <Skeleton height={400} width={500} />
             </div>
             <div className="col-md-7">
               <Skeleton height={30} width={250} />
@@ -125,53 +119,78 @@ const Product = () => {
   const ShowProduct = () => {
     return (
       <>
-        <div className="container my-3 py-2">
-          <div className="row">
-            <div className="col-md-6 col-sm-12 py-3">
+        <div className=" my-5 ps-5">
+          <div className="row gx-0 justify-content-between">
+            <div className="col-md-6 col-sm-12 text-center p-0">
               <img
                 className="img-fluid"
                 // src={product?.image}
                 src="./product_img.jpg"
                 alt={product?.ArTitle}
-                width="400px"
-                height="400px"
               />
             </div>
-            <div className="col-md-6 py-5">
+            <div className="col-md-6 col-sm-12 p-0 pe-3">
               {/* <h4 className="text-uppercase text-muted">{product.category}</h4> */}
               <h2>{product?.ArTitle}</h2>
-              <h4 className="text-muted mb-5">{product?.EnTitle}</h4>
+              {/* <h4 className="text-muted mb-1">{product?.EnTitle}</h4> */}
               {/* <p className="lead text-warning">
-                {product.rating && product.rating.rate}{" "}
+                {product.rating && product.rating.rate}
                 <i className="fa fa-star"></i>
               </p> */}
-              <span>
-                <h4 className="d-inline text-success ps-4">
-                  ${product?.priceAfterDiscount}
-                </h4>
-                <select
-                  value={productColor}
-                  onChange={(e) => setProductColor(e.target.value)}
-                  className="form-select d-inline w-50"
-                  aria-label="Default select example"
-                >
-                  <option defaultValue={""}>إختار اللون</option>
-                  {product?.colors.map((p, i) => {
-                    return (
-                      <option key={i} value={p}>
-                        {p}
-                      </option>
-                    );
-                  })}
-                </select>
+              <span className="d-flex align-items-center">
+                <h5 className="list-group-item text-decoration-line-through lead text-secondary">
+                  {+product?.price}
+                </h5>
+                ر.س
+                <h3 className="text-danger me-4 mt-2">
+                  {product?.priceAfterDiscount}
+                </h3>
+                ر.س
               </span>
 
-              <h4 className="list-group-item text-decoration-line-through lead text-muted">
-                $ {+product?.price}
-              </h4>
-              <p className="lead">{product?.ArDescription}</p>
-              <p className="lead">{product?.EnDescription}</p>
-              <button
+              <p className="lead text-muted">{product?.ArDescription}</p>
+              <p className="lead text-muted">{product?.EnDescription}</p>
+
+              <div className="card mb-4 rounded-1 bg-white border border-1">
+                <div className="card-body ">
+                  <select
+                    value={productColor}
+                    onChange={(e) => setProductColor(e.target.value)}
+                    className="form-select d-inline w-50 my-4"
+                    aria-label="Default select example"
+                  >
+                    <option defaultValue={""}>إختار اللون</option>
+                    {product?.colors.map((p, i) => {
+                      return (
+                        <option key={i} value={p}>
+                          {p}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <div className="row justify-content-between mb-3">
+                    <div className="col-auto mt-4">السعر</div>
+                    <div className="col-auto ms-3">
+                      <span style={{fontSize:"14px"}} className="text-decoration-line-through text-secondary row justify-content-end">
+                        {+product?.price}  ر.س
+                      </span >
+                    
+                      <span className="text-danger row justify-content-end fs-5">
+                        {product?.priceAfterDiscount} ر.س
+                      </span>
+                     
+                    </div>
+                  </div>
+                  <button
+                    onClick={()=>handleAdd(product, dispatch,setShowModal)}
+                    className="btn btn-warning btn-md btn-block"
+                  >
+                    إضافة للسلة
+                  </button>
+                </div>
+              </div>
+
+              {/* <button
                 className="btn btn-warning mx-1"
                 onClick={() => handleAdd(product, dispatch)}
               >
@@ -182,7 +201,7 @@ const Product = () => {
                 className="btn btn-outline-warning"
               >
                 الذهاب الي السلة
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -196,16 +215,16 @@ const Product = () => {
         <div className="my-4 py-4">
           <div className="d-flex">
             <div className="mx-4">
-              <Skeleton height={400} width={250} />
+              <Skeleton height={330} width={225} />
             </div>
             <div className="mx-4">
-              <Skeleton height={400} width={250} />
+              <Skeleton height={330} width={225} />
             </div>
             <div className="mx-4">
-              <Skeleton height={400} width={250} />
+              <Skeleton height={330} width={225} />
             </div>
             <div className="mx-4">
-              <Skeleton height={400} width={250} />
+              <Skeleton height={330} width={225} />
             </div>
           </div>
         </div>
@@ -217,91 +236,14 @@ const Product = () => {
     return (
       <>
         <div className="py-4 my-4">
-          <div className="d-flex">
-            <Marquee
+          <div className="row">
+            {/* <Marquee
               pauseOnHover={true}
               autoFill={true}
               speed={similarProducts.length > 6 ? 50 : 0}
-            >
-              {similarProducts.map((item) => {
-                return (
-                  <>
-                    {item._id !== product._id && (
-                      <div
-                        dir="rtl"
-                        id={item._id}
-                        key={item._id}
-                        className="m-3"
-                      >
-                        <div className="p-1 card h-100 rounded-3  product-card position-relative">
-                          {" "}
-                          {/* <div
-                          id="favIcon"
-                          //   onClick={(eve) => {
-                          //     toggleFav(eve);
-                          //   }}
-                          className="position-absolute p-1 rounded-circle bg-light"
-                          style={{
-                            top: "10px",
-                            left: "5%",
-                            fontSize: "15px",
-                            zIndex: "100",
-                            width: "30px",
-                            cursor: "pointer",
-                          }}
-                        >
-                          <i className="fa-solid fa-heart"></i>
-                        </div> */}
-                          <Link to={"/product/" + item._id}>
-                            <img
-                              className="card-img-top rounded-3 shadow-sm bg-white"
-                              src={"./product_img.jpg"}
-                              alt="Card"
-                              height={225}
-                            />
-                          </Link>
-                          <div className="card-body pt-2 pe-2 pb-0">
-                            <Link
-                              className="text-dark text-decoration-none"
-                              to={"/product/" + item._id}
-                            >
-                              <p className="card-title text-secondary fw-bold">
-                                {item.ArTitle}
-                              </p>
-                            </Link>
-                            <p className="card-text text-secondary">
-                              {item.ArDescription.substring(0, 11)}...
-                            </p>
-                          </div>
-                          <div className="me-2 mb-1">
-                            <p className="list-group-item text-decoration-line-through text-secondary fs-6">
-                              {item?.price} ر.س
-                            </p>
-                            <p className="list-group-item text-danger fs-6 fw-bold">
-                              {item?.priceAfterDiscount} ر.س
-                            </p>
-                          </div>
-                          {/* <li className="list-group-item">Dapibus ac facilisis in</li>
-                                     <li className="list-group-item">Vestibulum at eros</li> */}
-                          <button
-                            className="cart-button d-flex justify-content-center align-items-center"
-                            onClick={() => handleAdd(item, dispatch)}
-                          >
-                            {/* <i className="fa-solid fa-bag-shopping"></i> */}
-                            <img
-                              src="./../add.png"
-                              width={22}
-                              alt="add"
-                              srcSet=""
-                            />
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                );
-              })}
-            </Marquee>
+            > */}
+            <Cards data={similarProducts} />
+            {/* </Marquee> */}
           </div>
         </div>
       </>
@@ -309,11 +251,16 @@ const Product = () => {
   };
   return (
     <>
-      <div id="productDetails" className="container">
-        <div className="row">{loading ? <Loading /> : <ShowProduct />}</div>
+      <div className="row bg-light gx-0">
+        {loading ? <Loading /> : <ShowProduct />}
+      </div>
+      <div id="productDetails" className="container mt-5">
         <div className="row">
-          <div className="d-none d-md-block">
-            <h2 className="">عناصر ذات صلة</h2>
+          <div className="">
+            <div className="d-flex justify-content-start">
+              <h5 className="col-md-3 col-5 col-lg-2">منتجات قد تعجبك</h5>
+              <hr className="col-md-9 col-7 col-lg-9" />
+            </div>
 
             {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
           </div>
@@ -325,7 +272,7 @@ const Product = () => {
         <DialogModel
           visible={showModal}
           onHide={() => setShowModal(false)}
-          onConfirm={()=>handleLoginNavigate(navigate)}
+          onConfirm={() => handleLoginNavigate(navigate)}
           title="عليك تسجيل الدخول أولاًً "
         />
       </div>

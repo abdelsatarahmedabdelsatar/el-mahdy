@@ -35,7 +35,12 @@ const Navbar = () => {
       .then((res) => {
         setCategories(res.data.data.data);
         console.log(res.data.data.data);
-      });
+      }).catch((err)=>{
+        if(err.respone.data.message.includes("please login again")){
+          localStorage.removeItem("access-token");
+          window.location.reload();
+        }
+      });;
 
     axiosInstance
       .get("api/v1/subCategory", {
@@ -48,8 +53,8 @@ const Navbar = () => {
       });
     dispatch(fetchDataFromApi());
   }, [dispatch]);
-  const state = useSelector((state) => state.handleCart);
 
+  const state = useSelector((state) => state.handleCart.cartItems);
   return (
     <>
       <div className="sticky-top">
@@ -196,7 +201,7 @@ const Navbar = () => {
                           fontWeight: "lighter",
                         }}
                       >
-                        {state.length}
+                        {state?.length}
                       </span>
                       السلة
                     </div>
@@ -230,14 +235,14 @@ const Navbar = () => {
                 {categories.map((c) => {
                   return (
                     <div className="col m-0 p-0" key={c._id}>
-                      <Link to={"category/" + c._id} key={c._id}>
+                      <span onClick={()=>navigate("/category/" + c._id)} key={c._id}>
                         <CustomNavbar
                           title={c.ArName}
                           supTitles={subCategories.filter(
                             (s) => s.category._id === c._id
                           )}
                         />
-                      </Link>
+                      </span>
                     </div>
                   );
                 })}
@@ -259,18 +264,20 @@ const Navbar = () => {
             </div>
           </div>
         </nav>
-       
       </div>
       {/* <AuthDialog
         visible={showModal}
         onHide={() => setShowModal(false)}
       /> */}
-       <DialogModel
-          visible={showModal}
-          onHide={() => setShowModal(false)}
-          onConfirm={() => {handleLoginNavigate(navigate);setShowModal(false)}}
-          title="عليك تسجيل الدخول أولاًً "
-        />
+      <DialogModel
+        visible={showModal}
+        onHide={() => setShowModal(false)}
+        onConfirm={() => {
+          handleLoginNavigate(navigate);
+          setShowModal(false);
+        }}
+        title="عليك تسجيل الدخول أولاًً "
+      />
     </>
   );
 };

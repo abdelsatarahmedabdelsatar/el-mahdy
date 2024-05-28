@@ -5,39 +5,39 @@ const ContactPage = () => {
     <>
    
       <div className="container">
-        <div class="row my-4 h-100">
+        <div className="row my-4 h-100">
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
             <form>
-              <div class="form my-3">
+              <div className="form my-3">
                 <label for="Name">اسم</label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="Name"
                   placeholder="أدخل اسمك"
                 />
               </div>
-              <div class="form my-3">
+              <div className="form my-3">
                 <label for="Email">الميل</label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="Email"
                   placeholder="name@example.com"
                 />
               </div>
-              <div class="form  my-3">
+              <div className="form  my-3">
                 <label for="Password">الرسالة</label>
                 <textarea
                   rows={5}
-                  class="form-control"
+                  className="form-control"
                   id="Password"
                   placeholder="أدخل رسالتك"
                 />
               </div>
               <div className="text-center">
                 <button
-                  class="my-2 px-4 mx-auto btn btn-dark"
+                  className="my-2 px-4 mx-auto btn btn-dark"
                   type="submit"
                 >
                   إرسال

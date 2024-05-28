@@ -6,6 +6,13 @@ export const handleLoginNavigate = (navigate) => {
   navigate("/login");
 };
 
+export const handleAdd = (product, dispatch,setShowModal) => {
+  if (localStorage.getItem("access-token")) {
+    addProduct(product, dispatch);
+  } else {
+    setShowModal(true);
+  }
+}
 export const handledelete = (id,setRefresh,autoRefresh) => {
   axiosInstance
   .delete("api/v1/cart/"+id, {

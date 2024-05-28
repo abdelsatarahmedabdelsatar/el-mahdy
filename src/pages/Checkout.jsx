@@ -3,7 +3,7 @@ import { Footer, Navbar } from "../components";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const Checkout = () => {
-  const state = useSelector((state) => state.handleCart);
+  const state = useSelector((state) => state.handleCart.cartItems);
 
   const EmptyCart = () => {
     return (
@@ -33,9 +33,9 @@ const Checkout = () => {
     });
     return (
       <>
-        <div className="container py-5">
-          <div className="row my-4">
-            <div className="col-md-5 col-lg-4 order-md-last">
+        <div className="container py-4">
+          <div className="row my-4 justify-content-center">
+            {/* <div className="col-md-5 col-lg-4 order-md-last">
               <div className="card mb-4 border-0">
                   <h5 className="mb-0 p-3">ملخص الطلب</h5>
                 <div className="card-body">
@@ -58,9 +58,9 @@ const Checkout = () => {
                   </ul>
                 </div>
               </div>
-            </div>
-            <div className="col-md-7 col-lg-8">
-              <div className="card mb-4 border-0">
+            </div> */}
+            <div className="col-md-8 col-lg-10">
+              <div className="card mb-4 border-0 p-3">
                   <h4 className="mb-0 p-3">عنوان وصول الفواتير</h4>
                 <div className="card-body">
                   <form className="needs-validation" novalidate>

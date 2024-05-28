@@ -7,21 +7,26 @@ export const fetchDataSuccess = (data) => ({
 
 export const fetchDataFromApi = () => {
   return (dispatch) => {
-    localStorage.getItem("access-token")?
-     axiosInstance
-      .get("api/v1/cart", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      })
-      .then((res) => {
-        const data = res.data.data.cartItems;
-        console.log(res.data.data.cartItems);
-        dispatch(fetchDataSuccess(data));
-      })
-      .catch((err) => {
-        console.error("Error fetching cart product : ", err);
-      }):dispatch(fetchDataSuccess([]));
+    if (localStorage.getItem("access-token")) {
+      axiosInstance
+        .get("api/v1/cart", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        })
+        .then((res) => {
+          const data = res.data.data._doc;
+          // console.log(res.data.data.cartItems);
+          dispatch(fetchDataSuccess(data));
+        })
+        .catch((err) => {
+          console.error("Error fetching cart product : ", err);
+        });
+    } else {
+      dispatch(fetchDataSuccess({
+        cartItems:[]
+      }));
+    }
   };
 };
 

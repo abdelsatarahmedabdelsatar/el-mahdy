@@ -36,10 +36,10 @@ function Home() {
         </div>
         {mainCategory.map((m) => {
           return (
-            <>
+            <div key={m._id}>
               <ProductLine title={m.ArName} route={"./search/" + m.EnName} />
               <Products category={m.EnName} />
-            </>
+            </div>
           );
         })}
         <Shields />

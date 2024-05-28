@@ -54,7 +54,7 @@ export default class CustomNavbar extends React.Component {
           <DropdownMenu className="rounded-0 p-0">
             {this.props.supTitles.map((t, i) => {
               return (
-                <Link key={i} to={"sub-category/" + t._id} className="nav-link">
+                <Link onClick={(eve)=>eve.stopPropagation()} key={i} to={"sub-category/" + t._id} className="nav-link">
                   <DropdownItem style={{ fontSize: "12.5px" }} dir="rtl" className="navigte-sub-route d-flex justify-content-start py-2">{t.ArName}</DropdownItem>
                 </Link>
               );

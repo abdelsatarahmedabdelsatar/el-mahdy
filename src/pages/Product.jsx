@@ -47,8 +47,10 @@ const Product = () => {
         })
         .catch((err) => {
           setLoading2(false);
-
-          console.log(err);
+          if (err.response.data.message.includes("please login again")) {
+            localStorage.removeItem("access-token");
+            window.location.reload();
+          }
         });
     };
 
@@ -153,7 +155,10 @@ const Product = () => {
 
               <div className="card mb-4 rounded-1 bg-white border border-1">
                 <div className="card-body ">
-                  <select
+                  {/* deleting options from product details */}
+
+                  
+                  {/* <select
                     value={productColor}
                     onChange={(e) => setProductColor(e.target.value)}
                     className="form-select d-inline w-50 my-4"
@@ -167,7 +172,7 @@ const Product = () => {
                         </option>
                       );
                     })}
-                  </select>
+                  </select> */}
                   <div className="row justify-content-between mb-3">
                     <div className="col-auto mt-4">السعر</div>
                     <div className="col-auto ms-3">

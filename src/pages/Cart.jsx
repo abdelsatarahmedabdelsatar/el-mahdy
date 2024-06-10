@@ -1,30 +1,152 @@
 import React, { useEffect, useState } from "react";
-import { Footer, Navbar } from "../components";
+// import { Footer, Navbar } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  addCart,
-  delAllCart,
-  delCart,
+  // addCart,
+  // delAllCart,
+  // delCart,
   fetchDataFromApi,
 } from "../redux/action";
 import { Link } from "react-router-dom";
 import axiosInstance from "../axiosConfig/instance";
-import { toast } from "sonner";
-import Spinner from "../components/Spinner";
+// import { toast } from "sonner";
+// import Spinner from "../components/Spinner";
 import { handledelete } from "../helpers/api";
 import Skeleton from "react-loading-skeleton";
+import ImageUpload from "../components/ImageUpload";
 
 const Cart = () => {
-  const [subtotal, setSubtotal] = useState(0);
   const [refresh, setRefresh] = useState(true);
-  const [deleteSpinner, setDeleteSpinner] = useState(false);
   const state = useSelector((state) => state.handleCart.cartItems);
-  const totPrice = useSelector((state) => state.handleCart.totalCartPrice);
+  const totPrice = useSelector(
+    (state) => state.handleCart.totalCartPriceAfterDiscount
+  );
+  console.log(totPrice);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchDataFromApi());
   }, [refresh]);
+
+  const chooseType = (o) => {
+    if (o.type == "Input") {
+      return (
+        <>
+          <div key={o._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">{o.ArName}</div>
+            <div className="col-6 pe-0">
+              <input
+                type="text"
+                placeholder={`أدخل ${o.ArName}`}
+                className="form-control"
+              />
+            </div>
+          </div>
+          {o.relatedId ? chooseType(o.relatedId) : ""}
+        </>
+      );
+    } else if (o.type == "TextArea") {
+      return (
+        <>
+          <div key={o._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">{o.ArName}</div>
+            <div className="col-6 pe-0">
+              <textarea
+                placeholder={`أدخل ${o.ArName}`}
+                className="form-control"
+              />
+            </div>
+          </div>
+          {o.relatedId ? chooseType(o.relatedId) : ""}
+        </>
+      );
+    } else if (o.type == "CheckBox") {
+      return (
+        <>
+          <div key={o._id} className="row mt-4 align-items-center mx-0">
+            <label className="col-6" htmlFor={o._id} title={o.ArName} />
+            <div className="col-6 pe-0">
+              <input
+                id={o._id}
+                placeholder={`أدخل ${o.ArName}`}
+                className="form-control"
+                type="checkbox"
+              />
+            </div>
+          </div>
+          {o.relatedId ? chooseType(o.relatedId) : ""}
+        </>
+      );
+    } else if (o.type == "File") {
+      return (
+        <>
+          <div key={o._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">{o.ArName}</div>
+            <div className="col-6 pe-0">
+              {/* <input
+                id={o._id}
+                placeholder={`أدخل ${o.ArName}`}
+                className="form-control"
+                type="checkbox"
+              /> */}
+              <ImageUpload />
+            </div>
+          </div>
+          {o.relatedId ? chooseType(o.relatedId) : ""}
+        </>
+      );
+    } else if (o.type == "DropDown") {
+      return (
+        <>
+          <div key={o._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">{o.ArName}</div>
+            <div className="col-6 pe-0">
+              {/* <input
+                id={o._id}
+                placeholder={`أدخل ${o.ArName}`}
+                className="form-control"
+                type="checkbox"
+              /> */}
+              <select className="form-control" name="" id="">
+                <option value="" disabled selected>إختر</option>
+                {o.supplayData.map((d, i) => {
+                  return (
+                    <option key={i} value={d}>
+                      {d}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+          {o.relatedId ? chooseType(o.relatedId) : ""}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div key={o._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">{o.ArName}</div>
+            <div className="col-6 pe-0">
+              <input
+                type="text"
+                placeholder={`${o.ArName} أدخل`}
+                className="form-control"
+              />
+            </div>
+          </div>
+          {o.relatedId ? chooseType(o.relatedId) : ""}
+        </>
+      );
+    }
+  };
+
+  const renderOptions = (product) => {
+    return product.options?.map((o, i) => {
+      return <div key={i}>{chooseType(o)}</div>;
+    });
+  };
+
   const EmptyCart = () => {
     return (
       <div className="container">
@@ -53,31 +175,31 @@ const Cart = () => {
       <>
         <div className="container my-4">
           <div className="row text-center">
-              <Skeleton className="col-10 my-3" height={200}  />
-              <Skeleton className="col-10 my-3" height={200} />
-            </div>
+            <Skeleton className="col-10 my-3" height={200} />
+            <Skeleton className="col-10 my-3" height={200} />
           </div>
+        </div>
       </>
     );
   };
-  const deleteCart = () => {
-    setDeleteSpinner(true);
-    axiosInstance
-      .delete("api/v1/cart", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      })
-      .then((res) => {
-        toast.success("تم حذف السلة");
-        setDeleteSpinner(false);
-        dispatch(delAllCart());
-      })
-      .catch((err) => {
-        setDeleteSpinner(false);
-        console.error("Error for deleting cart : ", err);
-      });
-  };
+  // const deleteCart = () => {
+  //   setDeleteSpinner(true);
+  //   axiosInstance
+  //     .delete("api/v1/cart", {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       toast.success("تم حذف السلة");
+  //       setDeleteSpinner(false);
+  //       dispatch(delAllCart());
+  //     })
+  //     .catch((err) => {
+  //       setDeleteSpinner(false);
+  //       console.error("Error for deleting cart : ", err);
+  //     });
+  // };
 
   const addItem = (product) => {
     axiosInstance
@@ -151,7 +273,6 @@ const Cart = () => {
                                   className="fa-solid fa-xmark"
                                 ></i>
                               </div>
-
                               <div className="col-md-6 row">
                                 <img
                                   src={"./product_img.jpg"}
@@ -177,107 +298,43 @@ const Cart = () => {
                                 </div>
                               </div>
                               <div className="col-md-6"></div>
-
-                              {/* <div className="col-lg-3 col-md-12">
-                                <div
-                                  className="bg-image rounded"
-                                  data-mdb-ripple-color="light"
-                                >
-                                  <img
-                                    src={"./product_img.jpg"}
-                                    alt={item.product?.ArTitle}
-                                    width={100}
-                                    height={75}
-                                  />
-                                </div>
-                              </div>
-
-                              <div className="col-lg-5 col-md-6">
-                                <p>
-                                  <h4>{item.product?.ArTitle}</h4>
-                                  <p>{item.product?.color}</p>
-                                </p>
-                                {item.color && <p>{item.color}</p>}
-                              </div>
-
-                              <div className="col-lg-3 col-md-6">
-                                <div
-                                  className="d-flex mb-3"
-                                  style={{ maxWidth: "210px" }}
-                                >
-                                  <button
-                                    className="btn counter border-0"
-                                    onClick={() => {
-                                      removeItem(item);
-                                    }}
-                                  >
-                                    <i
-                                      className="fas text-secondary fa-minus"
-                                      style={{ fontSize: "13px" }}
-                                    ></i>
-                                  </button>
-
-                                  <p className="mx-2 mt-3 badge badge-pill badge-warning ">
-                                    {item.quantity}
-                                  </p>
-
-                                  <button
-                                    className="btn counter border-0"
-                                    onClick={() => {
-                                      addItem(item);
-                                    }}
-                                  >
-                                    <i
-                                      className="fas text-secondary fa-plus"
-                                      style={{ fontSize: "13px" }}
-                                    ></i>
-                                  </button>
-                                </div>
-
-                                <p className="">
-                                  <strong
-                                    className="text-success"
-                                    style={{
-                                      marginRight: "25px",
-                                      fontSize: "16px",
-                                    }}
-                                  >
-                                    {item.product?.priceAfterDiscount} ر.س
-                                  </strong>
-                                </p>
-                              </div> */}
                               <div className="row mt-4 align-items-center mx-0">
                                 <div className="col-6">الكمية : </div>
-                                <div className="col-6">
-                                  <div className="d-flex fw-bold border justify-content-between border-1">
+                                <div className="col-6 border rounded-1 border-1">
+                                  <div className="d-flex fw-bold  justify-content-between align-items-center r">
                                     <button
-                                      className="btn counter rounded-0 border-left border-1 w-25"
-                                      onClick={() => {
-                                        removeItem(item);
-                                      }}
-                                    >
-                                      <i
-                                        className="fas text-secondary fa-minus"
-                                        style={{ fontSize: "13px" }}
-                                      ></i>
-                                    </button>
-
-                                    <p className="mx-2 mt-3">{item.quantity}</p>
-
-                                    <button
-                                      className="btn counter rounded-0  border-right border-1 w-25"
+                                      className="btn counter rounded-0 border-left border-1 p-0"
                                       onClick={() => {
                                         addItem(item);
                                       }}
                                     >
                                       <i
-                                        className="fas text-secondary fa-plus"
-                                        style={{ fontSize: "13px" }}
+                                        className="fas fa-plus"
+                                        style={{ fontSize: "11px" }}
+                                      ></i>
+                                    </button>
+                                    <p
+                                      className="m-auto py-2 "
+                                      // id="card-quantity"
+                                      // style={{ fontSize: "12px" }}
+                                    >
+                                      {item.quantity}
+                                    </p>
+                                    <button
+                                      className="btn counter rounded-0 border-right border-1 p-0"
+                                      onClick={() => {
+                                        removeItem(item);
+                                      }}
+                                    >
+                                      <i
+                                        className="fas fa-minus"
+                                        style={{ fontSize: "11px" }}
                                       ></i>
                                     </button>
                                   </div>
                                 </div>
                               </div>
+                              {renderOptions(item.product)}
                             </div>
                           </div>
                         );
@@ -348,11 +405,13 @@ const Cart = () => {
 
   return (
     <>
-      {state?(
+      {state.length ? (
         <div className=" bg-light">
           {state?.length > 0 ? <ShowCart /> : <EmptyCart />}
         </div>
-      ):<Loading/>}
+      ) : (
+        <Loading />
+      )}
     </>
   );
 };

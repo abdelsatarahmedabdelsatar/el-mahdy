@@ -28,7 +28,13 @@ const Profile = () => {
           Authorization: `Bearer ${localStorage.getItem("access-token")}`,
         },
       }
-    );
+    ).catch((err)=> {
+
+      if(err.response.data.message.includes("please login again")){
+        localStorage.removeItem("access-token");
+        window.location.reload();
+      }
+    });
 
     return data;
   };

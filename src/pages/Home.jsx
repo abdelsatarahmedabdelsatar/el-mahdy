@@ -23,6 +23,12 @@ function Home() {
       .then((res) => {
         setMainCategory(res.data.data.data.filter((c) => c.isMain));
         console.log(res.data.data.data);
+      })
+      .catch((err) => {
+        if (err.response.data.message.includes("please login again")) {
+          localStorage.removeItem("access-token");
+          window.location.reload();
+        }
       });
   }, []);
 
@@ -54,7 +60,11 @@ function Home() {
           {" "}
           <p
             className="bg-warning text-center position-absolute p-2 px-3 rounded-3"
-            style={{ left: "50%", transform: "translate(-50%, -50%)",fontSize:"16px" }}
+            style={{
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              fontSize: "16px",
+            }}
           >
             منتجات مخفضة
           </p>
@@ -62,7 +72,7 @@ function Home() {
             <div className="row justify-content-end m-3">
               <div
                 className="col-1 d-flex align-items-center"
-                style={{ width: "120px", fontSize:"12px" }}
+                style={{ width: "120px", fontSize: "12px" }}
               >
                 <Link
                   to={"./search/category 2"}

@@ -15,12 +15,16 @@ export const fetchDataFromApi = () => {
           },
         })
         .then((res) => {
-          const data = res.data.data._doc;
-          // console.log(res.data.data.cartItems);
+          const data = res.data.data;
+          console.log(res.data.data.cartItems);
           dispatch(fetchDataSuccess(data));
         })
         .catch((err) => {
-          console.error("Error fetching cart product : ", err);
+          if (err.response.data.message.includes("please login again")) {
+            localStorage.removeItem("access-token");
+            window.location.reload();
+          }
+          // console.error("Error fetching cart product : ", err);
         });
     } else {
       dispatch(fetchDataSuccess({

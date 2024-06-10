@@ -59,8 +59,8 @@ const Checkout = () => {
                 </div>
               </div>
             </div> */}
-            <div className="col-md-8 col-lg-10">
-              <div className="card mb-4 border-0 p-3">
+            <div className="col-md-8 col-lg-10 ">
+              <div className="card mb-4 border p-3">
                   <h4 className="mb-0 p-3">عنوان وصول الفواتير</h4>
                 <div className="card-body">
                   <form className="needs-validation" novalidate>
@@ -262,7 +262,7 @@ const Checkout = () => {
                     <hr className="my-4" />
 
                     <button
-                      className="w-100 btn btn-success"
+                      className="w-100 btn btn-success rounded-0"
                       type="submit" 
                     >
                       الاستمرار

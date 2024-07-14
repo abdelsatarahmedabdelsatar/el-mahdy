@@ -38,7 +38,7 @@ function Home() {
         <Main />
         <ProductLine title={"الأكثر شيوعاََ"} route={"./search/category 2"} />
         <div className="wider-card">
-          <Products category={"category 2"} />
+          <Products category={"laser works"} />
         </div>
         {mainCategory.map((m) => {
           return (
@@ -83,7 +83,7 @@ function Home() {
               </div>
             </div>
 
-            <Products category={"category 2"} />
+            <Products category={"laser works"} />
           </div>
         </div>
       </div>

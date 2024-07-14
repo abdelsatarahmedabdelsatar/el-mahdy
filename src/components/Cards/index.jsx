@@ -71,9 +71,11 @@ const Cards = ({ data }) => {
               </div>
               {/* <li className="list-group-item">Dapibus ac facilisis in</li>
                   <li className="list-group-item">Vestibulum at eros</li> */}
-              <button
+              <button 
                 className="cart-button d-flex justify-content-center align-items-center"
-                onClick={() => handleAdd(product, dispatch,setShowModal)}
+                onClick={(event) => {
+              event.target.disabled = true;
+              handleAdd(product._id,null, dispatch,setShowModal,event)}}
               >
                 {/* <i className="fa-solid fa-bag-shopping"></i> */}
                 <img src="./../add.png" width={22} alt="add" srcSet="" />

@@ -1,34 +1,197 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Marquee from "react-fast-marquee";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../axiosConfig/instance";
-import { addProduct, handleAdd, handleLoginNavigate } from "../helpers/api";
+import { handleAdd, handleLoginNavigate } from "../helpers/api";
 import DialogModel from "../components/Dialogs";
 import Cards from "../components/Cards";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 
 const Product = () => {
-  const dispatch = useDispatch
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [similarProducts, setSimilarProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
-  const [productColor, setProductColor] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  const [related, setRelated] = useState("");
 
+  const [newValues, setNewValues] = useState([]);
 
-  const handleCartNavigate = () => {
-    if (localStorage.getItem("access-token")) {
-      navigate("/cart");
+  // const handleCartNavigate = () => {
+  //   if (localStorage.getItem("access-token")) {
+  //     navigate("/cart");
+  //   } else {
+  //     setShowModal(true);
+  //   }
+  // };
+
+  // change when editing any option in the retutred options .........
+  let time;
+  const changeProductOptionsValue = (eve, id) => {
+    // if (eve.target.files) {
+
+    //   clearTimeout(time);
+    //   time = setTimeout(() => {
+    //     setNewValues(
+    //       product_obj().map((v) =>
+    //         v.id == id ? { ...v, value: eve.target.value} : v
+    //       )
+    //     );
+    //   }, 2000);
+    // } else {
+      clearTimeout(time);
+      time = setTimeout(() => {
+      setRelated(eve.target.value);
+
+        setNewValues(
+          product_obj().map((v) =>
+            v.id == id ? { ...v, value: eve.target.value } : v
+          )
+        );
+      }, 2000);
+    // }
+  };
+
+  const ChooseType = (o, options, option_id) => {
+    // var [valueChanged, setValueChanged] = useState();
+    return (
+      <>
+        <div>{getType(o, options, option_id)}</div>
+      </>
+    );
+  };
+
+  const getType = (obj, options, option_id) => {
+    if (obj.type === "Input") {
+      return (
+        <>
+          <div key={obj._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">
+              {obj.ArName}
+              {obj.moreMoney ? (
+                <span className="text-danger me-4" style={{ fontSize: "14px" }}>
+                  +{obj.moreMoney} ر.س
+                </span>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="col-6 pe-0">
+              <input
+                defaultValue={options.find((o) => o.id == obj._id).value}
+                onChange={(event) => changeProductOptionsValue(event, obj._id)}
+                type="text"
+                placeholder={`أدخل ${obj.ArName}`}
+                className="form-control"
+              />
+            </div>
+          </div>
+          {obj.relatedId &&
+            // valueChanged == options.find((o) => o.id == obj._id).value ||
+            // valueChanged == obj.relatedValue &&
+            getType(obj.relatedId, options, option_id)}
+        </>
+      );
+    } else if (obj.type === "TextArea") {
+      return (
+        <>
+          <div key={obj._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">{obj.ArName}</div>
+            <div className="col-6 pe-0">
+              <textarea
+                defaultValue={options.find((o) => o.id == obj._id).value}
+                onChange={(event) => changeProductOptionsValue(event, obj._id)}
+                placeholder={`أدخل ${obj.ArName}`}
+                className="form-control"
+              />
+            </div>
+          </div>
+          {obj.relatedId &&
+            // valueChanged == options.find((o) => o.id == obj._id).value) ||
+            // valueChanged == obj.relatedValue) &&
+            getType(obj.relatedId, options, option_id)}
+        </>
+      );
+    } else if (obj.type === "File") {
+      return (
+        <>
+          <div key={obj._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">{obj.ArName}</div>
+            <div className="col-6 pe-0">
+              <input
+                id={obj._id}
+                defaultValue={options.find((o) => o.id == obj._id).value}
+                onChange={(event) => changeProductOptionsValue(event, obj._id)}
+                placeholder={`أدخل ${obj.ArName}`}
+                className="form-control"
+                type="file"
+              />
+              {/* <ImageUpload /> */}
+            </div>
+          </div>
+        </>
+      );
+    } else if (obj.type === "DropDown") {
+      return (
+        <>
+          <div key={obj._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">{obj.ArName}</div>
+            <div className="col-6 pe-0">
+              <select
+                defaultValue={options.find((o) => o.id == obj._id).value}
+                onChange={(event) => changeProductOptionsValue(event, obj._id)}
+                className="form-control"
+                name=""
+                id=""
+              >
+                <option value={""}>اختر</option>
+                {obj.supplayData.map((d, i) => {
+                  return (
+                    <option key={i} value={d}>
+                      {d}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+          {obj.relatedId &&
+            // related == options.find((o) => o.id == obj._id).value ||
+            related == obj.relatedValue &&
+            getType(obj.relatedId, options, option_id)}
+        </>
+      );
     } else {
-      setShowModal(true);
+      return (
+        <>
+          <div key={obj._id} className="row mt-4 align-items-center mx-0">
+            <div className="col-6">{obj.ArName}</div>
+            <div className="col-6 pe-0">
+              <input
+                type="text"
+                placeholder={`${obj.ArName} أدخل`}
+                className="form-control"
+              />
+            </div>
+          </div>
+          {obj.relatedId &&
+            // valueChanged == options.find((o) => o.id == obj._id).value ||
+            // valueChanged == obj.relatedValue &&
+            getType(obj.relatedId, options, option_id)}
+        </>
+      );
     }
   };
 
+  const renderOptions = ({ options, product }) => {
+    return product?.options.map((o, i) => {
+      return <div key={i}>{ChooseType(o, options, product._id)}</div>;
+    });
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
@@ -63,7 +226,7 @@ const Product = () => {
         })
         .then((res) => {
           setProduct(res.data.data);
-          console.log(res.data.data);
+          console.log(res.data);
           getSimilarProducts(res.data.data.category._id);
           setLoading(false);
         })
@@ -94,6 +257,25 @@ const Product = () => {
     // setLoading2(false);
     //   getProduct();
   }, [id]);
+
+  const product_obj = () => {
+    let listOfOptions = product.options.map((x) => ({
+      id: x._id,
+      value: "",
+    }));
+
+    if (newValues.length) {
+      listOfOptions = newValues;
+    } else {
+      product.options.forEach((x) => {
+        if (x.relatedId) {
+          listOfOptions.push({ id: x.relatedId._id, value: "" });
+        }
+      });
+    }
+
+    return listOfOptions;
+  };
 
   const Loading = () => {
     return (
@@ -140,13 +322,13 @@ const Product = () => {
                 <i className="fa fa-star"></i>
               </p> */}
               <span className="d-flex align-items-center">
-                <h5 className="list-group-item text-decoration-line-through lead text-secondary">
+                <h5 className="list-group-item mx-1 text-decoration-line-through lead text-secondary">
                   {+product?.price}
-                </h5>
+                </h5>{" "}
                 ر.س
-                <h3 className="text-danger me-4 mt-2">
+                <h3 className="text-danger me-4 ms-1  mt-2">
                   {product?.priceAfterDiscount}
-                </h3>
+                </h3>{" "}
                 ر.س
               </span>
 
@@ -157,7 +339,6 @@ const Product = () => {
                 <div className="card-body ">
                   {/* deleting options from product details */}
 
-                  
                   {/* <select
                     value={productColor}
                     onChange={(e) => setProductColor(e.target.value)}
@@ -173,21 +354,38 @@ const Product = () => {
                       );
                     })}
                   </select> */}
-                  <div className="row justify-content-between mb-3">
+                  {product &&
+                    renderOptions({
+                      options: product_obj(),
+                      product: product,
+                    })}
+                  <div className="row justify-content-between mb-3 mt-4">
                     <div className="col-auto mt-4">السعر</div>
                     <div className="col-auto ms-3">
-                      <span style={{fontSize:"14px"}} className="text-decoration-line-through text-secondary row justify-content-end">
-                        {+product?.price}  ر.س
-                      </span >
-                    
+                      <span
+                        style={{ fontSize: "14px" }}
+                        className="text-decoration-line-through text-secondary row justify-content-end"
+                      >
+                        {+product?.price} ر.س
+                      </span>
+
                       <span className="text-danger row justify-content-end fs-5">
                         {product?.priceAfterDiscount} ر.س
                       </span>
-                     
                     </div>
                   </div>
                   <button
-                    onClick={()=>handleAdd(product, dispatch,setShowModal)}
+                    onClick={(event) => {
+                      event.target.disabled = true;
+                      handleAdd(
+                        product._id,
+                        newValues,
+                        dispatch,
+                        setShowModal,
+                        event
+                      );
+                      // event.target.disabled = false;
+                    }}
                     className="btn btn-warning btn-md btn-block"
                   >
                     إضافة للسلة
@@ -247,7 +445,7 @@ const Product = () => {
               autoFill={true}
               speed={similarProducts.length > 6 ? 50 : 0}
             > */}
-            <Cards data={similarProducts} />
+            <Cards data={similarProducts.filter(p => p._id != product._id)} />
             {/* </Marquee> */}
           </div>
         </div>

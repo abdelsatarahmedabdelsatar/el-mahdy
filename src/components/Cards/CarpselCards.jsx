@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { addProduct, handleAdd, handleLoginNavigate } from "../../helpers/api";
+import { handleAdd, handleLoginNavigate } from "../../helpers/api";
 import { useDispatch } from "react-redux";
 import { Carousel } from "primereact/carousel";
 // import AuthDialog from "../Dialogs/AuthDialog";
 import DialogModel from "../Dialogs";
 
 const CaroselCards = ({ data }) => {
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
@@ -91,7 +93,9 @@ const CaroselCards = ({ data }) => {
                           <li className="list-group-item">Vestibulum at eros</li> */}
           <button
             className="cart-button d-flex justify-content-center align-items-center"
-            onClick={() => handleAdd(item, dispatch,setShowModal)}
+            onClick={(event) =>{
+              // event.target.disabled = true;
+              handleAdd(item._id,null, dispatch,setShowModal,event)}}
           >
             {/* <i className="fa-solid fa-bag-shopping"></i> */}
             <img src="./../add.png" width={22} alt="add" srcSet="" />
@@ -101,7 +105,7 @@ const CaroselCards = ({ data }) => {
     );
   };
 
-  const dispatch = useDispatch();
+ 
   return (
     <>
       {data.length > 4 ? (
@@ -127,7 +131,7 @@ const CaroselCards = ({ data }) => {
         <div className="row justify-content-center">
           {data.map((item) => {
             return (
-              <>
+              <div key={item._id} className="col-lg-3 col-md-4 col-sm-6 col-xs-8 col-12">
                 <div dir="rtl" id={item._id} key={item._id} className="m-3">
         <div className="p-1 card h-100 rounded-3 m-auto product-card d-flex position-relative">
           {" "}
@@ -184,14 +188,16 @@ const CaroselCards = ({ data }) => {
                           <li className="list-group-item">Vestibulum at eros</li> */}
           <button
             className="cart-button d-flex justify-content-center align-items-center"
-            onClick={() => handleAdd(item, dispatch,setShowModal)}
+            onClick={(event) =>{
+              // event.target.disabled = true;
+              handleAdd(item._id,null, dispatch,setShowModal,event)}}
           >
             {/* <i className="fa-solid fa-bag-shopping"></i> */}
             <img src="./../add.png" width={22} alt="add" srcSet="" />
           </button>
         </div>
       </div>
-              </>
+              </div>
             );
           })}
         </div>

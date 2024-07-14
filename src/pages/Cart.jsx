@@ -11,139 +11,33 @@ import { Link } from "react-router-dom";
 import axiosInstance from "../axiosConfig/instance";
 // import { toast } from "sonner";
 // import Spinner from "../components/Spinner";
-import { handledelete } from "../helpers/api";
+import { ChooseType, handledelete } from "../helpers/api";
 import Skeleton from "react-loading-skeleton";
-import ImageUpload from "../components/ImageUpload";
 
 const Cart = () => {
+  // const [valueChanged,setValueChanged] = useState("");
   const [refresh, setRefresh] = useState(true);
   const state = useSelector((state) => state.handleCart.cartItems);
+  const state2 = useSelector((state) => state.handleCart);
   const totPrice = useSelector(
     (state) => state.handleCart.totalCartPriceAfterDiscount
   );
-  console.log(totPrice);
+
+  
+  // const getOptions = () => {
+  //  return  [...state.map(s=> {return {...s.options}})]
+  // }
+
+  console.log(state2);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchDataFromApi());
-  }, [refresh]);
+  }, [refresh, dispatch]);
 
-  const chooseType = (o) => {
-    if (o.type == "Input") {
-      return (
-        <>
-          <div key={o._id} className="row mt-4 align-items-center mx-0">
-            <div className="col-6">{o.ArName}</div>
-            <div className="col-6 pe-0">
-              <input
-                type="text"
-                placeholder={`أدخل ${o.ArName}`}
-                className="form-control"
-              />
-            </div>
-          </div>
-          {o.relatedId ? chooseType(o.relatedId) : ""}
-        </>
-      );
-    } else if (o.type == "TextArea") {
-      return (
-        <>
-          <div key={o._id} className="row mt-4 align-items-center mx-0">
-            <div className="col-6">{o.ArName}</div>
-            <div className="col-6 pe-0">
-              <textarea
-                placeholder={`أدخل ${o.ArName}`}
-                className="form-control"
-              />
-            </div>
-          </div>
-          {o.relatedId ? chooseType(o.relatedId) : ""}
-        </>
-      );
-    } else if (o.type == "CheckBox") {
-      return (
-        <>
-          <div key={o._id} className="row mt-4 align-items-center mx-0">
-            <label className="col-6" htmlFor={o._id} title={o.ArName} />
-            <div className="col-6 pe-0">
-              <input
-                id={o._id}
-                placeholder={`أدخل ${o.ArName}`}
-                className="form-control"
-                type="checkbox"
-              />
-            </div>
-          </div>
-          {o.relatedId ? chooseType(o.relatedId) : ""}
-        </>
-      );
-    } else if (o.type == "File") {
-      return (
-        <>
-          <div key={o._id} className="row mt-4 align-items-center mx-0">
-            <div className="col-6">{o.ArName}</div>
-            <div className="col-6 pe-0">
-              {/* <input
-                id={o._id}
-                placeholder={`أدخل ${o.ArName}`}
-                className="form-control"
-                type="checkbox"
-              /> */}
-              <ImageUpload />
-            </div>
-          </div>
-          {o.relatedId ? chooseType(o.relatedId) : ""}
-        </>
-      );
-    } else if (o.type == "DropDown") {
-      return (
-        <>
-          <div key={o._id} className="row mt-4 align-items-center mx-0">
-            <div className="col-6">{o.ArName}</div>
-            <div className="col-6 pe-0">
-              {/* <input
-                id={o._id}
-                placeholder={`أدخل ${o.ArName}`}
-                className="form-control"
-                type="checkbox"
-              /> */}
-              <select className="form-control" name="" id="">
-                <option value="" disabled selected>إختر</option>
-                {o.supplayData.map((d, i) => {
-                  return (
-                    <option key={i} value={d}>
-                      {d}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-          </div>
-          {o.relatedId ? chooseType(o.relatedId) : ""}
-        </>
-      );
-    } else {
-      return (
-        <>
-          <div key={o._id} className="row mt-4 align-items-center mx-0">
-            <div className="col-6">{o.ArName}</div>
-            <div className="col-6 pe-0">
-              <input
-                type="text"
-                placeholder={`${o.ArName} أدخل`}
-                className="form-control"
-              />
-            </div>
-          </div>
-          {o.relatedId ? chooseType(o.relatedId) : ""}
-        </>
-      );
-    }
-  };
-
-  const renderOptions = (product) => {
-    return product.options?.map((o, i) => {
-      return <div key={i}>{chooseType(o)}</div>;
+  const renderOptions = (item) => {
+    return item.product?.options.map((o, i) => {
+      return <div key={i}>{ChooseType(o,item.options,item._id)}</div>;
     });
   };
 
@@ -201,8 +95,13 @@ const Cart = () => {
   //     });
   // };
 
+  let AddingTimer;
+
   const addItem = (product) => {
-    axiosInstance
+
+    clearTimeout(AddingTimer);
+
+    AddingTimer = setTimeout(()=>{   axiosInstance
       .put(
         "api/v1/cart/" + product._id,
         {
@@ -217,10 +116,15 @@ const Cart = () => {
       .then(() => {
         // dispatch(addCart(product));
         setRefresh(!refresh);
-      });
+      });},0)
+ 
   };
   const removeItem = (product) => {
-    if (product.quantity == 1) {
+
+    clearTimeout(AddingTimer);
+
+    setTimeout(()=>{
+         if (product.quantity === 1) {
       handledelete(product._id, setRefresh, refresh);
     } else {
       axiosInstance
@@ -240,6 +144,8 @@ const Cart = () => {
           setRefresh(!refresh);
         });
     }
+    },0)
+ 
   };
 
   const ShowCart = () => {
@@ -261,9 +167,9 @@ const Cart = () => {
                 <div className="col-md-8">
                   <div className="card border-0">
                     <div className="card-body bg-light">
-                      {state?.map((item) => {
-                        return (
-                          <div key={item._id}>
+                      {state?.map((item,i) => {
+                      return ( item.product?._id && 
+                          <div key={i}>
                             <div className="row gx-0 d-flex align-items-center mb-4 cart-item">
                               <div className="close-icon">
                                 <i
@@ -334,10 +240,10 @@ const Cart = () => {
                                   </div>
                                 </div>
                               </div>
-                              {renderOptions(item.product)}
+                              {renderOptions(item)}
                             </div>
                           </div>
-                        );
+                        )
                       })}
                     </div>
                   </div>
@@ -366,7 +272,6 @@ const Cart = () => {
                         <li className="d-flex justify-content-between align-items-center border-0 px-0">
                           <div>
                             <div>
-                              {" "}
                               <img
                                 src="./calc.png"
                                 className="ms-1"
@@ -405,13 +310,11 @@ const Cart = () => {
 
   return (
     <>
-      {state.length ? (
-        <div className=" bg-light">
-          {state?.length > 0 ? <ShowCart /> : <EmptyCart />}
+        <div className="bg-light">
+          {state.length ? <ShowCart />:<EmptyCart /> }
         </div>
-      ) : (
-        <Loading />
-      )}
+
+        
     </>
   );
 };
